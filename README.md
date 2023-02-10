@@ -10,16 +10,15 @@
 coverage](https://codecov.io/gh/riatelab/maplegend/branch/main/graph/badge.svg)](https://app.codecov.io/gh/riatelab/maplegend?branch=main)
 <!-- badges: end -->
 
-The goal of maplegend is to …
+The goal of maplegend is to create legends for maps.
 
 ## Installation
 
-You can install the development version of maplegend from
-[GitHub](https://github.com/) with:
+You can install the development version of maplegend from GitHub with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("riatelab/maplegend")
+# install.packages("remotes")
+remotes::install_github("riatelab/maplegend")
 ```
 
 ## Example
@@ -29,31 +28,161 @@ This is a basic example which shows you how to solve a common problem:
 ``` r
 library(maplegend)
 ## basic example code
+# minimal example
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(type = "prop", val = c(10,50,100), pos = "topleft")
+leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft")
+leg(type = "typo", val = c("A", "B", "C"), pos = "top" )
+leg(type = "symb", val = c("A", "B", "C"), pos = "topright")
+leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
+leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1,5,10))
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+<img src="man/figures/README-example-1.png" width="600px" />
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+
+# full example
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "prop",
+  val = c(5, 100),
+  pos = "topleft",
+  inches = .4,
+  symbol = "circle",
+  col = "#940000",
+  lwd = 1,
+  border = "#9494ff",
+  val_rnd = 1,
+  self_adjust = TRUE,
+  title = "Proportional Symbols",
+  title_cex = 1,
+  val_cex = .8,
+  bg = "grey10",
+  fg = "yellow",
+  frame = TRUE
+)
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+<img src="man/figures/README-example-2.png" width="600px" />
 
-You can also embed plots, for example:
+``` r
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "choro",
+  val = c(10, 20, 30, 40, 50),
+  pos = "topleft",
+  pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
+  val_rnd = 2,
+  col_na = "grey",
+  no_data = TRUE,
+  no_data_txt = "No data",
+  box_border = "cornsilk",
+  box_cex = c(2, 1),
+  title = "Choropleth (sequential)"
+)
+```
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+<img src="man/figures/README-example-3.png" width="600px" />
+
+``` r
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "typo",
+  val = c("A", "B", "C"),
+  pos = "topleft",
+  pal = "Dynamic",
+  col_na = "grey",
+  no_data = TRUE,
+  no_data_txt = "No data",
+  box_cex = c(1.2, 1),
+  title = "Typology (categories)"
+)
+```
+
+<img src="man/figures/README-example-4.png" width="600px" />
+
+``` r
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "symb",
+  val = c("A", "B", "C"),
+  pos = "topleft",
+  pch = 21:23,
+  cex = c(4, 4, 2),
+  pal = "Plasma",
+  lwd = 2,
+  border = "red",
+  col_na = "grey",
+  pch_na = 3,
+  cex_na = 1,
+  no_data = TRUE,
+  no_data_txt = "No data",
+  title = "Symbols"
+)
+```
+
+<img src="man/figures/README-example-5.png" width="600px" />
+
+``` r
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "prop_line",
+  val = c(54, 505, 1025),
+  pos = "topleft",
+  lwd = 15,
+  col = "green",
+  val_rnd = -1,
+  box_cex = c(2, .5),
+  title = "Proportional Lines",
+  bg = "black",
+  fg = "white",
+  frame = TRUE
+)
+```
+
+<img src="man/figures/README-example-6.png" width="600px" />
+
+``` r
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "grad_line",
+  val = c(1.25, 4.07, 10.001, 15.071),
+  pos = "topleft",
+  lwd = c(1, 7, 15),
+  col = "#C130ff",
+  val_rnd = 3,
+  box_cex = c(2,1),
+  title = "Graduated Lines"
+)
+```
+
+<img src="man/figures/README-example-7.png" width="600px" />
+
+``` r
+
+# Positions
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(type = "prop", val = c(10,50,100), pos = "bottomleft1", title = "bottomleft1")
+leg(type = "choro", val = c(10,50,100), pos = "bottomright2", title = "bottomright2", frame = TRUE)
+leg(type = "prop", val = c(10,50,100), pos = "topleft2", title = "topleft2")
+box()
+mtext(text = "A small text on 1 line", side = 1, adj = .01, line = -1, cex = .8)
+mtext(text = "A small text\non 2 lines", side = 1, adj = .99, line = -1, cex = .8)
+mtext(text = "A large text on 1 line", side = 3, adj = .01, line = -1.5, cex = 1.2)
+```
+
+<img src="man/figures/README-example-8.png" width="600px" />
