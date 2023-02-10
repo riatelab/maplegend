@@ -1,0 +1,20 @@
+Package: maplegend
+Title: Legends for Maps
+Version: 0.1.0
+Authors@R: c(person("Timothée", "Giraud",
+    email = "timothee.giraud@cnrs.fr",
+    role = c("cre","aut"),
+    comment = c(ORCID = "0000-0002-1932-3323")))
+Description: Map legs for maps legend. Voila ya.
+License: GPL-3
+Depends: 
+    R (>= 3.6.0)
+Imports: 
+    graphics,
+    grDevices
+Suggests: 
+    tinytest,
+    covr
+Encoding: UTF-8
+RoxygenNote: 7.2.3
+Language: en-US
