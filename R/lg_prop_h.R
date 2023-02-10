@@ -54,37 +54,6 @@ leg_prop_h <- function(pos = "left",
                      self_adjust = FALSE,
                      return_bbox = FALSE,
                      mar = par("mar")) {
-  # size = 1
-  # pos = "topleft"
-  # val = c(5,21,20,22,100,500)
-  # col = "tomato4"
-  # inches = .3
-  # symbol = "circle"
-  # border = "#333333"
-  # lwd = .7
-  # title = "Legend Title"
-  # title_cex = .8 * size
-  # val_cex = .6 * size
-  # val_rnd = 1
-  # frame = T
-  # bg = "#f7f7f7"
-  # fg = "#333333"
-  # self_adjust = T
-  # return_bbox = FALSE
-  # mar = par("mar")
-  # box_cex = c(21,0.0005)
-  # plot.new()
-  # plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-  # box()
-  # leg_test_input(pos)
-  #
-  # op <- par(mar = mar,
-  #           xpd = TRUE,
-  #           no.readonly = TRUE)
-  # on.exit(par(op), add = TRUE)
-  # library(maplegend)
-  # # leg("prop", val = val, pos = pos, frame = frame)
-  #
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 

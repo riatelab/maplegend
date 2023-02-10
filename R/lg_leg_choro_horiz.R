@@ -86,26 +86,7 @@ leg_choro_h <- function(pos = "left",
       title_cex = title_cex
     )
 
-    get_xy_box_c_h <- function(x, y, n, w, h) {
-      ytop <- rep(y, n)
-      ybottom <- rep(y - h, n)
-      xright <- rep(NA, n)
-      xleft <- rep(NA, n)
-      for (i in 1:n) {
-        xleft[i] <- x + (i - 1) * w
-        xright[i] <- xleft[i] + w
-      }
-      h <- h
-      w <- xright[n] - xleft[1]
-      return(list(
-        xleft = unname(xleft),
-        ybottom = unname(ybottom),
-        xright = unname(xright),
-        ytop = unname(ytop),
-        h = h,
-        w = w
-      ))
-    }
+
 
     xy_box <- get_xy_box_c_h(
       x = xy_title$x + (strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2),
@@ -122,29 +103,13 @@ leg_choro_h <- function(pos = "left",
       h = h
     )
 
-    # choro
-    get_xy_box_lab_c_h <- function(x, y, h, val, val_cex) {
-      n <- length(val)
-      xc <- rep(NA, n)
-      yc <- rep(y, n)
-      for (i in 1:n) {
-        xc[i] <- x + (i - 1) * w
-      }
-      w <- xc[n] +
-        (strwidth(val[n], units = "user", cex = val_cex, font = 1) / 2) -
-        xc[1] -
-        (strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2)
-      h <- max(strheight(val, units = "user", cex = val_cex, font = 1))
-      return(list(x = xc, y = yc, w = w, h = h))
-    }
-
 
     xy_box_lab <- get_xy_box_lab_c_h(
       x = xy_box$xleft[1],
       y = xy_box$ybottom[1] -
         strheight(val[1], units = "user", cex = val_cex, font = 1) -
         inset / 6,
-      h = h,
+      w = w,
       val = val,
       val_cex = val_cex
     )
@@ -275,4 +240,42 @@ leg_choro_h <- function(pos = "left",
   }
 
   return(invisible(NULL))
+}
+
+
+# choro
+get_xy_box_lab_c_h <- function(x, y, w, val, val_cex) {
+  n <- length(val)
+  xc <- rep(NA, n)
+  yc <- rep(y, n)
+  for (i in 1:n) {
+    xc[i] <- x + (i - 1) * w
+  }
+  w <- xc[n] +
+    (strwidth(val[n], units = "user", cex = val_cex, font = 1) / 2) -
+    xc[1] -
+    (strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2)
+  h <- max(strheight(val, units = "user", cex = val_cex, font = 1))
+  return(list(x = xc, y = yc, w = w, h = h))
+}
+
+get_xy_box_c_h <- function(x, y, n, w, h) {
+  ytop <- rep(y, n)
+  ybottom <- rep(y - h, n)
+  xright <- rep(NA, n)
+  xleft <- rep(NA, n)
+  for (i in 1:n) {
+    xleft[i] <- x + (i - 1) * w
+    xright[i] <- xleft[i] + w
+  }
+  h <- h
+  w <- xright[n] - xleft[1]
+  return(list(
+    xleft = unname(xleft),
+    ybottom = unname(ybottom),
+    xright = unname(xright),
+    ytop = unname(ytop),
+    h = h,
+    w = w
+  ))
 }

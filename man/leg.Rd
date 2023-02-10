@@ -28,6 +28,7 @@ leg(
   no_data_txt = "No Data",
   box_border = "333333",
   box_cex = c(1, 1),
+  horiz = FALSE,
   frame = FALSE,
   bg = "#f7f7f7",
   fg = "#333333",
@@ -47,7 +48,7 @@ leg(
 \item \strong{grad_line} for graduated lines maps.
 }}
 
-\item{val}{vector of values, at least min and max (for "prop" and "prop_line"),
+\item{val}{vector of values (for "prop" and "prop_line"),
 vector of categories (for "symb" and "typo"),
 break labels (for "choro" and "grad_line").}
 
@@ -77,24 +78,24 @@ width of the largest line (for "prop_line"), vector of line width
 
 \item{border}{symbol border color(s)}
 
-\item{pch}{pch (type) of the symbols (0:25)}
+\item{pch}{type(s) of the symbols (0:25)}
 
-\item{cex}{cex (size) of the symbols}
+\item{cex}{size(s) of the symbols}
 
 \item{title}{title of the legend}
 
-\item{title_cex}{cex (size) of the legend title}
+\item{title_cex}{size of the legend title}
 
-\item{val_cex}{cex (size) of the values in the legend}
+\item{val_cex}{size of the values in the legend}
 
 \item{val_rnd}{number of decimal places of the values in
 the legend}
 
 \item{col_na}{color for missing values}
 
-\item{cex_na}{cex (size) of the symbols for missing values}
+\item{cex_na}{size of the symbols for missing values}
 
-\item{pch_na}{pch (type) of the symbols for missing values}
+\item{pch_na}{type of the symbols for missing values}
 
 \item{no_data}{if TRUE a "missing value" box is plotted}
 
@@ -102,9 +103,12 @@ the legend}
 
 \item{box_border}{border color of legend boxes}
 
-\item{box_cex}{width and height cex (size expansion) of boxes}
+\item{box_cex}{width and height size expansion of boxes,
+(or offset between circles for "prop" legends with horiz = TRUE)}
 
-\item{frame}{whether to add a frame to the legend (TRUE) or not (FALSE)}
+\item{horiz}{if TRUE plot an horizontal legend}
+
+\item{frame}{if TRUE the legend is plotted within a frame}
 
 \item{bg}{background color of the legend}
 
@@ -141,12 +145,12 @@ Some arguments are available for all types of legend: \code{val}, \code{pos}, \c
 
 Relevant arguments for each specific legend types:
 \itemize{
-\item \code{leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust)}
-\item \code{leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_cex, box_border)}
-\item \code{leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_cex, box_border)}
-\item \code{leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt, box_cex)}
-\item \code{leg(type = "prop_line", val, col, lwd, val_rnd, box_cex)}
-\item \code{leg(type = "grad_line", val, col, lwd, val_rnd, box_cex)}
+\item \code{leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust, horiz)}
+\item \code{leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)}
+\item \code{leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border)}
+\item \code{leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)}
+\item \code{leg(type = "prop_line", val, col, lwd, val_rnd)}
+\item \code{leg(type = "grad_line", val, col, lwd, val_rnd)}
 }
 
 Legend positions ending with a number ("topleft1", "topleft2"...) are placed using a vertical offset.

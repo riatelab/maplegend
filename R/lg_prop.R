@@ -26,6 +26,7 @@
 #' No legend is plotted.
 #' @param self_adjust if TRUE values are self-adjusted to keep min, max and
 #' intermediate rounded values
+#' @param box_cex do nothing
 #' @keywords internal
 #' @noRd
 #' @return No return value, a legend is displayed.
@@ -51,7 +52,8 @@ leg_prop <- function(pos = "left",
                     size = 1,
                     self_adjust = FALSE,
                     return_bbox = FALSE,
-                    mar = par("mar")) {
+                    mar = par("mar"),
+                    box_cex) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 

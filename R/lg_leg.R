@@ -21,7 +21,7 @@
 #' * **prop_line** for proportional lines maps,
 #' * **grad_line** for graduated lines maps.
 #' @param val
-#' vector of values, at least min and max (for "prop" and "prop_line"),
+#' vector of values (for "prop" and "prop_line"),
 #' vector of categories (for "symb" and "typo"),
 #' break labels (for "choro" and "grad_line").
 #' @param pos position of the legend. . It can be one of 'topleft', 'top',
@@ -38,17 +38,18 @@
 #' @param self_adjust if TRUE values are self-adjusted to keep min, max and
 #' intermediate rounded values
 #' @param title title of the legend
-#' @param title_cex cex (size) of the legend title
-#' @param val_cex cex (size) of the values in the legend
+#' @param title_cex size of the legend title
+#' @param val_cex size of the values in the legend
 #' @param val_rnd number of decimal places of the values in
 #' the legend
-#' @param frame whether to add a frame to the legend (TRUE) or not (FALSE)
+#' @param frame if TRUE the legend is plotted within a frame
 #' @param no_data if TRUE a "missing value" box is plotted
 #' @param no_data_txt label for missing values
 #' @param bg background color of the legend
 #' @param fg foreground color of the legend
 #' @param box_border border color of legend boxes
-#' @param box_cex width and height cex (size expansion) of boxes
+#' @param box_cex width and height size expansion of boxes,
+#' (or offset between circles for "prop" legends with horiz = TRUE)
 #' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
@@ -58,11 +59,12 @@
 #' width of the largest line (for "prop_line"), vector of line width
 #' (for "grad_line")
 #' @param size size of the legend; 2 means two times bigger
-#' @param cex cex (size) of the symbols
-#' @param pch pch (type) of the symbols (0:25)
+#' @param cex size(s) of the symbols
+#' @param pch type(s) of the symbols (0:25)
 #' @param col_na color for missing values
-#' @param cex_na cex (size) of the symbols for missing values
-#' @param pch_na pch (type) of the symbols for missing values
+#' @param cex_na size of the symbols for missing values
+#' @param pch_na type of the symbols for missing values
+#' @param horiz if TRUE plot an horizontal legend
 #' @return No return value, a legend is displayed.
 #' @export
 #' @details
@@ -71,12 +73,12 @@
 #'
 #'
 #' Relevant arguments for each specific legend types:
-#' * `leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust)`
-#' * `leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_cex, box_border)`
-#' * `leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_cex, box_border)`
-#' * `leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt, box_cex)`
-#' * `leg(type = "prop_line", val, col, lwd, val_rnd, box_cex)`
-#' * `leg(type = "grad_line", val, col, lwd, val_rnd, box_cex)`
+#' * `leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust, horiz)`
+#' * `leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
+#' * `leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border)`
+#' * `leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)`
+#' * `leg(type = "prop_line", val, col, lwd, val_rnd)`
+#' * `leg(type = "grad_line", val, col, lwd, val_rnd)`
 #'
 #' Legend positions ending with a number ("topleft1", "topleft2"...) are placed using a vertical offset.
 #' This offset has the size of one (or two) character height and allows to plot a text below or on top of the legend.
@@ -227,6 +229,7 @@ leg <- function(type,
                 no_data_txt = "No Data",
                 box_border = "333333",
                 box_cex = c(1,1),
+                horiz = FALSE,
                 frame = FALSE,
                 bg = "#f7f7f7",
                 fg = "#333333",
@@ -244,8 +247,12 @@ leg <- function(type,
 
 
   args <- as.list(match.call())
-  args <- args[names(args) != "type"]
+  args <- args[!names(args) %in% c("type", "horiz")]
   args <- args[-1]
-  x <- do.call(what = get(paste0("leg_",type)), args, envir = parent.frame())
+  h <- ""
+  if(horiz){
+    h <- "_h"
+  }
+  x <- do.call(what = get(paste0("leg_",type, h)), args, envir = parent.frame())
   return(invisible(x))
 }
