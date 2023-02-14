@@ -21,8 +21,7 @@ leg_test_pos <- function(pos) {
       "topright2",
       "topleft2",
       "top2",
-      "interactive",
-      NA
+      "interactive"
     )
 
   # stop if the position is not valid

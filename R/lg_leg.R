@@ -238,7 +238,10 @@ leg <- function(type,
                 mar = par("mar")) {
 
   # test pos and current plot
+  if(any(is.na(pos))){return(invisible(NULL))}
+
   leg_test_input(pos)
+
 
   op <- par(mar = mar,
             xpd = TRUE,
