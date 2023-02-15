@@ -3,6 +3,7 @@
 #' legend type:
 #' * **prop** for proportional symbols,
 #' * **choro** for choropleth maps,
+#' * **cont** for continuous maps (e.g. raster),
 #' * **typo** for typology maps,
 #' * **symb** for symbols maps,
 #' * **prop_line** for proportional lines maps,
@@ -16,6 +17,7 @@
 #' @param type type of legend:
 #' * **prop** for proportional symbols,
 #' * **choro** for choropleth maps,
+#' * **cont** for continuous maps,
 #' * **typo** for typology maps,
 #' * **symb** for symbols maps,
 #' * **prop_line** for proportional lines maps,

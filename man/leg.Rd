@@ -42,6 +42,7 @@ leg(
 \itemize{
 \item \strong{prop} for proportional symbols,
 \item \strong{choro} for choropleth maps,
+\item \strong{cont} for continuous maps,
 \item \strong{typo} for typology maps,
 \item \strong{symb} for symbols maps,
 \item \strong{prop_line} for proportional lines maps,
@@ -130,6 +131,7 @@ legend type:
 \itemize{
 \item \strong{prop} for proportional symbols,
 \item \strong{choro} for choropleth maps,
+\item \strong{cont} for continuous maps (e.g. raster),
 \item \strong{typo} for typology maps,
 \item \strong{symb} for symbols maps,
 \item \strong{prop_line} for proportional lines maps,
