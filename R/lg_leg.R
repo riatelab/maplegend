@@ -21,7 +21,7 @@
 #' * **prop_line** for proportional lines maps,
 #' * **grad_line** for graduated lines maps.
 #' @param val
-#' vector of values (for "prop" and "prop_line"),
+#' vector of value(s) (for "prop" and "prop_line", at least c(min, max) for "cont"),
 #' vector of categories (for "symb" and "typo"),
 #' break labels (for "choro" and "grad_line").
 #' @param pos position of the legend. . It can be one of 'topleft', 'top',
@@ -75,6 +75,7 @@
 #' Relevant arguments for each specific legend types:
 #' * `leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust, horiz)`
 #' * `leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
+#' * `leg(type = "cont", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
 #' * `leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border)`
 #' * `leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)`
 #' * `leg(type = "prop_line", val, col, lwd, val_rnd)`
@@ -84,11 +85,11 @@
 #' This offset has the size of one (or two) character height and allows to plot a text below or on top of the legend.
 #'
 #'
-#'
 #' @examples
 #' # minimal example
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' box()
 #' leg(type = "prop", val = c(10,50,100), pos = "topleft")
 #' leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft")
 #' leg(type = "typo", val = c("A", "B", "C"), pos = "top" )
@@ -96,13 +97,21 @@
 #' leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
 #' leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1,5,10))
 #'
+#' plot.new()
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' leg(type = "prop", val = c(10,50,100), pos = "topleft", horiz = TRUE)
+#' leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
+#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
+#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright", horiz = FALSE)
+#' box()
+#'
 #' # full example
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg(
 #'   type = "prop",
 #'   val = c(5, 100),
-#'   pos = "topleft",
+#'   pos = "top",
 #'   inches = .4,
 #'   symbol = "circle",
 #'   col = "#940000",
@@ -123,7 +132,7 @@
 #' leg(
 #'   type = "choro",
 #'   val = c(10, 20, 30, 40, 50),
-#'   pos = "topleft",
+#'   pos = "top",
 #'   pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
 #'   val_rnd = 2,
 #'   col_na = "grey",
@@ -139,7 +148,7 @@
 #' leg(
 #'   type = "typo",
 #'   val = c("A", "B", "C"),
-#'   pos = "topleft",
+#'   pos = "top",
 #'   pal = "Dynamic",
 #'   col_na = "grey",
 #'   no_data = TRUE,
@@ -153,7 +162,7 @@
 #' leg(
 #'   type = "symb",
 #'   val = c("A", "B", "C"),
-#'   pos = "topleft",
+#'   pos = "top",
 #'   pch = 21:23,
 #'   cex = c(4, 4, 2),
 #'   pal = "Plasma",
@@ -170,9 +179,22 @@
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg(
+#'   type = "cont",
+#'   val = c(1, 2, 3, 4, 5),
+#'   pos = "top",
+#'   pal = "Plasma",
+#'   val_rnd = 2,
+#'   horiz = TRUE,
+#'   box_cex = c(2,1),
+#'   title = "Continuous"
+#' )
+#'
+#' plot.new()
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' leg(
 #'   type = "prop_line",
 #'   val = c(54, 505, 1025),
-#'   pos = "topleft",
+#'   pos = "top",
 #'   lwd = 15,
 #'   col = "green",
 #'   val_rnd = -1,
@@ -188,7 +210,7 @@
 #' leg(
 #'   type = "grad_line",
 #'   val = c(1.25, 4.07, 10.001, 15.071),
-#'   pos = "topleft",
+#'   pos = "top",
 #'   lwd = c(1, 7, 15),
 #'   col = "#C130ff",
 #'   val_rnd = 3,
