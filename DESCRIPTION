@@ -1,11 +1,12 @@
 Package: maplegend
 Title: Legends for Maps
 Version: 0.1.0
-Authors@R: c(person("Timothée", "Giraud",
-    email = "timothee.giraud@cnrs.fr",
-    role = c("cre","aut"),
-    comment = c(ORCID = "0000-0002-1932-3323")))
-Description: Map legs for maps legend. Voila ya.
+Authors@R: c(person("Timothée", "Giraud", email = "timothee.giraud@cnrs.fr",
+    role = c("cre","aut"), comment = c(ORCID = "0000-0002-1932-3323")))
+Description: Create legends for maps or other graphics. Maps with a full layout
+    need to have legends on it. Proportional symbols, typologies, choropleth,
+    line maps, all these maps needs legends to be read. It is possible to
+    combine several legends in a single block.
 License: GPL-3
 Depends: 
     R (>= 3.6.0)
@@ -18,3 +19,5 @@ Suggests:
 Encoding: UTF-8
 RoxygenNote: 7.2.3
 Language: en-US
+URL: https://github.com/riatelab/maplegend/
+BugReports: https://github.com/riatelab/maplegend/issues/
