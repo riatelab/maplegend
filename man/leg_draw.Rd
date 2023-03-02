@@ -11,30 +11,42 @@ leg_draw(
   bg = "white",
   fg = "black",
   frame = TRUE,
+  title_cex = 0.8 * size,
+  val_cex = 0.6 * size,
+  adj = c(0, 0),
   mar = par("mar")
 )
 }
 \arguments{
-\item{x}{legend}
+\item{x}{list of legend parameters}
 
-\item{pos}{pos}
+\item{pos}{position of the legend. . It can be one of 'topleft',
+'topright', 'right', 'bottomright', 'bottomleft' or 'left',}
 
-\item{size}{size}
+\item{size}{size of the legend; 2 means two times bigger}
 
-\item{bg}{bg}
+\item{bg}{background color of the legend}
 
-\item{fg}{fg}
+\item{fg}{foreground color of the legend}
 
-\item{frame}{frame}
+\item{frame}{if TRUE the legend is plotted within a frame}
 
-\item{mar}{mar}
+\item{adj}{adjust the postion of the legend in x and y directions.}
+
+\item{mar}{plot margins}
 }
 \value{
-smthing is returned
+A composed legend is plotted. Nothing is returned.
 }
 \description{
 Draw a map legend with several elements.
 }
 \examples{
-plot(1:10)
+# minimal example
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+box()
+leg_comp(type = "prop", val = c(10,50,100)) |>
+  leg_comp(type = "typo", val = c("A", "B", "C")) |>
+  leg_draw(pos = "topright", bg = "lightblue")
 }

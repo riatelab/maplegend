@@ -1,35 +1,37 @@
 #' @title Draw a map legend
 #' @description Draw a map legend with several elements.
-#' @param x legend
-#' @param pos pos
-#' @param size size
-#' @param bg bg
-#' @param fg fg
-#' @param frame frame
-#' @param mar mar
+#' @param x list of legend parameters
+#' @param pos position of the legend. . It can be one of 'topleft',
+#' 'topright', 'right', 'bottomright', 'bottomleft' or 'left',
+#' @param size size of the legend; 2 means two times bigger
+#' @param bg background color of the legend
+#' @param fg foreground color of the legend
+#' @param frame if TRUE the legend is plotted within a frame
+#' @param adj adjust the postion of the legend in x and y directions.
+#' @param mar plot margins
 #'
-#' @return smthing is returned
+#' @return A composed legend is plotted. Nothing is returned.
 #' @export
 #'
 #' @examples
-#' plot(1:10)
+#' # minimal example
+#' plot.new()
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' box()
+#' leg_comp(type = "prop", val = c(10,50,100)) |>
+#'   leg_comp(type = "typo", val = c("A", "B", "C")) |>
+#'   leg_draw(pos = "topright", bg = "lightblue")
 leg_draw <- function(x,
                      pos = "bottomright",
                      size = 1,
                      bg = 'white',
                      fg = 'black',
                      frame = TRUE,
+                     title_cex = 0.8 * size,
+                     val_cex = 0.6 * size,
+                     adj = c(0,0),
                      mar = par("mar")) {
-  # plot.new()
-  # plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-  # x <-   leg_comp(type = "prop", val = c(10,50,100)) |>
-  #   leg_comp(type = "typo", val = c("A", "B", "C"))
-  # pos = "left"
-  # mar = par("mar")
-  # frame = TRUE
-  # size = 1
-  # bg = 'white'
-  #   fg = 'black'
+
   dimleg <- list()
   insetf <- strwidth("MM", units = "user", cex = 1) / 4
 
@@ -39,10 +41,14 @@ leg_draw <- function(x,
     x$layers[[i]]$mar <- mar
     x$layers[[i]]$size <- size
     x$layers[[i]]$frame <- frame
+    x$layers[[i]]$adj <- adj
+    x$layers[[i]]$title_cex <- title_cex
+    x$layers[[i]]$val_cex <- val_cex
+
     dimleg[[i]] <- do.call(leg, x$layers[[i]])
   }
 
-  res <- get_pos_and_frame(pos = pos, dimleg = dimleg)
+  res <- get_pos_and_frame(pos = pos, dimleg = dimleg, adj = adj)
   xleg <- res$xleg
   yleg <- res$yleg
   frame_c <- res$frame_c
@@ -66,9 +72,10 @@ leg_draw <- function(x,
     x$layers[[i]]$pos <- c(xleg[i], yleg[i]) + c(-(size-1)*insetf, (size-1)*insetf)
     x$layers[[i]]$return_bbox <- FALSE
     x$layers[[i]]$frame <- FALSE
-    x$layers[[i]]$size <- size
     x$layers[[i]]$bg <- bg
     x$layers[[i]]$fg <- fg
+    x$layers[[i]]$adj <- c(0,0)
+
     do.call(leg, x$layers[[i]])
   }
 
@@ -79,7 +86,7 @@ leg_draw <- function(x,
 
 
 
-get_pos_and_frame <- function(pos, dimleg){
+get_pos_and_frame <- function(pos, dimleg, adj){
 
   xleft <- min(unlist(lapply(dimleg, function(x) {
     x$xleft
