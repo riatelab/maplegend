@@ -43,7 +43,7 @@ leg(
 \itemize{
 \item \strong{prop} for proportional symbols,
 \item \strong{choro} for choropleth maps,
-\item \strong{cont} for continuous maps,
+\item \strong{cont} for continuous maps (e.g. raster),
 \item \strong{typo} for typology maps,
 \item \strong{symb} for symbols maps,
 \item \strong{prop_line} for proportional lines maps,
@@ -54,12 +54,10 @@ leg(
 vector of categories (for "symb" and "typo"),
 break labels (for "choro" and "grad_line").}
 
-\item{pos}{position of the legend. . It can be one of 'topleft', 'top',
+\item{pos}{position of the legend. It can be one of 'topleft', 'top',
 'topright', 'right', 'bottomright', 'bottom','bottomleft',
-'left', 'bottomleft1', 'bottomright1', 'bottom1', 'bottomleft2',
-'bottomright2', 'bottom2', 'topright1', 'topleft1', 'top1', 'topright2',
-'topleft2', 'top2', 'interactive' or a vector of two coordinates
-in map units (c(x, y))(see Details).}
+'left', 'interactive' or a vector of two coordinates
+in map units (c(x, y)).}
 
 \item{pal}{a color palette name or a vector of colors}
 
@@ -130,17 +128,7 @@ No return value, a legend is displayed.
 }
 \description{
 Plot different types of legend. The "type" argument defines the
-legend type:
-\itemize{
-\item \strong{prop} for proportional symbols,
-\item \strong{choro} for choropleth maps,
-\item \strong{cont} for continuous maps (e.g. raster),
-\item \strong{typo} for typology maps,
-\item \strong{symb} for symbols maps,
-\item \strong{prop_line} for proportional lines maps,
-\item \strong{grad_line} for graduated lines maps.
-}
-
+legend type.
 Please note that some arguments are available for all types of legend and
 some others are only relevant for specific legend types (see Details).
 }
@@ -158,9 +146,6 @@ Relevant arguments for each specific legend types:
 \item \code{leg(type = "prop_line", val, col, lwd, val_rnd)}
 \item \code{leg(type = "grad_line", val, col, lwd, val_rnd)}
 }
-
-Legend positions ending with a number ("topleft1", "topleft2"...) are placed using a vertical offset.
-This offset has the size of one (or two) character height and allows to plot a text below or on top of the legend.
 }
 \examples{
 # minimal example

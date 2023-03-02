@@ -1,23 +1,14 @@
 #' @title Plot a map legend
 #' @description Plot different types of legend. The "type" argument defines the
-#' legend type:
-#' * **prop** for proportional symbols,
-#' * **choro** for choropleth maps,
-#' * **cont** for continuous maps (e.g. raster),
-#' * **typo** for typology maps,
-#' * **symb** for symbols maps,
-#' * **prop_line** for proportional lines maps,
-#' * **grad_line** for graduated lines maps.
-#'
+#' legend type.
 #' Please note that some arguments are available for all types of legend and
 #' some others are only relevant for specific legend types (see Details).
-#'
 #'
 #' @md
 #' @param type type of legend:
 #' * **prop** for proportional symbols,
 #' * **choro** for choropleth maps,
-#' * **cont** for continuous maps,
+#' * **cont** for continuous maps (e.g. raster),
 #' * **typo** for typology maps,
 #' * **symb** for symbols maps,
 #' * **prop_line** for proportional lines maps,
@@ -26,12 +17,10 @@
 #' vector of value(s) (for "prop" and "prop_line", at least c(min, max) for "cont"),
 #' vector of categories (for "symb" and "typo"),
 #' break labels (for "choro" and "grad_line").
-#' @param pos position of the legend. . It can be one of 'topleft', 'top',
+#' @param pos position of the legend. It can be one of 'topleft', 'top',
 #' 'topright', 'right', 'bottomright', 'bottom','bottomleft',
-#' 'left', 'bottomleft1', 'bottomright1', 'bottom1', 'bottomleft2',
-#' 'bottomright2', 'bottom2', 'topright1', 'topleft1', 'top1', 'topright2',
-#' 'topleft2', 'top2', 'interactive' or a vector of two coordinates
-#' in map units (c(x, y))(see Details).
+#' 'left', 'interactive' or a vector of two coordinates
+#' in map units (c(x, y)).
 #' @param pal a color palette name or a vector of colors
 #' @param inches size of the largest symbol (radius for circles, half width
 #' for squares) in inches
@@ -84,8 +73,6 @@
 #' * `leg(type = "prop_line", val, col, lwd, val_rnd)`
 #' * `leg(type = "grad_line", val, col, lwd, val_rnd)`
 #'
-#' Legend positions ending with a number ("topleft1", "topleft2"...) are placed using a vertical offset.
-#' This offset has the size of one (or two) character height and allows to plot a text below or on top of the legend.
 #'
 #'
 #' @examples

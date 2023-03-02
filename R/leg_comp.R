@@ -1,18 +1,9 @@
 #' @title Compose a map legend
 #' @description Compose a map legend with several elements.
 #' The "type" argument defines the
-#' legend type:
-#' * **prop** for proportional symbols,
-#' * **choro** for choropleth maps,
-#' * **cont** for continuous maps (e.g. raster),
-#' * **typo** for typology maps,
-#' * **symb** for symbols maps,
-#' * **prop_line** for proportional lines maps,
-#' * **grad_line** for graduated lines maps.
-#'
+#' legend type.
 #' Please note that some arguments are available for all types of legend and
 #' some others are only relevant for specific legend types (see Details).
-#'
 #'
 #' @md
 #' @param leg legend object
@@ -54,11 +45,11 @@
 #' @param cex_na size of the symbols for missing values
 #' @param pch_na type of the symbols for missing values
 #' @param horiz if TRUE plot an horizontal legend
-#' @return No return value, a legend is displayed.
+#' @return A list of legends parameters is returned.
 #' @export
 #' @details
-#' Some arguments are available for all types of legend: `val`, `pos`, `title`,
-#' `title_cex`, `val_cex`, `frame`, `bg`, `fg`, `size`, `return_bbox` and `mar`).
+#' Some arguments are available for all types of legend: `val`,
+#' `adj`, `title`).
 #'
 #'
 #' Relevant arguments for each specific legend types:
@@ -69,9 +60,6 @@
 #' * `leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)`
 #' * `leg(type = "prop_line", val, col, lwd, val_rnd)`
 #' * `leg(type = "grad_line", val, col, lwd, val_rnd)`
-#'
-#' Legend positions ending with a number ("topleft1", "topleft2"...) are placed using a vertical offset.
-#' This offset has the size of one (or two) character height and allows to plot a text below or on top of the legend.
 #'
 #'
 #' @examples

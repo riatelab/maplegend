@@ -93,28 +93,18 @@ the legend}
 \item{horiz}{if TRUE plot an horizontal legend}
 }
 \value{
-No return value, a legend is displayed.
+A list of legends parameters is returned.
 }
 \description{
 Compose a map legend with several elements.
 The "type" argument defines the
-legend type:
-\itemize{
-\item \strong{prop} for proportional symbols,
-\item \strong{choro} for choropleth maps,
-\item \strong{cont} for continuous maps (e.g. raster),
-\item \strong{typo} for typology maps,
-\item \strong{symb} for symbols maps,
-\item \strong{prop_line} for proportional lines maps,
-\item \strong{grad_line} for graduated lines maps.
-}
-
+legend type.
 Please note that some arguments are available for all types of legend and
 some others are only relevant for specific legend types (see Details).
 }
 \details{
-Some arguments are available for all types of legend: \code{val}, \code{pos}, \code{title},
-\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size}, \code{return_bbox} and \code{mar}).
+Some arguments are available for all types of legend: \code{val},
+\code{adj}, \code{title}).
 
 Relevant arguments for each specific legend types:
 \itemize{
@@ -126,9 +116,6 @@ Relevant arguments for each specific legend types:
 \item \code{leg(type = "prop_line", val, col, lwd, val_rnd)}
 \item \code{leg(type = "grad_line", val, col, lwd, val_rnd)}
 }
-
-Legend positions ending with a number ("topleft1", "topleft2"...) are placed using a vertical offset.
-This offset has the size of one (or two) character height and allows to plot a text below or on top of the legend.
 }
 \examples{
 # minimal example
