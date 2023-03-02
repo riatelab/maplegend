@@ -123,7 +123,7 @@ No legend is plotted.}
 
 \item{mar}{plot margins}
 
-\item{adj}{adj}
+\item{adj}{adjust the postion of the legend in x and y directions.}
 }
 \value{
 No return value, a legend is displayed.
@@ -298,9 +298,9 @@ leg(
 # Positions
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(type = "prop", val = c(10,50,100), pos = "bottomleft1", title = "bottomleft1")
-leg(type = "choro", val = c(10,50,100), pos = "bottomright2", title = "bottomright2", frame = TRUE)
-leg(type = "prop", val = c(10,50,100), pos = "topleft2", title = "topleft2")
+leg(type = "prop", val = c(10,50,100), pos = "bottomleft", adj = c(0, 1), title = "bottomleft1")
+leg(type = "choro", val = c(10,50,100), pos = "bottomright", adj = c(0, 2), title = "bottomright2", frame = TRUE)
+leg(type = "prop", val = c(10,50,100), pos = "topleft", adj = c(0, -2), title = "topleft2")
 box()
 mtext(text = "A small text on 1 line", side = 1, adj = .01, line = -1, cex = .8)
 mtext(text = "A small text\non 2 lines", side = 1, adj = .99, line = -1, cex = .8)

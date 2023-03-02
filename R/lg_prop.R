@@ -27,6 +27,7 @@
 #' @param self_adjust if TRUE values are self-adjusted to keep min, max and
 #' intermediate rounded values
 #' @param box_cex do nothing
+#' @param adj adj
 #' @keywords internal
 #' @noRd
 #' @return No return value, a legend is displayed.
@@ -53,7 +54,8 @@ leg_prop <- function(pos = "left",
                     self_adjust = FALSE,
                     return_bbox = FALSE,
                     mar = par("mar"),
-                    box_cex) {
+                    box_cex,
+                    adj = c(0,0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -115,7 +117,7 @@ leg_prop <- function(pos = "left",
     xy_leg <- get_pos_leg(
       pos = pos,
       xy_rect = unlist(xy_rect),
-      inset = inset,
+      adj = adj,
       xy_title = xy_title,
       frame = frame
     )

@@ -25,6 +25,7 @@
 #' @param box_cex width and height cex of boxes
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
+#' @param adj adj
 #' @param self_adjust if TRUE values are self-adjusted to keep min, max and
 #' intermediate rounded values
 #' @keywords internal
@@ -53,7 +54,8 @@ leg_prop_h <- function(pos = "left",
                      box_cex = 1,
                      self_adjust = FALSE,
                      return_bbox = FALSE,
-                     mar = par("mar")) {
+                     mar = par("mar"),
+                     adj = c(0,0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -131,7 +133,7 @@ leg_prop_h <- function(pos = "left",
     xy_leg <- get_pos_leg(
       pos = pos,
       xy_rect = unlist(xy_rect),
-      inset = inset,
+      adj = adj,
       xy_title = xy_title,
       frame = frame
     )

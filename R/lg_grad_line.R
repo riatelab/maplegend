@@ -21,6 +21,7 @@
 #' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
+#' @param adj adj
 #' @keywords internal
 #' @noRd
 #' @import graphics
@@ -43,7 +44,8 @@ leg_grad_line <- function(pos = "topleft",
                          size = 1,
                          box_cex = c(1,1),
                          return_bbox = FALSE,
-                         mar = par("mar")) {
+                         mar = par("mar"),
+                         adj = c(0,0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -103,7 +105,7 @@ leg_grad_line <- function(pos = "topleft",
     xy_leg <- get_pos_leg(
       pos = pos,
       xy_rect = unlist(xy_rect),
-      inset = inset,
+      adj = adj,
       xy_title = xy_title,
       frame = frame
     )

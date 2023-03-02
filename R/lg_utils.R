@@ -56,60 +56,6 @@ get_xy_title <- function(x = NULL, y, title, title_cex) {
 
 
 
-# get the position of the legeng
-get_pos_leg <- function(pos, xy_rect, inset, xy_title, frame = FALSE) {
-  pu <- par("usr")
-  inset2 <- strwidth("M", units = "user", cex = 1) / 2
-  if (frame) {
-    pu <- pu + c(inset2, -inset2, inset2, -inset2)
-  }
-  lpos <- nchar(pos)
-  ex_line <- substr(pos, lpos, lpos)
-  extra <- 0
-  if (ex_line %in% c(1:3)) {
-    extra <- inset2 * 2 * as.numeric(ex_line)
-    pos <- substr(pos, 1, lpos - 1)
-  }
-
-  xy <- switch(pos,
-    bottomleft = c(
-      pu[1] + inset2,
-      pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
-    ),
-    topleft = c(
-      pu[1] + inset2,
-      pu[4] - inset2 - extra
-    ),
-    left = c(
-      pu[1] + inset2,
-      pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
-    ),
-    top = c(
-      pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
-      pu[4] - inset2 - extra
-    ),
-    bottom = c(
-      pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
-      pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
-    ),
-    bottomright = c(
-      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-      pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
-    ),
-    right = c(
-      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-      pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
-    ),
-    topright = c(
-      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-      pu[4] - inset2 - extra
-    ),
-    interactive = interleg()
-  )
-
-  return(unname(xy))
-}
-
 interleg <- function(txt = c("legend", "Legend")) {
   if (interactive()) {
     message(paste0("Click on the map to choose the ", txt[1], " position."))
@@ -118,7 +64,7 @@ interleg <- function(txt = c("legend", "Legend")) {
     return(x)
   } else {
     stop('You cannot use "interactive" in a non-interactive R session.',
-      call. = FALSE
+         call. = FALSE
     )
   }
 }
@@ -167,8 +113,8 @@ get_xy_rect <- function(xy_title, xy_box, xy_nabox,
     xleft = xy_title$x,
     ybottom =
       xy_title$y - inset / 2 -
-        xy_box$h -
-        (xy_nabox$h + inset / 2) * no_data,
+      xy_box$h -
+      (xy_nabox$h + inset / 2) * no_data,
     xright = xy_title$x +
       max(
         xy_title$w,
@@ -219,61 +165,53 @@ get_size <- function(var, inches, val_max, symbol) {
 
 
 # get the position of the legeng
-get_pos_leg2 <- function(pos, xy_rect, adj, xy_title, frame = FALSE) {
+get_pos_leg <- function(pos, xy_rect, adj, xy_title, frame = FALSE) {
   pu <- par("usr")
   inset2 <- strwidth("M", units = "user", cex = 1) / 2
   if (frame) {
     pu <- pu + c(inset2, -inset2, inset2, -inset2)
   }
 
-  lpos <- nchar(pos)
-  ex_line <- substr(pos, lpos, lpos)
-  extra <- 0
+  extra <- inset2 * 2 * adj
 
-  if (ex_line %in% c(1:3)) {
-    extra <- inset2 * 2 * ex_line
-    pos <- substr(pos, 1, lpos - 1)
-  }
-  extra = 0
-  extra2 <- inset2 * 2 * adj
-
-  xy <- switch(pos,
-               bottomleft = c(
-                 pu[1] + inset2,
-                 pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
-               ),
-               topleft = c(
-                 pu[1] + inset2,
-                 pu[4] - inset2 - extra
-               ),
-               left = c(
-                 pu[1] + inset2,
-                 pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
-               ),
-               top = c(
-                 pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
-                 pu[4] - inset2 - extra
-               ),
-               bottom = c(
-                 pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
-                 pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
-               ),
-               bottomright = c(
-                 pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-                 pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
-               ),
-               right = c(
-                 pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-                 pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
-               ),
-               topright = c(
-                 pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-                 pu[4] - inset2 - extra
-               ),
-               interactive = interleg()
+  xy <- switch(
+    pos,
+    bottomleft = c(
+      pu[1] + inset2,
+      pu[3] + xy_rect[4] - xy_rect[2] + inset2
+    ),
+    topleft = c(
+      pu[1] + inset2,
+      pu[4] - inset2
+    ),
+    left = c(
+      pu[1] + inset2,
+      pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
+    ),
+    top = c(
+      pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
+      pu[4] - inset2
+    ),
+    bottom = c(
+      pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
+      pu[3] + xy_rect[4] - xy_rect[2] + inset2
+    ),
+    bottomright = c(
+      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
+      pu[3] + xy_rect[4] - xy_rect[2] + inset2
+    ),
+    right = c(
+      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
+      pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
+    ),
+    topright = c(
+      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
+      pu[4] - inset2
+    ),
+    interactive = interleg()
   )
 
-  xy <- xy + extra2
+  xy <- xy + extra
 
   return(unname(xy))
 }

@@ -132,7 +132,7 @@ leg_choro <- function(pos = "left",
       break
     }
 
-    xy_leg <- get_pos_leg2(
+    xy_leg <- get_pos_leg(
       pos = pos,
       xy_rect = unlist(xy_rect),
       adj = adj,
