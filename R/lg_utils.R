@@ -206,3 +206,74 @@ get_size <- function(var, inches, val_max, symbol) {
   )
   return(size)
 }
+
+
+
+
+
+
+
+
+
+
+
+
+# get the position of the legeng
+get_pos_leg2 <- function(pos, xy_rect, adj, xy_title, frame = FALSE) {
+  pu <- par("usr")
+  inset2 <- strwidth("M", units = "user", cex = 1) / 2
+  if (frame) {
+    pu <- pu + c(inset2, -inset2, inset2, -inset2)
+  }
+
+  lpos <- nchar(pos)
+  ex_line <- substr(pos, lpos, lpos)
+  extra <- 0
+
+  if (ex_line %in% c(1:3)) {
+    extra <- inset2 * 2 * ex_line
+    pos <- substr(pos, 1, lpos - 1)
+  }
+  extra = 0
+  extra2 <- inset2 * 2 * adj
+
+  xy <- switch(pos,
+               bottomleft = c(
+                 pu[1] + inset2,
+                 pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
+               ),
+               topleft = c(
+                 pu[1] + inset2,
+                 pu[4] - inset2 - extra
+               ),
+               left = c(
+                 pu[1] + inset2,
+                 pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
+               ),
+               top = c(
+                 pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
+                 pu[4] - inset2 - extra
+               ),
+               bottom = c(
+                 pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
+                 pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
+               ),
+               bottomright = c(
+                 pu[2] - xy_rect[3] - xy_rect[1] - inset2,
+                 pu[3] + xy_rect[4] - xy_rect[2] + inset2 + extra
+               ),
+               right = c(
+                 pu[2] - xy_rect[3] - xy_rect[1] - inset2,
+                 pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
+               ),
+               topright = c(
+                 pu[2] - xy_rect[3] - xy_rect[1] - inset2,
+                 pu[4] - inset2 - extra
+               ),
+               interactive = interleg()
+  )
+
+  xy <- xy + extra2
+
+  return(unname(xy))
+}

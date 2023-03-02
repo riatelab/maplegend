@@ -34,7 +34,8 @@ leg(
   fg = "#333333",
   size = 1,
   return_bbox = FALSE,
-  mar = par("mar")
+  mar = par("mar"),
+  adj = c(0, 0)
 )
 }
 \arguments{
@@ -121,6 +122,8 @@ the legend}
 No legend is plotted.}
 
 \item{mar}{plot margins}
+
+\item{adj}{adj}
 }
 \value{
 No return value, a legend is displayed.

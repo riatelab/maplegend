@@ -67,6 +67,7 @@
 #' @param cex_na size of the symbols for missing values
 #' @param pch_na type of the symbols for missing values
 #' @param horiz if TRUE plot an horizontal legend
+#' @param adj adj
 #' @return No return value, a legend is displayed.
 #' @export
 #' @details
@@ -259,7 +260,8 @@ leg <- function(type,
                 fg = "#333333",
                 size = 1,
                 return_bbox = FALSE,
-                mar = par("mar")) {
+                mar = par("mar"),
+                adj =c(0,0)) {
 
   # test pos and current plot
   if(any(is.na(pos))){return(invisible(NULL))}
