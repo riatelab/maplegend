@@ -29,6 +29,9 @@ leg_draw(
 
 \item{mar}{mar}
 }
+\value{
+smthing is returned
+}
 \description{
 Draw a map legend with several elements.
 }
