@@ -31,6 +31,10 @@ leg_draw(
 
 \item{frame}{if TRUE the legend is plotted within a frame}
 
+\item{title_cex}{size of the legend title}
+
+\item{val_cex}{size of the values in the legend}
+
 \item{adj}{adjust the postion of the legend in x and y directions.}
 
 \item{mar}{plot margins}
