@@ -1,4 +1,4 @@
-tinytest::expect_silent({
+expect_silent({
   plot.new()
   plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
   box()
