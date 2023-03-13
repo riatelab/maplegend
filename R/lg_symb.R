@@ -107,13 +107,14 @@ leg_symb <- function(pos = "left",
     )
 
 
-    xy_box <- get_xy_box_s(
+    xy_box <- get_xy_box(
       x = xy_title$x,
       y = xy_title$y - inset / 2,
       n = n,
-      w_cex = w_cex,
-      h_cex = h_cex,
-      inset = inset / 3
+      w = w_cex,
+      h = h_cex,
+      inset = inset / 3,
+      type = "s"
     )
     xy_nabox <- get_xy_nabox(
       x = xy_title$x,
@@ -122,13 +123,14 @@ leg_symb <- function(pos = "left",
       h = h_cex_na
     )
 
-    xy_box_lab <- get_xy_box_lab_s(
+    xy_box_lab <- get_xy_box_lab(
       x = xy_title$x + max(c(w_cex, w_cex_na)) + inset / 4,
       y = xy_title$y - inset / 2,
       h = h_cex,
       val = val,
       val_cex = val_cex,
-      inset = inset / 3
+      inset = inset / 3,
+      type = "s"
     )
 
     xy_nabox_lab <- get_xy_nabox_lab(
@@ -261,3 +263,6 @@ leg_symb <- function(pos = "left",
 
   return(invisible(NULL))
 }
+
+
+

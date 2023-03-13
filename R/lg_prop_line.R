@@ -79,26 +79,28 @@ leg_prop_line <- function(pos = "left",
       title = title,
       title_cex = title_cex
     )
-    xy_box <- get_xy_box_t(
+    xy_box <- get_xy_box(
       x = xy_title$x,
       y = xy_title$y - inset / 2,
       n = n,
       w = w,
       h = h,
-      inset = inset / 2
+      inset = inset / 2,
+      type = "t"
     )
 
-    xy_box_lab <- get_xy_box_lab_t(
+    xy_box_lab <- get_xy_box_lab(
       x = xy_box$xright[n] + inset / 4,
       y = xy_box$ytop[1],
       h = h,
       val = val,
       val_cex = val_cex,
-      inset = inset / 2
+      inset = inset / 2,
+      type = "t"
     )
 
 
-    xy_rect <- get_xy_rect2(
+    xy_rect <- get_xy_rect_l(
       xy_title = xy_title,
       xy_box = xy_box,
       xy_box_lab = xy_box_lab,

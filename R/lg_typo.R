@@ -81,13 +81,14 @@ leg_typo <- function(pos = "topright",
       title = title,
       title_cex = title_cex
     )
-    xy_box <- get_xy_box_t(
+    xy_box <- get_xy_box(
       x = xy_title$x,
       y = xy_title$y - inset / 2,
       n = n,
       w = w,
       h = h,
-      inset = inset / 2
+      inset = inset / 2,
+      type = "t"
     )
     xy_nabox <- get_xy_nabox(
       x = xy_title$x,
@@ -95,13 +96,14 @@ leg_typo <- function(pos = "topright",
       w = w,
       h = h
     )
-    xy_box_lab <- get_xy_box_lab_t(
+    xy_box_lab <- get_xy_box_lab(
       x = xy_box$xright[n] + inset / 4,
       y = xy_box$ytop[1],
       h = h,
       val = val,
       val_cex = val_cex,
-      inset = inset / 2
+      inset = inset / 2,
+      type = "t"
     )
     xy_nabox_lab <- get_xy_nabox_lab(
       x = xy_nabox$xright + inset / 4,
@@ -204,3 +206,5 @@ leg_typo <- function(pos = "topright",
 
   return(invisible(NULL))
 }
+
+

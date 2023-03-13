@@ -1,4 +1,4 @@
-## Return well formated rounded values.
+## Return well formated rounded numeric values.
 get_val_rnd <- function(val, val_rnd) {
   if (is.numeric(val)) {
     val <- round(val, val_rnd)
@@ -126,7 +126,22 @@ get_xy_rect <- function(xy_title, xy_box, xy_nabox,
   xy_leg
 }
 
-
+# get frame coordinates when using lines
+get_xy_rect_l <- function(xy_title, xy_box,
+                          xy_box_lab,
+                          inset, w) {
+  xy_leg <- list(
+    xleft = xy_title$x,
+    ybottom =
+      xy_title$y - inset / 2 -
+      xy_box$h,
+    xright = xy_title$x +
+      max(xy_title$w,
+          w + inset / 4 + xy_box_lab$w),
+    ytop = xy_title$y + xy_title$h
+  )
+  xy_leg
+}
 
 
 
@@ -215,3 +230,145 @@ get_pos_leg <- function(pos, xy_rect, adj, xy_title, frame = FALSE) {
 
   return(unname(xy))
 }
+
+
+
+
+
+
+leg_test_pos <- function(pos) {
+  authorized_pos <-
+    c(
+      "bottomleft",
+      "left",
+      "topleft",
+      "top",
+      "bottom",
+      "bottomright",
+      "right",
+      "topright",
+      "interactive"
+    )
+
+  # stop if the position is not valid
+  if (length(pos) == 1) {
+    if (!pos %in% authorized_pos) {
+      stop("This legend position is not allowed", call. = FALSE)
+    }
+  }
+}
+
+#' @importFrom grDevices dev.list
+leg_test_cur_plot <- function() {
+  if (is.null(dev.list())) {
+    stop("You can only plot legends on an existing plot.", call. = FALSE)
+  }
+
+}
+
+leg_test_input <- function(pos) {
+  leg_test_pos(pos)
+  leg_test_cur_plot()
+}
+
+
+
+get_xy_box <- function(x, y, n, w, h, inset, type = c("c", "c_h", "t", "s")){
+  if (type %in% c("c", "t")) {
+    xleft <- rep(x, n)
+    xright <- rep(x + w, n)
+    ytop <- rep(NA, n)
+    ybottom <- rep(NA, n)
+    for (i in 1:n) {
+      ytop[i] <- y - (i - 1) * h - (i - 1) * inset
+      ybottom[i] <- ytop[i] - h
+    }
+    h <- ytop[1] - ybottom[n]
+    w <- w
+  }
+  if (type == "s") {
+    xleft <- rep(x, n)
+    xright <- x + w
+    ytop <- rep(NA, n)
+    ybottom <- rep(NA, n)
+    ytop[1] <- y
+    ybottom[1] <- y - h[1]
+    if (n >= 2) {
+      for (i in 2:n) {
+        ytop[i] <- ybottom[i - 1] - inset
+        ybottom[i] <- ytop[i] - h[i]
+      }
+    }
+    h <- ytop[1] - ybottom[n]
+    w <- max(xright) - x
+  }
+
+  if (type == "c_h") {
+    ytop <- rep(y, n)
+    ybottom <- rep(y - h, n)
+    xright <- rep(NA, n)
+    xleft <- rep(NA, n)
+    for (i in 1:n) {
+      xleft[i] <- x + (i - 1) * w
+      xright[i] <- xleft[i] + w
+    }
+    h <- h
+    w <- xright[n] - xleft[1]
+  }
+
+
+  return(list(
+    xleft = unname(xleft),
+    ybottom = unname(ybottom),
+    xright = unname(xright),
+    ytop = unname(ytop),
+    h = h,
+    w = w
+  ))
+
+}
+
+
+
+
+get_xy_box_lab <- function(x, y, h, w, val, val_cex, inset,
+                            type = c("c", "c_h", "t", "s")){
+  n <- length(val)
+
+  if (type %in% c("t", "s", "c")){
+    xc <- rep(x, n)
+    yc <- rep(NA, n)
+
+    if (type == "t"){
+      for (i in 1:n) {
+        yc[i] <- y - (i - 1) * h - h / 2 - (i - 1) * inset
+      }
+    } else if (type == "s") {
+      for (i in 1:n) {
+        yc[i] <- y - (i - 1) * h[i] - h[i] / 2 - (i - 1) * inset
+      }
+    } else if (type == "c"){
+      for (i in 1:n) {
+        yc[i] <- y - (i - 1) * h
+      }
+    }
+    w <- max(strwidth(val, units = "user", cex = val_cex, font = 1))
+  }
+  if (type == "c_h"){
+    xc <- rep(NA, n)
+    yc <- rep(y, n)
+    for (i in 1:n) {
+      xc[i] <- x + (i - 1) * w
+    }
+    w <- xc[n] +
+      (strwidth(val[n], units = "user", cex = val_cex, font = 1) / 2) -
+      xc[1] -
+      (strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2)
+  }
+  h <- max(strheight(val, units = "user", cex = val_cex, font = 1))
+  return(list(x = xc, y = yc, w = w, h = h))
+  return(list(x = xc, y = yc, w = w, h = h))
+
+}
+
+

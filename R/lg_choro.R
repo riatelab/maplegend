@@ -88,12 +88,14 @@ leg_choro <- function(pos = "left",
       title_cex = title_cex
     )
 
-    xy_box <- get_xy_box_c(
+    xy_box <- get_xy_box(
       x = xy_title$x,
       y = xy_title$y - inset / 2,
       n = n,
       w = w,
-      h = h
+      h = h,
+      inset = 0,
+      type = 'c'
     )
 
     xy_nabox <- get_xy_nabox(
@@ -103,12 +105,13 @@ leg_choro <- function(pos = "left",
       h = h
     )
 
-    xy_box_lab <- get_xy_box_lab_c(
+    xy_box_lab <- get_xy_box_lab(
       x = xy_box$xright[n] + inset / 4,
       y = xy_box$ytop[1],
       h = h,
       val = val,
-      val_cex = val_cex
+      val_cex = val_cex,
+      type = "c"
     )
     xy_nabox_lab <- get_xy_nabox_lab(
       x = xy_nabox$xright + inset / 4,
@@ -217,3 +220,5 @@ leg_choro <- function(pos = "left",
 
   return(invisible(NULL))
 }
+
+
