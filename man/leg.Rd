@@ -2,7 +2,7 @@
 % Please edit documentation in R/leg.R
 \name{leg}
 \alias{leg}
-\title{Plot a map legend}
+\title{Plot a single map legend}
 \usage{
 leg(
   type,

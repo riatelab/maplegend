@@ -1,4 +1,4 @@
-#' @title Draw a map legend
+#' @title Plot a composed map legend
 #' @description Draw a map legend with several elements.
 #' @param x list of legend parameters
 #' @param pos position of the legend. . It can be one of 'topleft',

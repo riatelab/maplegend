@@ -1,4 +1,4 @@
-#' @title Plot a map legend
+#' @title Plot a single map legend
 #' @description Plot different types of legend. The "type" argument defines the
 #' legend type.
 #' Please note that some arguments are available for all types of legend and

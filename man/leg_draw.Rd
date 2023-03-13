@@ -2,7 +2,7 @@
 % Please edit documentation in R/leg_draw.R
 \name{leg_draw}
 \alias{leg_draw}
-\title{Draw a map legend}
+\title{Plot a composed map legend}
 \usage{
 leg_draw(
   x,
