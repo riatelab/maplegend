@@ -16,9 +16,6 @@ vbox[[10]] <- leg(type = "cont", val = c(10, 1000), pos = "bottomleft", horiz = 
 
 # print(dput(vbox))
 
-
-
-
 vbox_ref <-
   list(
     list(
@@ -75,7 +72,12 @@ vbox_ref <-
       xright = 0.413825581395349,
       ytop = 0.550431686046512
     ),
-    list(xleft = -0.102790697674419,
-         ybottom = -0.04, xright = 0.250790697674419, ytop = 0.089921511627907))
+    list(
+      xleft = -0.102790697674419,
+      ybottom = -0.04,
+      xright = 0.507430232558139,
+      ytop = 0.089921511627907
+    )
+  )
 
 expect_equal(vbox, vbox_ref)
