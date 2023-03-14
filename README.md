@@ -31,6 +31,7 @@ library(maplegend)
 # minimal example
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+box()
 leg(type = "prop", val = c(10,50,100), pos = "topleft")
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft")
 leg(type = "typo", val = c("A", "B", "C"), pos = "top" )
@@ -43,13 +44,26 @@ leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1,5,
 
 ``` r
 
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(type = "prop", val = c(10,50,100), pos = "topleft", horiz = TRUE)
+leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
+leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
+leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright", horiz = FALSE)
+box()
+```
+
+<img src="man/figures/README-example-2.png" width="600px" />
+
+``` r
+
 # full example
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(
   type = "prop",
   val = c(5, 100),
-  pos = "topleft",
+  pos = "top",
   inches = .4,
   symbol = "circle",
   col = "#940000",
@@ -66,7 +80,7 @@ leg(
 )
 ```
 
-<img src="man/figures/README-example-2.png" width="600px" />
+<img src="man/figures/README-example-3.png" width="600px" />
 
 ``` r
 
@@ -75,7 +89,7 @@ plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(
   type = "choro",
   val = c(10, 20, 30, 40, 50),
-  pos = "topleft",
+  pos = "top",
   pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
   val_rnd = 2,
   col_na = "grey",
@@ -87,7 +101,7 @@ leg(
 )
 ```
 
-<img src="man/figures/README-example-3.png" width="600px" />
+<img src="man/figures/README-example-4.png" width="600px" />
 
 ``` r
 
@@ -96,7 +110,7 @@ plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(
   type = "typo",
   val = c("A", "B", "C"),
-  pos = "topleft",
+  pos = "top",
   pal = "Dynamic",
   col_na = "grey",
   no_data = TRUE,
@@ -106,7 +120,7 @@ leg(
 )
 ```
 
-<img src="man/figures/README-example-4.png" width="600px" />
+<img src="man/figures/README-example-5.png" width="600px" />
 
 ``` r
 
@@ -115,7 +129,7 @@ plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(
   type = "symb",
   val = c("A", "B", "C"),
-  pos = "topleft",
+  pos = "top",
   pch = 21:23,
   cex = c(4, 4, 2),
   pal = "Plasma",
@@ -130,7 +144,25 @@ leg(
 )
 ```
 
-<img src="man/figures/README-example-5.png" width="600px" />
+<img src="man/figures/README-example-6.png" width="600px" />
+
+``` r
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "cont",
+  val = c(1, 2, 3, 4, 5),
+  pos = "top",
+  pal = "Plasma",
+  val_rnd = 2,
+  horiz = TRUE,
+  box_cex = c(2,1),
+  title = "Continuous"
+)
+```
+
+<img src="man/figures/README-example-7.png" width="600px" />
 
 ``` r
 
@@ -139,7 +171,7 @@ plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(
   type = "prop_line",
   val = c(54, 505, 1025),
-  pos = "topleft",
+  pos = "top",
   lwd = 15,
   col = "green",
   val_rnd = -1,
@@ -151,7 +183,7 @@ leg(
 )
 ```
 
-<img src="man/figures/README-example-6.png" width="600px" />
+<img src="man/figures/README-example-8.png" width="600px" />
 
 ``` r
 
@@ -160,7 +192,7 @@ plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(
   type = "grad_line",
   val = c(1.25, 4.07, 10.001, 15.071),
-  pos = "topleft",
+  pos = "top",
   lwd = c(1, 7, 15),
   col = "#C130ff",
   val_rnd = 3,
@@ -169,20 +201,20 @@ leg(
 )
 ```
 
-<img src="man/figures/README-example-7.png" width="600px" />
+<img src="man/figures/README-example-9.png" width="600px" />
 
 ``` r
 
 # Positions
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(type = "prop", val = c(10,50,100), pos = "bottomleft1", title = "bottomleft1")
-leg(type = "choro", val = c(10,50,100), pos = "bottomright2", title = "bottomright2", frame = TRUE)
-leg(type = "prop", val = c(10,50,100), pos = "topleft2", title = "topleft2")
+leg(type = "prop", val = c(10,50,100), pos = "bottomleft", adj = c(0, 1), title = "bottomleft1")
+leg(type = "choro", val = c(10,50,100), pos = "bottomright", adj = c(0, 2), title = "bottomright2", frame = TRUE)
+leg(type = "prop", val = c(10,50,100), pos = "topleft", adj = c(0, -2), title = "topleft2")
 box()
 mtext(text = "A small text on 1 line", side = 1, adj = .01, line = -1, cex = .8)
 mtext(text = "A small text\non 2 lines", side = 1, adj = .99, line = -1, cex = .8)
 mtext(text = "A large text on 1 line", side = 3, adj = .01, line = -1.5, cex = 1.2)
 ```
 
-<img src="man/figures/README-example-8.png" width="600px" />
+<img src="man/figures/README-example-10.png" width="600px" />
