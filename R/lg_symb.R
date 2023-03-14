@@ -58,10 +58,10 @@ leg_symb <- function(pos = "left",
                      bg = "#f7f7f7",
                      fg = "#333333",
                      size = 1,
-                     box_cex = c(1,1),
+                     box_cex = c(1, 1),
                      return_bbox = FALSE,
                      mar = par("mar"),
-                     adj = c(0,0)) {
+                     adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -263,6 +263,3 @@ leg_symb <- function(pos = "left",
 
   return(invisible(NULL))
 }
-
-
-

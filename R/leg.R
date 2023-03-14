@@ -80,16 +80,16 @@
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' box()
-#' leg(type = "prop", val = c(10,50,100), pos = "topleft")
+#' leg(type = "prop", val = c(10, 50, 100), pos = "topleft")
 #' leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft")
-#' leg(type = "typo", val = c("A", "B", "C"), pos = "top" )
+#' leg(type = "typo", val = c("A", "B", "C"), pos = "top")
 #' leg(type = "symb", val = c("A", "B", "C"), pos = "topright")
 #' leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
-#' leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1,5,10))
+#' leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1, 5, 10))
 #'
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-#' leg(type = "prop", val = c(10,50,100), pos = "topleft", horiz = TRUE)
+#' leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 #' leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
 #' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
 #' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright", horiz = FALSE)
@@ -175,7 +175,7 @@
 #'   pal = "Plasma",
 #'   val_rnd = 2,
 #'   horiz = TRUE,
-#'   box_cex = c(2,1),
+#'   box_cex = c(2, 1),
 #'   title = "Continuous"
 #' )
 #'
@@ -204,16 +204,16 @@
 #'   lwd = c(1, 7, 15),
 #'   col = "#C130ff",
 #'   val_rnd = 3,
-#'   box_cex = c(2,1),
+#'   box_cex = c(2, 1),
 #'   title = "Graduated Lines"
 #' )
 #'
 #' # Positions
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-#' leg(type = "prop", val = c(10,50,100), pos = "bottomleft", adj = c(0, 1), title = "bottomleft1")
-#' leg(type = "choro", val = c(10,50,100), pos = "bottomright", adj = c(0, 2), title = "bottomright2", frame = TRUE)
-#' leg(type = "prop", val = c(10,50,100), pos = "topleft", adj = c(0, -2), title = "topleft2")
+#' leg(type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1), title = "bottomleft1")
+#' leg(type = "choro", val = c(10, 50, 100), pos = "bottomright", adj = c(0, 2), title = "bottomright2", frame = TRUE)
+#' leg(type = "prop", val = c(10, 50, 100), pos = "topleft", adj = c(0, -2), title = "topleft2")
 #' box()
 #' mtext(text = "A small text on 1 line", side = 1, adj = .01, line = -1, cex = .8)
 #' mtext(text = "A small text\non 2 lines", side = 1, adj = .99, line = -1, cex = .8)
@@ -240,7 +240,7 @@ leg <- function(type,
                 no_data = FALSE,
                 no_data_txt = "No Data",
                 box_border = "333333",
-                box_cex = c(1,1),
+                box_cex = c(1, 1),
                 horiz = FALSE,
                 frame = FALSE,
                 bg = "#f7f7f7",
@@ -248,17 +248,20 @@ leg <- function(type,
                 size = 1,
                 return_bbox = FALSE,
                 mar = par("mar"),
-                adj =c(0,0)) {
-
+                adj = c(0, 0)) {
   # test pos and current plot
-  if(any(is.na(pos))){return(invisible(NULL))}
+  if (any(is.na(pos))) {
+    return(invisible(NULL))
+  }
 
   leg_test_input(pos)
 
 
-  op <- par(mar = mar,
-            xpd = TRUE,
-            no.readonly = TRUE)
+  op <- par(
+    mar = mar,
+    xpd = TRUE,
+    no.readonly = TRUE
+  )
   on.exit(par(op), add = TRUE)
 
 
@@ -266,9 +269,9 @@ leg <- function(type,
   args <- args[!names(args) %in% c("type", "horiz")]
   args <- args[-1]
   h <- ""
-  if(horiz){
+  if (horiz) {
     h <- "_h"
   }
-  x <- do.call(what = get(paste0("leg_",type, h)), args, envir = parent.frame())
+  x <- do.call(what = get(paste0("leg_", type, h)), args, envir = parent.frame())
   return(invisible(x))
 }

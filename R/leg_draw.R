@@ -20,20 +20,19 @@
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' box()
-#' leg_comp(type = "prop", val = c(10,50,100)) |>
+#' leg_comp(type = "prop", val = c(10, 50, 100)) |>
 #'   leg_comp(type = "typo", val = c("A", "B", "C")) |>
 #'   leg_draw(pos = "topright", bg = "lightblue")
 leg_draw <- function(x,
                      pos = "bottomright",
                      size = 1,
-                     bg = 'white',
-                     fg = 'black',
+                     bg = "white",
+                     fg = "black",
                      frame = TRUE,
                      title_cex = 0.8 * size,
                      val_cex = 0.6 * size,
-                     adj = c(0,0),
+                     adj = c(0, 0),
                      mar = par("mar")) {
-
   dimleg <- list()
   insetf <- strwidth("MM", units = "user", cex = 1) / 4
 
@@ -71,12 +70,12 @@ leg_draw <- function(x,
 
   for (i in 1:length(x$layers)) {
     x$layers[[i]]$mar <- mar
-    x$layers[[i]]$pos <- c(xleg[i], yleg[i]) + c(-(size-1)*insetf, (size-1)*insetf)
+    x$layers[[i]]$pos <- c(xleg[i], yleg[i]) + c(-(size - 1) * insetf, (size - 1) * insetf)
     x$layers[[i]]$return_bbox <- FALSE
     x$layers[[i]]$frame <- FALSE
     x$layers[[i]]$bg <- bg
     x$layers[[i]]$fg <- fg
-    x$layers[[i]]$adj <- c(0,0)
+    x$layers[[i]]$adj <- c(0, 0)
 
     do.call(leg, x$layers[[i]])
   }
@@ -88,8 +87,7 @@ leg_draw <- function(x,
 
 
 
-get_pos_and_frame <- function(pos, dimleg, adj){
-
+get_pos_and_frame <- function(pos, dimleg, adj) {
   xleft <- min(unlist(lapply(dimleg, function(x) {
     x$xleft
   })))
@@ -106,26 +104,30 @@ get_pos_and_frame <- function(pos, dimleg, adj){
 
 
 
-  if (startsWith(pos, "top")){
-    ytop <- max(unlist(lapply(dimleg, function(x) {x$ytop})))
+  if (startsWith(pos, "top")) {
+    ytop <- max(unlist(lapply(dimleg, function(x) {
+      x$ytop
+    })))
     ybottom <- ytop - height
-    yleg  <- ybottom + rev(cumsum(rev(heights)))
+    yleg <- ybottom + rev(cumsum(rev(heights)))
   }
 
 
 
-  if (startsWith(pos, "bottom")){
-    ybottom <- min(unlist(lapply(dimleg, function(x) {x$ybottom })))
+  if (startsWith(pos, "bottom")) {
+    ybottom <- min(unlist(lapply(dimleg, function(x) {
+      x$ybottom
+    })))
     ytop <- ybottom + height
-    yleg  <- ybottom + rev(cumsum(rev(heights)))
+    yleg <- ybottom + rev(cumsum(rev(heights)))
   }
 
 
-  if (pos %in% c("left", "right")){
+  if (pos %in% c("left", "right")) {
     ymid <- dimleg[[1]][[2]] + (dimleg[[1]][[4]] - dimleg[[1]][[2]]) / 2
     ytop <- ymid + height / 2
     ybottom <- ytop - height
-    yleg  <- ybottom + rev(cumsum(rev(heights)))
+    yleg <- ybottom + rev(cumsum(rev(heights)))
   }
 
 

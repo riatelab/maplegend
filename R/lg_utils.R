@@ -64,7 +64,7 @@ interleg <- function(txt = c("legend", "Legend")) {
     return(x)
   } else {
     stop('You cannot use "interactive" in a non-interactive R session.',
-         call. = FALSE
+      call. = FALSE
     )
   }
 }
@@ -113,8 +113,8 @@ get_xy_rect <- function(xy_title, xy_box, xy_nabox,
     xleft = xy_title$x,
     ybottom =
       xy_title$y - inset / 2 -
-      xy_box$h -
-      (xy_nabox$h + inset / 2) * no_data,
+        xy_box$h -
+        (xy_nabox$h + inset / 2) * no_data,
     xright = xy_title$x +
       max(
         xy_title$w,
@@ -134,10 +134,12 @@ get_xy_rect_l <- function(xy_title, xy_box,
     xleft = xy_title$x,
     ybottom =
       xy_title$y - inset / 2 -
-      xy_box$h,
+        xy_box$h,
     xright = xy_title$x +
-      max(xy_title$w,
-          w + inset / 4 + xy_box_lab$w),
+      max(
+        xy_title$w,
+        w + inset / 4 + xy_box_lab$w
+      ),
     ytop = xy_title$y + xy_title$h
   )
   xy_leg
@@ -156,14 +158,14 @@ get_xy_rect_l <- function(xy_title, xy_box,
 #' @noRd
 get_size <- function(var, inches, val_max, symbol) {
   switch(symbol,
-         circle = {
-           smax <- inches * inches * pi
-           size <- sqrt((var * smax / val_max) / pi)
-         },
-         square = {
-           smax <- inches * inches
-           size <- sqrt(var * smax / val_max)
-         }
+    circle = {
+      smax <- inches * inches * pi
+      size <- sqrt((var * smax / val_max) / pi)
+    },
+    square = {
+      smax <- inches * inches
+      size <- sqrt(var * smax / val_max)
+    }
   )
   return(size)
 }
@@ -189,8 +191,7 @@ get_pos_leg <- function(pos, xy_rect, adj, xy_title, frame = FALSE) {
 
   extra <- inset2 * 2 * adj
 
-  xy <- switch(
-    pos,
+  xy <- switch(pos,
     bottomleft = c(
       pu[1] + inset2,
       pu[3] + xy_rect[4] - xy_rect[2] + inset2
@@ -263,7 +264,6 @@ leg_test_cur_plot <- function() {
   if (is.null(dev.list())) {
     stop("You can only plot legends on an existing plot.", call. = FALSE)
   }
-
 }
 
 leg_test_input <- function(pos) {
@@ -273,7 +273,7 @@ leg_test_input <- function(pos) {
 
 
 
-get_xy_box <- function(x, y, n, w, h, inset, type = c("c", "c_h", "t", "s")){
+get_xy_box <- function(x, y, n, w, h, inset, type = c("c", "c_h", "t", "s")) {
   if (type %in% c("c", "t")) {
     xleft <- rep(x, n)
     xright <- rep(x + w, n)
@@ -325,21 +325,20 @@ get_xy_box <- function(x, y, n, w, h, inset, type = c("c", "c_h", "t", "s")){
     h = h,
     w = w
   ))
-
 }
 
 
 
 
 get_xy_box_lab <- function(x, y, h, w, val, val_cex, inset,
-                            type = c("c", "c_h", "t", "s")){
+                           type = c("c", "c_h", "t", "s")) {
   n <- length(val)
 
-  if (type %in% c("t", "s", "c")){
+  if (type %in% c("t", "s", "c")) {
     xc <- rep(x, n)
     yc <- rep(NA, n)
 
-    if (type == "t"){
+    if (type == "t") {
       for (i in 1:n) {
         yc[i] <- y - (i - 1) * h - h / 2 - (i - 1) * inset
       }
@@ -347,14 +346,14 @@ get_xy_box_lab <- function(x, y, h, w, val, val_cex, inset,
       for (i in 1:n) {
         yc[i] <- y - (i - 1) * h[i] - h[i] / 2 - (i - 1) * inset
       }
-    } else if (type == "c"){
+    } else if (type == "c") {
       for (i in 1:n) {
         yc[i] <- y - (i - 1) * h
       }
     }
     w <- max(strwidth(val, units = "user", cex = val_cex, font = 1))
   }
-  if (type == "c_h"){
+  if (type == "c_h") {
     xc <- rep(NA, n)
     yc <- rep(y, n)
     for (i in 1:n) {
@@ -370,11 +369,11 @@ get_xy_box_lab <- function(x, y, h, w, val, val_cex, inset,
 }
 
 
-val_cont <- function(val, val_rnd){
-  if(length(val) == 2){
+val_cont <- function(val, val_rnd) {
+  if (length(val) == 2) {
     val_ref_s <- pretty(val, n = 5)
-    val_ref <- c(val_ref_s[val_ref_s>min(val) & val_ref_s<max(val)])
-  } else if (length(val) >2) {
+    val_ref <- c(val_ref_s[val_ref_s > min(val) & val_ref_s < max(val)])
+  } else if (length(val) > 2) {
     val_ref <- val
   } else {
     stop("You need to provide at leat to values for 'val'", call. = FALSE)

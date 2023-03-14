@@ -67,9 +67,9 @@
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' box()
-#' leg_comp(type = "prop", val = c(10,50,100)) |>
-#' leg_comp(type = "typo", val = c("A", "B", "C")) |>
-#' leg_draw()
+#' leg_comp(type = "prop", val = c(10, 50, 100)) |>
+#'   leg_comp(type = "typo", val = c("A", "B", "C")) |>
+#'   leg_draw()
 leg_comp <- function(leg,
                      type,
                      val,
@@ -91,7 +91,7 @@ leg_comp <- function(leg,
                      no_data_txt = "No Data",
                      box_border = "333333",
                      box_cex = c(1, 1),
-                     horiz = FALSE){
+                     horiz = FALSE) {
   res <- as.list(match.call())
   res <- res[-1]
   res <- lapply(res, eval)

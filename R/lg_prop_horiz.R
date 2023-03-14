@@ -37,25 +37,25 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg_prop(val = c(1, 20, 100), col = "red", inches = .3)
 leg_prop_h <- function(pos = "left",
-                     val,
-                     col = "tomato4",
-                     inches = .3,
-                     symbol = "circle",
-                     border = "#333333",
-                     lwd = .7,
-                     title = "Legend Title",
-                     title_cex = .8 * size,
-                     val_cex = .6 * size,
-                     val_rnd = 0,
-                     frame = FALSE,
-                     bg = "#f7f7f7",
-                     fg = "#333333",
-                     size = 1,
-                     box_cex = 1,
-                     self_adjust = FALSE,
-                     return_bbox = FALSE,
-                     mar = par("mar"),
-                     adj = c(0,0)) {
+                       val,
+                       col = "tomato4",
+                       inches = .3,
+                       symbol = "circle",
+                       border = "#333333",
+                       lwd = .7,
+                       title = "Legend Title",
+                       title_cex = .8 * size,
+                       val_cex = .6 * size,
+                       val_rnd = 0,
+                       frame = FALSE,
+                       bg = "#f7f7f7",
+                       fg = "#333333",
+                       size = 1,
+                       box_cex = 1,
+                       self_adjust = FALSE,
+                       return_bbox = FALSE,
+                       mar = par("mar"),
+                       adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -74,7 +74,7 @@ leg_prop_h <- function(pos = "left",
 
   while (TRUE) {
     if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset,-inset)) / 4
+      xy_leg <- pos + (c(inset, -inset)) / 4
     }
     xy_title <- get_xy_title(
       x = xy_leg[1],
@@ -95,12 +95,11 @@ leg_prop_h <- function(pos = "left",
     xx <- xy_symbols$x
     ss <- xy_symbols$s
     xx[1] <- xx[1]
-    if(n>1){
-      for(i in 2:n){
-        xx[i] <- xx[i-1] + sum(ss[(i-1):i])
-        xx[i] = xx[i] + inset / 8 * box_cex
+    if (n > 1) {
+      for (i in 2:n) {
+        xx[i] <- xx[i - 1] + sum(ss[(i - 1):i])
+        xx[i] <- xx[i] + inset / 8 * box_cex
       }
-
     }
     xy_symbols$x <- xx
 
@@ -120,7 +119,7 @@ leg_prop_h <- function(pos = "left",
         max(
           xy_title$x + xy_title$w,
           xy_symbols$x[n],
-          xy_lab$x[n]+ xy_lab$w
+          xy_lab$x[n] + xy_lab$w
         ),
       ytop = xy_title$y + xy_title$h
     )

@@ -32,23 +32,23 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg_typo(val = c("type A", "type B"), pal = c("navy", "tomato"))
 leg_typo <- function(pos = "topright",
-                    val,
-                    pal = "Plasma",
-                    title = "Legend Title",
-                    title_cex = .8 * size,
-                    val_cex = .6 * size,
-                    col_na = "white",
-                    no_data = FALSE,
-                    no_data_txt = "No Data",
-                    frame = FALSE,
-                    box_border = "#333333",
-                    bg = "#f7f7f7",
-                    fg = "#333333",
-                    size = 1,
-                    box_cex = c(1,1),
-                    return_bbox = FALSE,
-                    mar = par("mar"),
-                    adj = c(0,0)) {
+                     val,
+                     pal = "Plasma",
+                     title = "Legend Title",
+                     title_cex = .8 * size,
+                     val_cex = .6 * size,
+                     col_na = "white",
+                     no_data = FALSE,
+                     no_data_txt = "No Data",
+                     frame = FALSE,
+                     box_border = "#333333",
+                     bg = "#f7f7f7",
+                     fg = "#333333",
+                     size = 1,
+                     box_cex = c(1, 1),
+                     return_bbox = FALSE,
+                     mar = par("mar"),
+                     adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -206,5 +206,3 @@ leg_typo <- function(pos = "topright",
 
   return(invisible(NULL))
 }
-
-

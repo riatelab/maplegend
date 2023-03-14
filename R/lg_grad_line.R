@@ -31,21 +31,21 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg_grad_line(lwd = c(0.2, 2, 4, 5, 10), val = c(1, 2, 3, 4, 10.2, 15.2))
 leg_grad_line <- function(pos = "topleft",
-                         val,
-                         col = "tomato4",
-                         lwd = .7,
-                         title = "Legend Title",
-                         title_cex = .8 * size,
-                         val_cex = .6 * size,
-                         val_rnd = 0,
-                         frame = FALSE,
-                         bg = "#f7f7f7",
-                         fg = "#333333",
-                         size = 1,
-                         box_cex = c(1,1),
-                         return_bbox = FALSE,
-                         mar = par("mar"),
-                         adj = c(0,0)) {
+                          val,
+                          col = "tomato4",
+                          lwd = .7,
+                          title = "Legend Title",
+                          title_cex = .8 * size,
+                          val_cex = .6 * size,
+                          val_rnd = 0,
+                          frame = FALSE,
+                          bg = "#f7f7f7",
+                          fg = "#333333",
+                          size = 1,
+                          box_cex = c(1, 1),
+                          return_bbox = FALSE,
+                          mar = par("mar"),
+                          adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -68,7 +68,7 @@ leg_grad_line <- function(pos = "topleft",
   xy_leg <- NULL
   while (TRUE) {
     if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset,-inset)) / 4
+      xy_leg <- pos + (c(inset, -inset)) / 4
     }
     xy_title <- get_xy_title(
       x = xy_leg[1],
@@ -169,8 +169,3 @@ leg_grad_line <- function(pos = "topleft",
 
   return(invisible(NULL))
 }
-
-
-
-
-

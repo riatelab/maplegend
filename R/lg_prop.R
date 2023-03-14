@@ -37,25 +37,25 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg_prop(val = c(1, 20, 100), col = "red", inches = .3)
 leg_prop <- function(pos = "left",
-                    val,
-                    col = "tomato4",
-                    inches = .3,
-                    symbol = "circle",
-                    border = "#333333",
-                    lwd = .7,
-                    title = "Legend Title",
-                    title_cex = .8 * size,
-                    val_cex = .6 * size,
-                    val_rnd = 0,
-                    frame = FALSE,
-                    bg = "#f7f7f7",
-                    fg = "#333333",
-                    size = 1,
-                    self_adjust = FALSE,
-                    return_bbox = FALSE,
-                    mar = par("mar"),
-                    box_cex,
-                    adj = c(0,0)) {
+                     val,
+                     col = "tomato4",
+                     inches = .3,
+                     symbol = "circle",
+                     border = "#333333",
+                     lwd = .7,
+                     title = "Legend Title",
+                     title_cex = .8 * size,
+                     val_cex = .6 * size,
+                     val_rnd = 0,
+                     frame = FALSE,
+                     bg = "#f7f7f7",
+                     fg = "#333333",
+                     size = 1,
+                     self_adjust = FALSE,
+                     return_bbox = FALSE,
+                     mar = par("mar"),
+                     box_cex,
+                     adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -74,7 +74,7 @@ leg_prop <- function(pos = "left",
 
   while (TRUE) {
     if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset,-inset)) / 4
+      xy_leg <- pos + (c(inset, -inset)) / 4
     }
     xy_title <- get_xy_title(
       x = xy_leg[1],
@@ -186,10 +186,10 @@ leg_prop <- function(pos = "left",
 }
 
 
-myinch <- function (x, mar) {
+myinch <- function(x, mar) {
   op <- par(mar = mar, no.readonly = TRUE)
   on.exit(par(op), add = TRUE)
-  x * diff(par("usr")[3:4])/par("pin")[2L]
+  x * diff(par("usr")[3:4]) / par("pin")[2L]
 }
 
 
@@ -234,12 +234,12 @@ get_xy_rect_s <- function(xy_title, xy_symbols, xy_lines, xy_lab, inset) {
     ybottom = xy_title$y - inset / 2 - xy_symbols$h,
     xright =
       xy_title$x +
-      max(
-        xy_title$w,
-        xy_symbols$h / 2 +
-          xy_lines$w +
-          xy_lab$w
-      ),
+        max(
+          xy_title$w,
+          xy_symbols$h / 2 +
+            xy_lines$w +
+            xy_lab$w
+        ),
     ytop = xy_title$y + xy_title$h
   )
   xy_leg
@@ -337,31 +337,31 @@ self_adjust_v <- function(var, inches, val_cex, mar) {
 # Plot symbols
 plot_symbols <- function(symbol, dots, sizes, mycols, border, lwd, inches) {
   switch(symbol,
-         circle = {
-           symbols(
-             x = dots[, 1],
-             y = dots[, 2],
-             circles = sizes,
-             bg = mycols,
-             fg = border,
-             lwd = lwd,
-             add = TRUE,
-             inches = inches,
-             asp = 1
-           )
-         },
-         square = {
-           symbols(
-             x = dots[, 1],
-             y = dots[, 2],
-             squares = sizes,
-             bg = mycols,
-             fg = border,
-             lwd = lwd,
-             add = TRUE,
-             inches = inches * 2,
-             asp = 1
-           )
-         }
+    circle = {
+      symbols(
+        x = dots[, 1],
+        y = dots[, 2],
+        circles = sizes,
+        bg = mycols,
+        fg = border,
+        lwd = lwd,
+        add = TRUE,
+        inches = inches,
+        asp = 1
+      )
+    },
+    square = {
+      symbols(
+        x = dots[, 1],
+        y = dots[, 2],
+        squares = sizes,
+        bg = mycols,
+        fg = border,
+        lwd = lwd,
+        add = TRUE,
+        inches = inches * 2,
+        asp = 1
+      )
+    }
   )
 }

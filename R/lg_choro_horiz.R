@@ -48,10 +48,10 @@ leg_choro_h <- function(pos = "left",
                         bg = "#f7f7f7",
                         fg = "#333333",
                         size = 1,
-                        box_cex = c(1,1),
+                        box_cex = c(1, 1),
                         return_bbox = FALSE,
                         mar = par("mar"),
-                        adj = c(0,0)) {
+                        adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -78,7 +78,7 @@ leg_choro_h <- function(pos = "left",
   xy_leg <- NULL
   while (TRUE) {
     if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset,-inset)) / 4
+      xy_leg <- pos + (c(inset, -inset)) / 4
     }
 
     xy_title <- get_xy_title(
@@ -91,8 +91,10 @@ leg_choro_h <- function(pos = "left",
 
 
     xy_box <- get_xy_box(
-      x = xy_title$x + (strwidth(val[1], units = "user",
-                                 cex = val_cex, font = 1) / 2),
+      x = xy_title$x + (strwidth(val[1],
+        units = "user",
+        cex = val_cex, font = 1
+      ) / 2),
       y = xy_title$y - inset / 2,
       n = n,
       w = w,
@@ -130,29 +132,31 @@ leg_choro_h <- function(pos = "left",
         strheight(val[1], units = "user", cex = val_cex, font = 1) -
         inset / 6,
       h = strheight(no_data_txt, units = "user", cex = val_cex, font = 1),
-      w = max(c(xy_nabox$xleft - xy_nabox$xright,
-                strwidth(no_data_txt, units = "user", cex = val_cex, font = 1) * no_data
-      )
-      )
+      w = max(c(
+        xy_nabox$xleft - xy_nabox$xright,
+        strwidth(no_data_txt, units = "user", cex = val_cex, font = 1) * no_data
+      ))
     )
 
-    if(no_data){
+    if (no_data) {
       xrightx <- max(
-        c(xy_nabox$xright,
+        c(
+          xy_nabox$xright,
           xy_nabox_lab$x +
-            strwidth(no_data_txt, units = "user", cex = val_cex, font = 1) / 2)
+            strwidth(no_data_txt, units = "user", cex = val_cex, font = 1) / 2
+        )
       )
-    }else{
+    } else {
       xrightx <- xy_box$xright[n] +
-        strwidth(val[n+1], units = "user", cex = val_cex, font = 1) / 2
+        strwidth(val[n + 1], units = "user", cex = val_cex, font = 1) / 2
     }
 
 
     # print(val[1])
     xy_rect <- list(
-      xleft = xy_title$x ,
-      ybottom = xy_box_lab$y[1] - insetf / 8 ,
-      xright = xrightx ,
+      xleft = xy_title$x,
+      ybottom = xy_box_lab$y[1] - insetf / 8,
+      xright = xrightx,
       ytop = xy_title$y + xy_title$h
     )
 
@@ -247,4 +251,3 @@ leg_choro_h <- function(pos = "left",
 
   return(invisible(NULL))
 }
-

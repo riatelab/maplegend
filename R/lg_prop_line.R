@@ -31,21 +31,21 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg_prop_line(lwd = 20, val = c(5, 10, 50, 100))
 leg_prop_line <- function(pos = "left",
-                         val,
-                         lwd = .7,
-                         col = "tomato4",
-                         title = "Legend Title",
-                         title_cex = .8 * size,
-                         val_cex = .6 * size,
-                         val_rnd = 0,
-                         frame = FALSE,
-                         bg = "#f7f7f7",
-                         fg = "#333333",
-                         size = 1,
-                         box_cex = c(1,1),
-                         return_bbox = FALSE,
-                         mar = par("mar"),
-                         adj = c(0,0)) {
+                          val,
+                          lwd = .7,
+                          col = "tomato4",
+                          title = "Legend Title",
+                          title_cex = .8 * size,
+                          val_cex = .6 * size,
+                          val_rnd = 0,
+                          frame = FALSE,
+                          bg = "#f7f7f7",
+                          fg = "#333333",
+                          size = 1,
+                          box_cex = c(1, 1),
+                          return_bbox = FALSE,
+                          mar = par("mar"),
+                          adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 

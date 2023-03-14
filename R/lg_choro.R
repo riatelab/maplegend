@@ -34,24 +34,24 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg_choro(val = c(1, 2, 3, 4), pal = c("red1", "red3", "red4"))
 leg_choro <- function(pos = "left",
-                     val,
-                     pal = "Plasma",
-                     title = "Legend Title",
-                     title_cex = .8 * size,
-                     val_cex = .6 * size,
-                     val_rnd = 0,
-                     col_na = "white",
-                     no_data = FALSE,
-                     no_data_txt = "No Data",
-                     frame = FALSE,
-                     box_border = "#333333",
-                     bg = "#f7f7f7",
-                     fg = "#333333",
-                     size = 1,
-                     box_cex = c(1,1),
-                     return_bbox = FALSE,
-                     mar = par("mar"),
-                     adj = c(0,0)) {
+                      val,
+                      pal = "Plasma",
+                      title = "Legend Title",
+                      title_cex = .8 * size,
+                      val_cex = .6 * size,
+                      val_rnd = 0,
+                      col_na = "white",
+                      no_data = FALSE,
+                      no_data_txt = "No Data",
+                      frame = FALSE,
+                      box_border = "#333333",
+                      bg = "#f7f7f7",
+                      fg = "#333333",
+                      size = 1,
+                      box_cex = c(1, 1),
+                      return_bbox = FALSE,
+                      mar = par("mar"),
+                      adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
 
@@ -78,7 +78,7 @@ leg_choro <- function(pos = "left",
   xy_leg <- NULL
   while (TRUE) {
     if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset,-inset)) / 4
+      xy_leg <- pos + (c(inset, -inset)) / 4
     }
 
     xy_title <- get_xy_title(
@@ -95,7 +95,7 @@ leg_choro <- function(pos = "left",
       w = w,
       h = h,
       inset = 0,
-      type = 'c'
+      type = "c"
     )
 
     xy_nabox <- get_xy_nabox(
@@ -220,5 +220,3 @@ leg_choro <- function(pos = "left",
 
   return(invisible(NULL))
 }
-
-
