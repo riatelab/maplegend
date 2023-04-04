@@ -13,8 +13,7 @@ leg_draw(
   frame = TRUE,
   title_cex = 0.8 * size,
   val_cex = 0.6 * size,
-  adj = c(0, 0),
-  mar = par("mar")
+  adj = c(0, 0)
 )
 }
 \arguments{
@@ -36,8 +35,6 @@ leg_draw(
 \item{val_cex}{size of the values in the legend}
 
 \item{adj}{adjust the postion of the legend in x and y directions.}
-
-\item{mar}{plot margins}
 }
 \value{
 A composed legend is plotted. Nothing is returned.

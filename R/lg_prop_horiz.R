@@ -21,7 +21,6 @@
 #' "prop_line" and "grad_line")
 #' @param bg background of the legend
 #' @param fg foreground of the legend
-#' @param mar plot margins
 #' @param box_cex width and height cex of boxes
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
@@ -54,7 +53,6 @@ leg_prop_h <- function(pos = "left",
                        box_cex = 1,
                        self_adjust = FALSE,
                        return_bbox = FALSE,
-                       mar = par("mar"),
                        adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size
@@ -65,7 +63,7 @@ leg_prop_h <- function(pos = "left",
   }
 
   if (self_adjust == TRUE) {
-    val <- self_adjust_v(val, inches, val_cex, mar = mar)
+    val <- self_adjust_v(val, inches, val_cex)
   }
   val <- sort(val, decreasing = TRUE)
 
@@ -87,8 +85,7 @@ leg_prop_h <- function(pos = "left",
       y = xy_title$y - inset / 2,
       val = val,
       inches = inches,
-      symbol = symbol,
-      mar = mar
+      symbol = symbol
     )
 
     n <- length(val)

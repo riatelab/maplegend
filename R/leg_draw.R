@@ -8,7 +8,6 @@
 #' @param fg foreground color of the legend
 #' @param frame if TRUE the legend is plotted within a frame
 #' @param adj adjust the postion of the legend in x and y directions.
-#' @param mar plot margins
 #' @param title_cex size of the legend title
 #' @param val_cex size of the values in the legend
 #'
@@ -31,15 +30,13 @@ leg_draw <- function(x,
                      frame = TRUE,
                      title_cex = 0.8 * size,
                      val_cex = 0.6 * size,
-                     adj = c(0, 0),
-                     mar = par("mar")) {
+                     adj = c(0, 0)) {
   dimleg <- list()
   insetf <- strwidth("MM", units = "user", cex = 1) / 4
 
   for (i in 1:length(x$layers)) {
     x$layers[[i]]$pos <- pos
     x$layers[[i]]$return_bbox <- TRUE
-    x$layers[[i]]$mar <- mar
     x$layers[[i]]$size <- size
     x$layers[[i]]$frame <- frame
     x$layers[[i]]$adj <- adj
@@ -69,7 +66,6 @@ leg_draw <- function(x,
 
 
   for (i in 1:length(x$layers)) {
-    x$layers[[i]]$mar <- mar
     x$layers[[i]]$pos <- c(xleg[i], yleg[i]) + c(-(size - 1) * insetf, (size - 1) * insetf)
     x$layers[[i]]$return_bbox <- FALSE
     x$layers[[i]]$frame <- FALSE

@@ -16,7 +16,6 @@ leg_cont_h <- function(pos = "left",
                        box_cex = c(1, 1),
                        horiz = FALSE,
                        return_bbox = FALSE,
-                       mar = par("mar"),
                        adj = c(0, 0)) {
   box_cex <- eval(box_cex)
   pal <- eval(pal)
@@ -38,6 +37,6 @@ leg_cont_h <- function(pos = "left",
     no_data_txt = no_data_txt, frame = frame, box_border = NA,
     bg = bg, fg = fg,
     size = size, box_cex = box_cex, horiz = TRUE,
-    return_bbox = return_bbox, mar = mar, adj = adj
+    return_bbox = return_bbox, adj = adj
   )
 }
