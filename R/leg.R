@@ -41,6 +41,7 @@
 #' @param box_border border color of legend boxes
 #' @param box_cex width and height size expansion of boxes,
 #' (or offset between circles for "prop" legends with horiz = TRUE)
+#' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
 #' @param col color of the symbols (for "prop") or color of the lines (for
@@ -60,7 +61,7 @@
 #' @export
 #' @details
 #' Some arguments are available for all types of legend: `val`, `pos`, `title`,
-#' `title_cex`, `val_cex`, `frame`, `bg`, `fg`, `size`, `return_bbox`).
+#' `title_cex`, `val_cex`, `frame`, `bg`, `fg`, `size`, `return_bbox` and `mar`).
 #'
 #'
 #' Relevant arguments for each specific legend types:
@@ -246,6 +247,7 @@ leg <- function(type,
                 fg = "#333333",
                 size = 1,
                 return_bbox = FALSE,
+                mar = par("mar"),
                 adj = c(0, 0)) {
   # test pos and current plot
   if (any(is.na(pos))) {
@@ -256,6 +258,7 @@ leg <- function(type,
 
 
   op <- par(
+    mar = mar,
     xpd = TRUE,
     no.readonly = TRUE
   )

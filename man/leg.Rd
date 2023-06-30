@@ -34,6 +34,7 @@ leg(
   fg = "#333333",
   size = 1,
   return_bbox = FALSE,
+  mar = par("mar"),
   adj = c(0, 0)
 )
 }
@@ -118,6 +119,8 @@ the legend}
 \item{return_bbox}{return only bounding box of the legend.
 No legend is plotted.}
 
+\item{mar}{plot margins}
+
 \item{adj}{adjust the postion of the legend in x and y directions.}
 }
 \value{
@@ -131,7 +134,7 @@ some others are only relevant for specific legend types (see Details).
 }
 \details{
 Some arguments are available for all types of legend: \code{val}, \code{pos}, \code{title},
-\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size}, \code{return_bbox}).
+\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size}, \code{return_bbox} and \code{mar}).
 
 Relevant arguments for each specific legend types:
 \itemize{

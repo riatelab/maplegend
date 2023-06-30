@@ -24,6 +24,7 @@
 #' @param pch_na pch of the symbols for missing values
 #' @param lwd width of the symbols borders,
 #' @param box_cex width and height cex of boxes
+#' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
 #' @param adj adj
@@ -59,6 +60,7 @@ leg_symb <- function(pos = "left",
                      size = 1,
                      box_cex = c(1, 1),
                      return_bbox = FALSE,
+                     mar = par("mar"),
                      adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
   inset <- insetf * size

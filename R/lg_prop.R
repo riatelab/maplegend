@@ -21,6 +21,7 @@
 #' "prop_line" and "grad_line")
 #' @param bg background of the legend
 #' @param fg foreground of the legend
+#' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
 #' @param self_adjust if TRUE values are self-adjusted to keep min, max and
@@ -52,6 +53,7 @@ leg_prop <- function(pos = "left",
                      size = 1,
                      self_adjust = FALSE,
                      return_bbox = FALSE,
+                     mar = par("mar"),
                      box_cex,
                      adj = c(0, 0)) {
   insetf <- strwidth("MM", units = "user", cex = 1)
@@ -63,7 +65,7 @@ leg_prop <- function(pos = "left",
   }
 
   if (self_adjust == TRUE) {
-    val <- self_adjust_v(val, inches, val_cex)
+    val <- self_adjust_v(val, inches, val_cex, mar = mar)
   }
   val <- sort(val, decreasing = TRUE)
 
@@ -85,7 +87,8 @@ leg_prop <- function(pos = "left",
       y = xy_title$y - inset / 2,
       val = val,
       inches = inches,
-      symbol = symbol
+      symbol = symbol,
+      mar = mar
     )
     xy_lines <- get_xy_lines(
       x = xy_symbols$x[1],
@@ -183,22 +186,24 @@ leg_prop <- function(pos = "left",
 }
 
 
-myinch <- function(x) {
-  x * diff(par("usr")[1L:2])/par("fin")[1L]
+myinch <- function(x, mar) {
+  op <- par(mar = mar, no.readonly = TRUE)
+  on.exit(par(op), add = TRUE)
+  x * diff(par("usr")[3:4]) / par("pin")[2L]
 }
 
 
 
 
 # get prop symbols size and dim  from topleft corner
-get_xy_s <- function(x, y, val, inches, symbol) {
+get_xy_s <- function(x, y, val, inches, symbol, mar) {
   sizes <- get_size(
     var = val,
     inches = inches,
     val_max = max(val),
     symbol = symbol
   )
-  sizesi <- myinch(sizes)
+  sizesi <- myinch(sizes, mar)
   x <- rep(x + sizesi[1], length(val))
   y <- y - sizesi[1] * 2 + sizesi
   h <- sizesi[1] * 2
@@ -242,7 +247,7 @@ get_xy_rect_s <- function(xy_title, xy_symbols, xy_lines, xy_lab, inset) {
 
 
 
-self_adjust_v <- function(var, inches, val_cex) {
+self_adjust_v <- function(var, inches, val_cex, mar) {
   # get min & max
   val <- c(min(var), max(var))
   # factors
@@ -275,7 +280,7 @@ self_adjust_v <- function(var, inches, val_cex) {
     inches = inches,
     val_max = max(val),
     symbol = "circle"
-  ))
+  ), mar = mar)
   # texte size labels in map units
   h <- max(strheight(val, units = "user", cex = val_cex, font = 1)) * 1.2
 
@@ -331,7 +336,6 @@ self_adjust_v <- function(var, inches, val_cex) {
 
 # Plot symbols
 plot_symbols <- function(symbol, dots, sizes, mycols, border, lwd, inches) {
-  inches = FALSE
   switch(symbol,
     circle = {
       symbols(
