@@ -23,7 +23,7 @@ leg_cont_h <- function(pos = "left",
   if (length(pal) != 1) {
     pal <- grDevices::colorRampPalette(colors = c(pal))(100)
   } else {
-    pal <- hcl.colors(n = 100, palette = pal)
+    pal <- hcl.colors(n = 100, palette = pal, rev = TRUE)
   }
   val <- val_cont(val, val_rnd)
 
