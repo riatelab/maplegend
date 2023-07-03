@@ -16,7 +16,8 @@
 #' * **prop_line** for proportional lines maps,
 #' * **grad_line** for graduated lines maps.
 #' @param val
-#' vector of value(s) (for "prop" and "prop_line", at least c(min, max) for "cont"),
+#' vector of value(s) (for "prop" and "prop_line", at least c(min, max)
+#' for "cont"),
 #' vector of categories (for "symb" and "typo"),
 #' break labels (for "choro" and "grad_line").
 #' @param pal a color palette name or a vector of colors
@@ -80,7 +81,7 @@ leg_comp <- function(leg,
                      self_adjust = FALSE,
                      lwd = 0.7,
                      border = "#333333",
-                     pch = 1:length(val),
+                     pch = 1:seq_along(val),
                      cex = rep(1, length(val)),
                      title = "Legend Title",
                      val_rnd = 0,

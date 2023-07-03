@@ -42,7 +42,7 @@
 leg_symb <- function(pos = "left",
                      val,
                      pal = "Plasma",
-                     pch = 1:length(val),
+                     pch = seq_along(val),
                      cex = rep(1, length(val)),
                      border = "#333333",
                      lwd = .7,

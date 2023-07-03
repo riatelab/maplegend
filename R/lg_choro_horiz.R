@@ -151,8 +151,6 @@ leg_choro_h <- function(pos = "left",
         strwidth(val[n + 1], units = "user", cex = val_cex, font = 1) / 2
     }
 
-
-    # print(val[1])
     xy_rect <- list(
       xleft = xy_title$x,
       ybottom = xy_box_lab$y[1] - insetf / 8,

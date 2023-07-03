@@ -320,7 +320,8 @@ self_adjust_v <- function(var, inches, val_cex, mar) {
     a[1] <- TRUE
   }
 
-  # if min value not selected, remove min selected value and replace with min value
+  # if min value not selected, remove min selected value and replace
+  # with min value
   if (a[1] == FALSE) {
     a[which(a)[1]] <- FALSE
     a[1] <- TRUE

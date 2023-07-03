@@ -36,7 +36,7 @@ leg_draw <- function(x,
   dimleg <- list()
   insetf <- strwidth("MM", units = "user", cex = 1) / 4
 
-  for (i in 1:length(x$layers)) {
+  for (i in seq_along(x$layers)) {
     x$layers[[i]]$pos <- pos
     x$layers[[i]]$return_bbox <- TRUE
     x$layers[[i]]$mar <- mar
@@ -68,9 +68,10 @@ leg_draw <- function(x,
   }
 
 
-  for (i in 1:length(x$layers)) {
+  for (i in seq_along(x$layers)) {
     x$layers[[i]]$mar <- mar
-    x$layers[[i]]$pos <- c(xleg[i], yleg[i]) + c(-(size - 1) * insetf, (size - 1) * insetf)
+    x$layers[[i]]$pos <-
+      c(xleg[i], yleg[i]) + c(-(size - 1) * insetf, (size - 1) * insetf)
     x$layers[[i]]$return_bbox <- FALSE
     x$layers[[i]]$frame <- FALSE
     x$layers[[i]]$bg <- bg
@@ -94,7 +95,6 @@ get_pos_and_frame <- function(pos, dimleg, adj) {
   xright <- max(unlist(lapply(dimleg, function(x) {
     x$xright
   })))
-  width <- xright - xleft
   heights <- unlist(lapply(dimleg, function(x) {
     x$ytop - x$ybottom
   }))

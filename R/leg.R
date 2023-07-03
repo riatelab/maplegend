@@ -14,7 +14,8 @@
 #' * **prop_line** for proportional lines maps,
 #' * **grad_line** for graduated lines maps.
 #' @param val
-#' vector of value(s) (for "prop" and "prop_line", at least c(min, max) for "cont"),
+#' vector of value(s) (for "prop" and "prop_line", at least c(min, max)
+#' for "cont"),
 #' vector of categories (for "symb" and "typo"),
 #' break labels (for "choro" and "grad_line").
 #' @param pos position of the legend. It can be one of 'topleft', 'top',
@@ -61,7 +62,8 @@
 #' @export
 #' @details
 #' Some arguments are available for all types of legend: `val`, `pos`, `title`,
-#' `title_cex`, `val_cex`, `frame`, `bg`, `fg`, `size`, `return_bbox` and `mar`).
+#' `title_cex`, `val_cex`, `frame`, `bg`, `fg`, `size`,
+#' `return_bbox` and `mar`).
 #'
 #'
 #' Relevant arguments for each specific legend types:
@@ -85,14 +87,17 @@
 #' leg(type = "typo", val = c("A", "B", "C"), pos = "top")
 #' leg(type = "symb", val = c("A", "B", "C"), pos = "topright")
 #' leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
-#' leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1, 5, 10))
+#' leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright",
+#'     lwd = c(1, 5, 10))
 #'
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 #' leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
-#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
-#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright", horiz = FALSE)
+#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft",
+#'     horiz = TRUE)
+#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright",
+#'     horiz = FALSE)
 #' box()
 #'
 #' # full example
@@ -211,13 +216,19 @@
 #' # Positions
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-#' leg(type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1), title = "bottomleft1")
-#' leg(type = "choro", val = c(10, 50, 100), pos = "bottomright", adj = c(0, 2), title = "bottomright2", frame = TRUE)
-#' leg(type = "prop", val = c(10, 50, 100), pos = "topleft", adj = c(0, -2), title = "topleft2")
+#' leg(type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1),
+#'     title = "bottomleft1")
+#' leg(type = "choro", val = c(10, 50, 100), pos = "bottomright",
+#'     adj = c(0, 2), title = "bottomright2", frame = TRUE)
+#' leg(type = "prop", val = c(10, 50, 100), pos = "topleft",
+#'     adj = c(0, -2), title = "topleft2")
 #' box()
-#' mtext(text = "A small text on 1 line", side = 1, adj = .01, line = -1, cex = .8)
-#' mtext(text = "A small text\non 2 lines", side = 1, adj = .99, line = -1, cex = .8)
-#' mtext(text = "A large text on 1 line", side = 3, adj = .01, line = -1.5, cex = 1.2)
+#' mtext(text = "A small text on 1 line", side = 1, adj = .01,
+#'       line = -1, cex = .8)
+#' mtext(text = "A small text\non 2 lines", side = 1, adj = .99,
+#'      line = -1, cex = .8)
+#' mtext(text = "A large text on 1 line", side = 3, adj = .01,
+#'       line = -1.5, cex = 1.2)
 leg <- function(type,
                 val,
                 pos = "left",
@@ -228,7 +239,7 @@ leg <- function(type,
                 self_adjust = FALSE,
                 lwd = 0.7,
                 border = "#333333",
-                pch = 1:length(val),
+                pch = seq_along(val),
                 cex = rep(1, length(val)),
                 title = "Legend Title",
                 title_cex = 0.8 * size,
@@ -272,6 +283,7 @@ leg <- function(type,
   if (horiz) {
     h <- "_h"
   }
-  x <- do.call(what = get(paste0("leg_", type, h)), args, envir = parent.frame())
+  x <- do.call(what = get(paste0("leg_", type, h)), args,
+               envir = parent.frame())
   return(invisible(x))
 }

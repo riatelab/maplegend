@@ -3,18 +3,27 @@ plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 box()
 
 vbox <- vector("list", 10)
-vbox[[1]] <- leg(type = "prop", val = c(10,50,100), pos = "topleft", return_bbox = TRUE)
-vbox[[2]] <- leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft", return_bbox = TRUE)
-vbox[[3]] <- leg(type = "typo", val = c("A", "B", "C"), pos = "top", return_bbox = TRUE)
-vbox[[4]] <- leg(type = "symb", val = c("A", "B", "C"), pos = "topright", return_bbox = TRUE)
-vbox[[5]] <- leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20, return_bbox = TRUE)
-vbox[[6]] <- leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1,5,10), return_bbox = TRUE)
-vbox[[7]] <- leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright", return_bbox = TRUE)
-vbox[[8]] <- leg(type = "prop", val = c(10,50,100), pos = "topleft", horiz = TRUE, return_bbox = TRUE)
-vbox[[9]] <- leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE, return_bbox = TRUE)
-vbox[[10]] <- leg(type = "cont", val = c(10, 1000), pos = "bottomleft", horiz = TRUE, return_bbox = TRUE)
+vbox[[1]] <- leg(type = "prop", val = c(10, 50, 100), pos = "topleft",
+                 return_bbox = TRUE)
+vbox[[2]] <- leg(type = "choro", val = c(10, 20, 30, 40, 50),
+                 pos = "bottomleft", return_bbox = TRUE)
+vbox[[3]] <- leg(type = "typo", val = c("A", "B", "C"), pos = "top",
+                 return_bbox = TRUE)
+vbox[[4]] <- leg(type = "symb", val = c("A", "B", "C"), pos = "topright",
+                 return_bbox = TRUE)
+vbox[[5]] <- leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom",
+                 lwd = 20, return_bbox = TRUE)
+vbox[[6]] <- leg(type = "grad_line", val = c(1, 4, 10, 15),
+                 pos = "bottomright", lwd = c(1, 5, 10), return_bbox = TRUE)
+vbox[[7]] <- leg(type = "cont", val = c(10, 20, 30, 40, 50),
+                 pos = "topright", return_bbox = TRUE)
+vbox[[8]] <- leg(type = "prop", val = c(10, 50, 100), pos = "topleft",
+                 horiz = TRUE, return_bbox = TRUE)
+vbox[[9]] <- leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left",
+                 horiz = TRUE, return_bbox = TRUE)
+vbox[[10]] <- leg(type = "cont", val = c(10, 1000), pos = "bottomleft",
+                  horiz = TRUE, return_bbox = TRUE)
 
-# print(dput(vbox))
 
 vbox_ref <-
   list(

@@ -15,7 +15,7 @@ leg(
   self_adjust = FALSE,
   lwd = 0.7,
   border = "#333333",
-  pch = 1:length(val),
+  pch = seq_along(val),
   cex = rep(1, length(val)),
   title = "Legend Title",
   title_cex = 0.8 * size,
@@ -50,7 +50,8 @@ leg(
 \item \strong{grad_line} for graduated lines maps.
 }}
 
-\item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max) for "cont"),
+\item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
+for "cont"),
 vector of categories (for "symb" and "typo"),
 break labels (for "choro" and "grad_line").}
 
@@ -134,7 +135,8 @@ some others are only relevant for specific legend types (see Details).
 }
 \details{
 Some arguments are available for all types of legend: \code{val}, \code{pos}, \code{title},
-\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size}, \code{return_bbox} and \code{mar}).
+\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size},
+\code{return_bbox} and \code{mar}).
 
 Relevant arguments for each specific legend types:
 \itemize{
@@ -157,14 +159,17 @@ leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft")
 leg(type = "typo", val = c("A", "B", "C"), pos = "top")
 leg(type = "symb", val = c("A", "B", "C"), pos = "topright")
 leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
-leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1, 5, 10))
+leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright",
+    lwd = c(1, 5, 10))
 
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
-leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
-leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright", horiz = FALSE)
+leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft",
+    horiz = TRUE)
+leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright",
+    horiz = FALSE)
 box()
 
 # full example
@@ -283,11 +288,17 @@ leg(
 # Positions
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1), title = "bottomleft1")
-leg(type = "choro", val = c(10, 50, 100), pos = "bottomright", adj = c(0, 2), title = "bottomright2", frame = TRUE)
-leg(type = "prop", val = c(10, 50, 100), pos = "topleft", adj = c(0, -2), title = "topleft2")
+leg(type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1),
+    title = "bottomleft1")
+leg(type = "choro", val = c(10, 50, 100), pos = "bottomright",
+    adj = c(0, 2), title = "bottomright2", frame = TRUE)
+leg(type = "prop", val = c(10, 50, 100), pos = "topleft",
+    adj = c(0, -2), title = "topleft2")
 box()
-mtext(text = "A small text on 1 line", side = 1, adj = .01, line = -1, cex = .8)
-mtext(text = "A small text\non 2 lines", side = 1, adj = .99, line = -1, cex = .8)
-mtext(text = "A large text on 1 line", side = 3, adj = .01, line = -1.5, cex = 1.2)
+mtext(text = "A small text on 1 line", side = 1, adj = .01,
+      line = -1, cex = .8)
+mtext(text = "A small text\non 2 lines", side = 1, adj = .99,
+     line = -1, cex = .8)
+mtext(text = "A large text on 1 line", side = 3, adj = .01,
+      line = -1.5, cex = 1.2)
 }
