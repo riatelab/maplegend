@@ -12,7 +12,7 @@ vbox[[3]] <- leg(type = "typo", val = c("A", "B", "C"), pos = "top",
 vbox[[4]] <- leg(type = "symb", val = c("A", "B", "C"), pos = "topright",
                  return_bbox = TRUE)
 vbox[[5]] <- leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom",
-                 lwd = 20, return_bbox = TRUE)
+                 lwd = 20, return_bbox = TRUE, box_cex = c(1, 1))
 vbox[[6]] <- leg(type = "grad_line", val = c(1, 4, 10, 15),
                  pos = "bottomright", lwd = c(1, 5, 10), return_bbox = TRUE)
 vbox[[7]] <- leg(type = "cont", val = c(10, 20, 30, 40, 50),
