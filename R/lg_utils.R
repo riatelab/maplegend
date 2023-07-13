@@ -376,7 +376,7 @@ val_cont <- function(val, val_rnd) {
   } else if (length(val) > 2) {
     val_ref <- val
   } else {
-    stop("You need to provide at leat to values for 'val'", call. = FALSE)
+    stop("You need to provide at least two values for 'val'", call. = FALSE)
   }
   indices <- round((val_ref - min(val)) / (max(val) - min(val)) * 100, 0) + 1
   val_ref <- get_val_rnd(val_ref, val_rnd)
