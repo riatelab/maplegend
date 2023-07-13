@@ -93,9 +93,9 @@ leg_comp <- function(leg,
                      box_border = "333333",
                      box_cex = c(1, 1),
                      horiz = FALSE) {
-  res <- as.list(match.call())
-  res <- res[-1]
+  res <- as.list(match.call()[-1])
   res <- lapply(res, eval)
+
   res <- clean_input(res, type = type)
   if (missing(leg)) {
     leg <- list()
