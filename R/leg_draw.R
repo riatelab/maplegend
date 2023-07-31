@@ -36,6 +36,9 @@ leg_draw <- function(x,
   dimleg <- list()
   insetf <- strwidth("MM", units = "user", cex = 1) / 4
 
+
+  if (any(is.na(pos))){return(invisible(NULL))}
+
   for (i in seq_along(x$layers)) {
     x$layers[[i]]$pos <- pos
     x$layers[[i]]$return_bbox <- TRUE
@@ -48,6 +51,7 @@ leg_draw <- function(x,
 
     dimleg[[i]] <- do.call(leg, x$layers[[i]])
   }
+
 
   res <- get_pos_and_frame(pos = pos, dimleg = dimleg, adj = adj)
   xleg <- res$xleg
