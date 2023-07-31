@@ -23,6 +23,7 @@ vbox[[9]] <- leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left",
                  horiz = TRUE, return_bbox = TRUE)
 vbox[[10]] <- leg(type = "cont", val = c(10, 1000), pos = "bottomleft",
                   horiz = TRUE, return_bbox = TRUE)
+# print(dput(vbox))
 
 
 vbox_ref <-
@@ -71,21 +72,21 @@ vbox_ref <-
     ),
     list(
       xleft = -0.102790697674419,
-      ybottom = 0.81355523255814,
+      ybottom = 0.823241279069768,
       xright = 0.189643990387275,
       ytop = 1.04
     ),
     list(
       xleft = -0.102790697674419,
-      ybottom = 0.420510174418605,
+      ybottom = 0.425353197674419,
       xright = 0.413825581395349,
-      ytop = 0.550431686046512
+      ytop = 0.545588662790698
     ),
     list(
       xleft = -0.102790697674419,
       ybottom = -0.04,
       xright = 0.507430232558139,
-      ytop = 0.089921511627907
+      ytop = 0.0802354651162791
     )
   )
 

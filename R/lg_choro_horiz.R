@@ -95,7 +95,7 @@ leg_choro_h <- function(pos = "left",
         units = "user",
         cex = val_cex, font = 1
       ) / 2),
-      y = xy_title$y - inset / 2,
+      y = xy_title$y - inset / 3,
       n = n,
       w = w,
       h = h,

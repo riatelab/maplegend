@@ -83,7 +83,7 @@ leg_typo <- function(pos = "topright",
     )
     xy_box <- get_xy_box(
       x = xy_title$x,
-      y = xy_title$y - inset / 2,
+      y = xy_title$y - inset / 3,
       n = n,
       w = w,
       h = h,

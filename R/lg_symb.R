@@ -109,7 +109,7 @@ leg_symb <- function(pos = "left",
 
     xy_box <- get_xy_box(
       x = xy_title$x,
-      y = xy_title$y - inset / 2,
+      y = xy_title$y - inset / 3,
       n = n,
       w = w_cex,
       h = h_cex,
@@ -125,7 +125,7 @@ leg_symb <- function(pos = "left",
 
     xy_box_lab <- get_xy_box_lab(
       x = xy_title$x + max(c(w_cex, w_cex_na)) + inset / 4,
-      y = xy_title$y - inset / 2,
+      y = xy_title$y - inset / 3,
       h = h_cex,
       val = val,
       val_cex = val_cex,

@@ -84,7 +84,7 @@ leg_prop <- function(pos = "left",
     )
     xy_symbols <- get_xy_s(
       x = xy_title$x,
-      y = xy_title$y - inset / 2,
+      y = xy_title$y - inset / 3,
       val = val,
       inches = inches,
       symbol = symbol,
@@ -191,8 +191,6 @@ myinch <- function(x, mar) {
   on.exit(par(op), add = TRUE)
   x * diff(par("usr")[3:4]) / par("pin")[2L]
 }
-
-
 
 
 # get prop symbols size and dim  from topleft corner

@@ -84,7 +84,7 @@ leg_prop_h <- function(pos = "left",
     )
     xy_symbols <- get_xy_s(
       x = xy_title$x,
-      y = xy_title$y - inset / 2,
+      y = xy_title$y - inset / 3,
       val = val,
       inches = inches,
       symbol = symbol,
