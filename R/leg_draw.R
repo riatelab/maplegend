@@ -39,6 +39,10 @@ leg_draw <- function(x,
 
   if (any(is.na(pos))){return(invisible(NULL))}
 
+  if (length(pos) == 1 && pos == "interactive"){
+    pos <- interleg()
+  }
+
   for (i in seq_along(x$layers)) {
     x$layers[[i]]$pos <- pos
     x$layers[[i]]$return_bbox <- TRUE
@@ -52,14 +56,12 @@ leg_draw <- function(x,
     dimleg[[i]] <- do.call(leg, x$layers[[i]])
   }
 
-
   res <- get_pos_and_frame(pos = pos, dimleg = dimleg, adj = adj)
   xleg <- res$xleg
   yleg <- res$yleg
-  frame_c <- res$frame_c
-
 
   if (frame) {
+    frame_c <- res$frame_c
     rect(
       xleft = frame_c[1],
       ybottom = frame_c[3],
@@ -103,45 +105,46 @@ get_pos_and_frame <- function(pos, dimleg, adj) {
     x$ytop - x$ybottom
   }))
   height <- sum(heights)
-
   xleg <- rep(xleft, length(dimleg))
 
-
-
-  if (startsWith(pos, "top")) {
+  if(is.numeric(pos)){
     ytop <- max(unlist(lapply(dimleg, function(x) {
       x$ytop
     })))
     ybottom <- ytop - height
     yleg <- ybottom + rev(cumsum(rev(heights)))
+
+  } else {
+    if (startsWith(pos, "top")) {
+      ytop <- max(unlist(lapply(dimleg, function(x) {
+        x$ytop
+      })))
+      ybottom <- ytop - height
+      yleg <- ybottom + rev(cumsum(rev(heights)))
+    }
+    if (startsWith(pos, "bottom")) {
+      ybottom <- min(unlist(lapply(dimleg, function(x) {
+        x$ybottom
+      })))
+      ytop <- ybottom + height
+      yleg <- ybottom + rev(cumsum(rev(heights)))
+    }
+    if (pos %in% c("left", "right")) {
+      ymid <- dimleg[[1]][[2]] + (dimleg[[1]][[4]] - dimleg[[1]][[2]]) / 2
+      ytop <- ymid + height / 2
+      ybottom <- ytop - height
+      yleg <- ybottom + rev(cumsum(rev(heights)))
+    }
   }
 
-
-
-  if (startsWith(pos, "bottom")) {
-    ybottom <- min(unlist(lapply(dimleg, function(x) {
-      x$ybottom
-    })))
-    ytop <- ybottom + height
-    yleg <- ybottom + rev(cumsum(rev(heights)))
-  }
-
-
-  if (pos %in% c("left", "right")) {
-    ymid <- dimleg[[1]][[2]] + (dimleg[[1]][[4]] - dimleg[[1]][[2]]) / 2
-    ytop <- ymid + height / 2
-    ybottom <- ytop - height
-    yleg <- ybottom + rev(cumsum(rev(heights)))
-  }
-
-
-
-  frame_c <- c(
-    xmin = xleft,
-    xmax = xright,
-    ymin = ybottom,
-    ymax = ytop
-  )
-
-  return(list(xleg = xleg, yleg = yleg, frame_c = frame_c))
+  return(list(
+    xleg = xleg,
+    yleg = yleg,
+    frame_c = c(
+      xmin = xleft,
+      xmax = xright,
+      ymin = ybottom,
+      ymax = ytop
+    )
+  ))
 }
