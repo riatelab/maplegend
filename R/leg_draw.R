@@ -37,9 +37,11 @@ leg_draw <- function(x,
   insetf <- strwidth("MM", units = "user", cex = 1) / 4
 
 
-  if (any(is.na(pos))){return(invisible(NULL))}
+  if (any(is.na(pos))) {
+    return(invisible(NULL))
+  }
 
-  if (length(pos) == 1 && pos == "interactive"){
+  if (length(pos) == 1 && pos == "interactive") {
     pos <- interleg()
   }
 
@@ -107,13 +109,12 @@ get_pos_and_frame <- function(pos, dimleg, adj) {
   height <- sum(heights)
   xleg <- rep(xleft, length(dimleg))
 
-  if(is.numeric(pos)){
+  if (is.numeric(pos)) {
     ytop <- max(unlist(lapply(dimleg, function(x) {
       x$ytop
     })))
     ybottom <- ytop - height
     yleg <- ybottom + rev(cumsum(rev(heights)))
-
   } else {
     if (startsWith(pos, "top")) {
       ytop <- max(unlist(lapply(dimleg, function(x) {

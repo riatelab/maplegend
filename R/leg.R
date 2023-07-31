@@ -87,17 +87,23 @@
 #' leg(type = "typo", val = c("A", "B", "C"), pos = "top")
 #' leg(type = "symb", val = c("A", "B", "C"), pos = "topright")
 #' leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
-#' leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright",
-#'     lwd = c(1, 5, 10))
+#' leg(
+#'   type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright",
+#'   lwd = c(1, 5, 10)
+#' )
 #'
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 #' leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
-#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft",
-#'     horiz = TRUE)
-#' leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright",
-#'     horiz = FALSE)
+#' leg(
+#'   type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft",
+#'   horiz = TRUE
+#' )
+#' leg(
+#'   type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright",
+#'   horiz = FALSE
+#' )
 #' box()
 #'
 #' # full example
@@ -216,19 +222,31 @@
 #' # Positions
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-#' leg(type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1),
-#'     title = "bottomleft1")
-#' leg(type = "choro", val = c(10, 50, 100), pos = "bottomright",
-#'     adj = c(0, 2), title = "bottomright2", frame = TRUE)
-#' leg(type = "prop", val = c(10, 50, 100), pos = "topleft",
-#'     adj = c(0, -2), title = "topleft2")
+#' leg(
+#'   type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1),
+#'   title = "bottomleft1"
+#' )
+#' leg(
+#'   type = "choro", val = c(10, 50, 100), pos = "bottomright",
+#'   adj = c(0, 2), title = "bottomright2", frame = TRUE
+#' )
+#' leg(
+#'   type = "prop", val = c(10, 50, 100), pos = "topleft",
+#'   adj = c(0, -2), title = "topleft2"
+#' )
 #' box()
-#' mtext(text = "A small text on 1 line", side = 1, adj = .01,
-#'       line = -1, cex = .8)
-#' mtext(text = "A small text\non 2 lines", side = 1, adj = .99,
-#'      line = -1, cex = .8)
-#' mtext(text = "A large text on 1 line", side = 3, adj = .01,
-#'       line = -1.5, cex = 1.2)
+#' mtext(
+#'   text = "A small text on 1 line", side = 1, adj = .01,
+#'   line = -1, cex = .8
+#' )
+#' mtext(
+#'   text = "A small text\non 2 lines", side = 1, adj = .99,
+#'   line = -1, cex = .8
+#' )
+#' mtext(
+#'   text = "A large text on 1 line", side = 3, adj = .01,
+#'   line = -1.5, cex = 1.2
+#' )
 leg <- function(type,
                 val,
                 pos = "left",
@@ -283,7 +301,9 @@ leg <- function(type,
   if (horiz) {
     h <- "_h"
   }
-  x <- do.call(what = get(paste0("leg_", type, h)), args,
-               envir = parent.frame())
+  x <- do.call(
+    what = get(paste0("leg_", type, h)), args,
+    envir = parent.frame()
+  )
   return(invisible(x))
 }
