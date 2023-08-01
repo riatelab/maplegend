@@ -82,6 +82,7 @@ leg_prop <- function(pos = "left",
       title = title,
       title_cex = title_cex
     )
+
     xy_symbols <- get_xy_s(
       x = xy_title$x,
       y = xy_title$y - inset / 3,
@@ -90,11 +91,15 @@ leg_prop <- function(pos = "left",
       symbol = symbol,
       mar = mar
     )
+
+
+
     xy_lines <- get_xy_lines(
       x = xy_symbols$x[1],
       y = xy_symbols$y,
       sizesi = xy_symbols$s,
-      inset = inset / 4
+      inset = inset / 4,
+      symbol = symbol
     )
     xy_lab <- get_xy_lab_s(
       x = xy_lines$x1 + inset / 4,
@@ -207,15 +212,28 @@ get_xy_s <- function(x, y, val, inches, symbol, mar) {
   h <- sizesi[1] * 2
   w <- h
 
+  if (symbol =="square") {
+    n <- length(val)
+    if (n > 1) {
+      for (i in 2:n) {
+        x[i] <- x[1] + (sizesi[1] - sizesi[i])
+      }
+    }
+  }
+
   return(list(x = x, y = y, s = sizesi, h = h, w = w))
 }
 
 # lines from top of symbols to labels
-get_xy_lines <- function(x, y, sizesi, inset) {
+get_xy_lines <- function(x, y, sizesi, inset, symbol) {
   x0 <- rep(x, length(sizesi))
   x1 <- rep(x + sizesi[1] + inset, length(sizesi))
+  w <- x1[1] - x0[1] + inset
+  if (symbol == "square") {
+    x0 <- rep(x + sizesi[1], length(sizesi))
+  }
   y0 <- y1 <- y + sizesi
-  return(list(x0 = x0, x1 = x1, y0 = y0, y1 = y1, w = x1[1] - x0[1] + inset))
+  return(list(x0 = x0, x1 = x1, y0 = y0, y1 = y1, w = w))
 }
 
 # get labels position
