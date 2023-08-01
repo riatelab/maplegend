@@ -22,7 +22,7 @@
 #' @param bg background of the legend
 #' @param fg foreground of the legend
 #' @param mar plot margins
-#' @param box_cex width and height cex of boxes
+#' @param box_cex offset between circles
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
 #' @param adj adj
@@ -94,11 +94,10 @@ leg_prop_h <- function(pos = "left",
     n <- length(val)
     xx <- xy_symbols$x
     ss <- xy_symbols$s
-    xx[1] <- xx[1]
+    ss <- pmax(ss, strwidth(val, units = "user", cex = val_cex, font = 1) / 2)
     if (n > 1) {
       for (i in 2:n) {
-        xx[i] <- xx[i - 1] + sum(ss[(i - 1):i])
-        xx[i] <- xx[i] + inset / 8 * box_cex
+        xx[i] <- xx[i - 1] + sum(ss[(i - 1):i]) + inset / 8 * box_cex[1]
       }
     }
     xy_symbols$x <- xx
@@ -109,7 +108,7 @@ leg_prop_h <- function(pos = "left",
       y = xy_symbols$y -
         xy_symbols$s -
         strheight(val[1], units = "user", cex = val_cex, font = 1) - inset / 8,
-      w = strheight(val, units = "user", cex = val_cex, font = 1)
+      w = strwidth(val, units = "user", cex = val_cex, font = 1)
     )
 
     xy_rect <- list(
@@ -119,12 +118,10 @@ leg_prop_h <- function(pos = "left",
         max(
           xy_title$x + xy_title$w,
           xy_symbols$x[n],
-          xy_lab$x[n] + xy_lab$w
+          xy_lab$x[n] + xy_lab$w[n] / 2
         ),
       ytop = xy_title$y + xy_title$h
     )
-
-
 
     if (!is.null(xy_leg)) {
       break
