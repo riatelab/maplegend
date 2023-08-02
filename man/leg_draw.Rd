@@ -8,9 +8,10 @@ leg_draw(
   x,
   pos = "bottomright",
   size = 1,
-  bg = "white",
-  fg = "black",
+  bg = "#f7f7f7",
+  fg = "#333333",
   frame = TRUE,
+  frame_border = fg,
   title_cex = 0.8 * size,
   val_cex = 0.6 * size,
   adj = c(0, 0),
@@ -30,6 +31,8 @@ leg_draw(
 \item{fg}{foreground color of the legend}
 
 \item{frame}{if TRUE the legend is plotted within a frame}
+
+\item{frame_border}{border color of the frame}
 
 \item{title_cex}{size of the legend title}
 

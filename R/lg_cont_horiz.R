@@ -9,6 +9,7 @@ leg_cont_h <- function(pos = "left",
                        no_data = FALSE,
                        no_data_txt = "No Data",
                        frame = FALSE,
+                       frame_border = fg,
                        box_border = "#333333",
                        bg = "#f7f7f7",
                        fg = "#333333",
@@ -38,6 +39,7 @@ leg_cont_h <- function(pos = "left",
     no_data_txt = no_data_txt, frame = frame, box_border = NA,
     bg = bg, fg = fg,
     size = size, box_cex = box_cex, horiz = TRUE,
+    frame_border = frame_border,
     return_bbox = return_bbox, mar = mar, adj = adj
   )
 }

@@ -11,7 +11,7 @@
 #' @param mar plot margins
 #' @param title_cex size of the legend title
 #' @param val_cex size of the values in the legend
-#'
+#' @param frame_border border color of the frame
 #' @return A composed legend is plotted. Nothing is returned.
 #' @export
 #'
@@ -26,9 +26,10 @@
 leg_draw <- function(x,
                      pos = "bottomright",
                      size = 1,
-                     bg = "white",
-                     fg = "black",
+                     bg = "#f7f7f7",
+                     fg = "#333333",
                      frame = TRUE,
+                     frame_border = fg,
                      title_cex = 0.8 * size,
                      val_cex = 0.6 * size,
                      adj = c(0, 0),
@@ -70,7 +71,7 @@ leg_draw <- function(x,
       xright = frame_c[2],
       ytop = frame_c[4],
       col = bg,
-      border = fg,
+      border = frame_border,
       xpd = TRUE
     )
   }

@@ -22,6 +22,7 @@
 #' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
+#' @param frame_border border color of the frame
 #' @param adj adj
 #' @keywords internal
 #' @noRd
@@ -41,6 +42,7 @@ leg_typo <- function(pos = "topright",
                      no_data = FALSE,
                      no_data_txt = "No Data",
                      frame = FALSE,
+                     frame_border = fg,
                      box_border = "#333333",
                      bg = "#f7f7f7",
                      fg = "#333333",
@@ -154,7 +156,7 @@ leg_typo <- function(pos = "topright",
       xright = xy_rect[[3]] + insetf / 4,
       ytop = xy_rect[[4]] + insetf / 4,
       col = bg,
-      border = fg,
+      border = frame_border,
       lwd = .7
     )
   }

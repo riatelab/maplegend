@@ -21,6 +21,7 @@
 #' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
+#' @param frame_border border color of the frame
 #' @param adj adj
 #' @keywords internal
 #' @noRd
@@ -39,6 +40,7 @@ leg_prop_line <- function(pos = "left",
                           val_cex = .6 * size,
                           val_rnd = 0,
                           frame = FALSE,
+                          frame_border = fg,
                           bg = "#f7f7f7",
                           fg = "#333333",
                           size = 1,
@@ -141,7 +143,7 @@ leg_prop_line <- function(pos = "left",
       xright = xy_rect[[3]] + insetf / 4,
       ytop = xy_rect[[4]] + insetf / 4,
       col = bg,
-      border = fg,
+      border = frame_border,
       lwd = .7
     )
   }

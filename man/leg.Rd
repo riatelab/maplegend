@@ -26,9 +26,10 @@ leg(
   pch_na = 4,
   no_data = FALSE,
   no_data_txt = "No Data",
-  box_border = "333333",
+  box_border = "#333333",
   box_cex = c(1, 1),
   horiz = FALSE,
+  frame_border = fg,
   frame = FALSE,
   bg = "#f7f7f7",
   fg = "#333333",
@@ -109,6 +110,8 @@ the legend}
 
 \item{horiz}{if TRUE plot an horizontal legend}
 
+\item{frame_border}{border color of the frame}
+
 \item{frame}{if TRUE the legend is plotted within a frame}
 
 \item{bg}{background color of the legend}
@@ -135,7 +138,7 @@ some others are only relevant for specific legend types (see Details).
 }
 \details{
 Some arguments are available for all types of legend: \code{val}, \code{pos}, \code{title},
-\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size},
+\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size}, \code{adj},
 \code{return_bbox} and \code{mar}).
 
 Relevant arguments for each specific legend types:

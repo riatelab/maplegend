@@ -28,6 +28,7 @@
 #' intermediate rounded values
 #' @param box_cex do nothing
 #' @param adj adj
+#' @param frame_border border color of the frame
 #' @keywords internal
 #' @noRd
 #' @return No return value, a legend is displayed.
@@ -48,6 +49,7 @@ leg_prop <- function(pos = "left",
                      val_cex = .6 * size,
                      val_rnd = 0,
                      frame = FALSE,
+                     frame_border = fg,
                      bg = "#f7f7f7",
                      fg = "#333333",
                      size = 1,
@@ -148,7 +150,7 @@ leg_prop <- function(pos = "left",
       xright = xy_rect[[3]] + insetf / 4,
       ytop = xy_rect[[4]] + insetf / 4,
       col = bg,
-      border = fg,
+      border = frame_border,
       lwd = .7
     )
   }

@@ -58,11 +58,12 @@
 #' @param pch_na type of the symbols for missing values
 #' @param horiz if TRUE plot an horizontal legend
 #' @param adj adjust the postion of the legend in x and y directions.
+#' @param frame_border border color of the frame
 #' @return No return value, a legend is displayed.
 #' @export
 #' @details
 #' Some arguments are available for all types of legend: `val`, `pos`, `title`,
-#' `title_cex`, `val_cex`, `frame`, `bg`, `fg`, `size`,
+#' `title_cex`, `val_cex`, `frame`, `bg`, `fg`, `size`, `adj`,
 #' `return_bbox` and `mar`).
 #'
 #'
@@ -268,9 +269,10 @@ leg <- function(type,
                 pch_na = 4,
                 no_data = FALSE,
                 no_data_txt = "No Data",
-                box_border = "333333",
+                box_border = "#333333",
                 box_cex = c(1, 1),
                 horiz = FALSE,
+                frame_border = fg,
                 frame = FALSE,
                 bg = "#f7f7f7",
                 fg = "#333333",
@@ -302,7 +304,8 @@ leg <- function(type,
     h <- "_h"
   }
   x <- do.call(
-    what = get(paste0("leg_", type, h)), args,
+    what = get(paste0("leg_", type, h)),
+    args = args,
     envir = parent.frame()
   )
   return(invisible(x))
