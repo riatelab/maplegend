@@ -1,6 +1,6 @@
 leg_cont_h <- function(pos = "left",
                        val,
-                       pal = "Plasma",
+                       pal = "Inferno",
                        title = "Legend Title",
                        title_cex = .8 * size,
                        val_cex = .6 * size,

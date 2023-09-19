@@ -36,7 +36,7 @@
 #' leg_choro(val = c(1, 2, 3, 4), pal = c("red1", "red3", "red4"))
 leg_choro_h <- function(pos = "left",
                         val,
-                        pal = "Plasma",
+                        pal = "Inferno",
                         title = "Legend Title",
                         title_cex = .8 * size,
                         val_cex = .6 * size,

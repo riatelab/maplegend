@@ -8,7 +8,7 @@ leg_comp(
   leg,
   type,
   val,
-  pal = "Plasma",
+  pal = "Inferno",
   col = "tomato4",
   inches = 0.3,
   symbol = "circle",

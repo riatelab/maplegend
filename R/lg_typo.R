@@ -34,7 +34,7 @@
 #' leg_typo(val = c("type A", "type B"), pal = c("navy", "tomato"))
 leg_typo <- function(pos = "topright",
                      val,
-                     pal = "Plasma",
+                     pal = "Inferno",
                      title = "Legend Title",
                      title_cex = .8 * size,
                      val_cex = .6 * size,

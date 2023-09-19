@@ -74,7 +74,7 @@
 leg_comp <- function(leg,
                      type,
                      val,
-                     pal = "Plasma",
+                     pal = "Inferno",
                      col = "tomato4",
                      inches = .3,
                      symbol = "circle",
