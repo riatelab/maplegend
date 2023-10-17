@@ -8,213 +8,87 @@
 [![R-CMD-check](https://github.com/riatelab/maplegend/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/riatelab/maplegend/actions/workflows/R-CMD-check.yaml)
 [![Codecov test
 coverage](https://codecov.io/gh/riatelab/maplegend/branch/main/graph/badge.svg)](https://app.codecov.io/gh/riatelab/maplegend?branch=main)
+[![Project Status: Active – The project has reached a stable, usable
+state and is being actively
+developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
 <!-- badges: end -->
 
-The goal of maplegend is to create legends for maps.
+Create legends for maps and other graphics. Thematic maps need to be
+accompanied by legible legends to be fully comprehensible. This package
+offers a wide range of legends useful for cartography, some of which may
+also be useful for other types of graphics.
 
 ## Installation
 
-You can install the development version of maplegend from GitHub with:
+You can install the released version of `maplegend` from CRAN with:
 
 ``` r
-# install.packages("remotes")
-remotes::install_github("riatelab/maplegend")
+install.packages("maplegend")
+```
+
+Alternatively, you can install the development version of `maplegend`
+from GitHub (**dev** branch) with:
+
+``` r
+remotes::install_github("riatelab/maplegend", ref = "dev")
 ```
 
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+The main function is `leg()`. Its `type` argument defines the legend
+type.
 
 ``` r
 library(maplegend)
-## basic example code
-# minimal example
+opar <- par(mar = c(1,1,1,1), mfrow = c(1,2))
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-box()
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft")
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft")
 leg(type = "typo", val = c("A", "B", "C"), pos = "top")
 leg(type = "symb", val = c("A", "B", "C"), pos = "topright")
 leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
 leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1, 5, 10))
-```
-
-<img src="man/figures/README-example-1.png" width="600px" />
-
-``` r
-
+box()
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 100), ylim = c(-50,50), asp = 1)
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
 leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
-leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright", horiz = FALSE)
+leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = c(75, 25), horiz = FALSE)
 box()
 ```
 
-<img src="man/figures/README-example-2.png" width="600px" />
+![](man/figures/README-example-1.png)<!-- -->
+
+It is possible to create composed legends with `leg_comp()` and
+`leg_draw()`.
 
 ``` r
-
-# full example
+opar <- par(mar = c(1,1,1,1))
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(
-  type = "prop",
-  val = c(5, 100),
-  pos = "top",
-  inches = .4,
-  symbol = "circle",
-  col = "#940000",
-  lwd = 1,
-  border = "#9494ff",
-  val_rnd = 1,
-  self_adjust = TRUE,
-  title = "Proportional Symbols",
-  title_cex = 1,
-  val_cex = .8,
-  bg = "grey10",
-  fg = "yellow",
-  frame = TRUE
-)
-```
-
-<img src="man/figures/README-example-3.png" width="600px" />
-
-``` r
-
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(
-  type = "choro",
-  val = c(10, 20, 30, 40, 50),
-  pos = "top",
-  pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
-  val_rnd = 2,
-  col_na = "grey",
-  no_data = TRUE,
-  no_data_txt = "No data",
-  box_border = "cornsilk",
-  box_cex = c(2, 1),
-  title = "Choropleth (sequential)"
-)
-```
-
-<img src="man/figures/README-example-4.png" width="600px" />
-
-``` r
-
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(
-  type = "typo",
-  val = c("A", "B", "C"),
-  pos = "top",
-  pal = "Dynamic",
-  col_na = "grey",
-  no_data = TRUE,
-  no_data_txt = "No data",
-  box_cex = c(1.2, 1),
-  title = "Typology (categories)"
-)
-```
-
-<img src="man/figures/README-example-5.png" width="600px" />
-
-``` r
-
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(
-  type = "symb",
-  val = c("A", "B", "C"),
-  pos = "top",
-  pch = 21:23,
-  cex = c(4, 4, 2),
-  pal = "Inferno",
-  lwd = 2,
-  border = "red",
-  col_na = "grey",
-  pch_na = 3,
-  cex_na = 1,
-  no_data = TRUE,
-  no_data_txt = "No data",
-  title = "Symbols"
-)
-```
-
-<img src="man/figures/README-example-6.png" width="600px" />
-
-``` r
-
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(
-  type = "cont",
-  val = c(1, 2, 3, 4, 5),
-  pos = "top",
-  pal = "Inferno",
-  val_rnd = 2,
-  horiz = TRUE,
-  box_cex = c(2, 1),
-  title = "Continuous"
-)
-```
-
-<img src="man/figures/README-example-7.png" width="600px" />
-
-``` r
-
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(
-  type = "prop_line",
-  val = c(54, 505, 1025),
-  pos = "top",
-  lwd = 15,
-  col = "green",
-  val_rnd = -1,
-  box_cex = c(2, .5),
-  title = "Proportional Lines",
-  bg = "black",
-  fg = "white",
-  frame = TRUE
-)
-```
-
-<img src="man/figures/README-example-8.png" width="600px" />
-
-``` r
-
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(
-  type = "grad_line",
-  val = c(1.25, 4.07, 10.001, 15.071),
-  pos = "top",
-  lwd = c(1, 7, 15),
-  col = "#C130ff",
-  val_rnd = 3,
-  box_cex = c(2, 1),
-  title = "Graduated Lines"
-)
-```
-
-<img src="man/figures/README-example-9.png" width="600px" />
-
-``` r
-
-# Positions
-plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-leg(type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1), title = "bottomleft1")
-leg(type = "choro", val = c(10, 50, 100), pos = "bottomright", adj = c(0, 2), title = "bottomright2", frame = TRUE)
-leg(type = "prop", val = c(10, 50, 100), pos = "topleft", adj = c(0, -2), title = "topleft2")
+leg_comp(type = "prop", val = c(10, 50, 100)) |>
+  leg_comp(type = "typo", val = c("A", "B", "C")) |>
+  leg_draw(pos = "top", bg = "lightblue", fg = "darkblue", frame_border = NA)
 box()
-mtext(text = "A small text on 1 line", side = 1, adj = .01, line = -1, cex = .8)
-mtext(text = "A small text\non 2 lines", side = 1, adj = .99, line = -1, cex = .8)
-mtext(text = "A large text on 1 line", side = 3, adj = .01, line = -1.5, cex = 1.2)
+par(opar)
 ```
 
-<img src="man/figures/README-example-10.png" width="600px" />
+![](man/figures/README-example2-1.png)<!-- -->
+
+## Background
+
+This package is primarily intended as a backend for the construction of
+legends in the [`mapsf`](https://riatelab.github.io/mapsf/) package.
+However, it can also be used independently from `mapsf` with `base`
+plots or even with `igraph` plots.
+
+## Community Guidelines
+
+One can contribute to the package through [pull
+requests](https://github.com/riatelab/maplegend/pulls) and report issues
+or ask questions [here](https://github.com/riatelab/maplegend/issues).  
+This project uses [conventional
+commits](https://www.conventionalcommits.org/en/v1.0.0-beta.3/) and
+[semantic versioning](https://semver.org/).
