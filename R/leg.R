@@ -59,7 +59,7 @@
 #' @param horiz if TRUE plot an horizontal legend
 #' @param adj adjust the postion of the legend in x and y directions.
 #' @param frame_border border color of the frame
-#' @return No return value, a legend is displayed.
+#' @return No value is returned, a legend is displayed.
 #' @export
 #' @details
 #' Some arguments are available for all types of legend: `val`, `pos`, `title`,

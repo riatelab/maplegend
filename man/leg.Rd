@@ -128,7 +128,7 @@ No legend is plotted.}
 \item{adj}{adjust the postion of the legend in x and y directions.}
 }
 \value{
-No return value, a legend is displayed.
+No value is returned, a legend is displayed.
 }
 \description{
 Plot different types of legend. The "type" argument defines the

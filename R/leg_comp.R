@@ -3,7 +3,7 @@
 #' The "type" argument defines the
 #' legend type.
 #' Please note that some arguments are available for all types of legend and
-#' some others are only relevant for specific legend types (see Details).
+#' some others are only relevant for specific legend types.
 #'
 #' @md
 #' @param leg legend object
@@ -48,21 +48,6 @@
 #' @param horiz if TRUE plot an horizontal legend
 #' @return A list of legends parameters is returned.
 #' @export
-#' @details
-#' Some arguments are available for all types of legend: `val`,
-#' `adj`, `title`).
-#'
-#'
-#' Relevant arguments for each specific legend types:
-#' * `leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust, horiz)`
-#' * `leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
-#' * `leg(type = "cont", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
-#' * `leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border)`
-#' * `leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)`
-#' * `leg(type = "prop_line", val, col, lwd, val_rnd)`
-#' * `leg(type = "grad_line", val, col, lwd, val_rnd)`
-#'
-#'
 #' @examples
 #' # minimal example
 #' plot.new()
