@@ -214,7 +214,7 @@ get_xy_s <- function(x, y, val, inches, symbol, mar) {
   h <- sizesi[1] * 2
   w <- h
 
-  if (symbol =="square") {
+  if (symbol == "square") {
     n <- length(val)
     if (n > 1) {
       for (i in 2:n) {
