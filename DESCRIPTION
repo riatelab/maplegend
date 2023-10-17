@@ -3,10 +3,10 @@ Title: Legends for Maps
 Version: 0.1.0
 Authors@R: c(person("Timothée", "Giraud", email = "timothee.giraud@cnrs.fr",
     role = c("cre","aut"), comment = c(ORCID = "0000-0002-1932-3323")))
-Description: Create legends for maps or other graphics. Maps with a full layout
-    need to have legends on it. Proportional symbols, typologies, choropleth,
-    line maps, all these maps needs legends to be read. It is possible to
-    combine several legends in a single block.
+Description: Create legends for maps and other graphics. Thematic maps need to
+    be accompanied by legible legends to be fully comprehensible. This package
+    offers a wide range of legends useful for cartography, some of which may
+    also be useful for other types of graphics. 
 License: GPL-3
 Depends: 
     R (>= 3.6.0)
