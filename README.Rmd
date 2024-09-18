@@ -83,8 +83,8 @@ par(opar)
 
 ## Background
 
-This package is primarily intended as a backend for the construction of legends in the [`mapsf`](https://riatelab.github.io/mapsf/) package. 
-However, it can also be used independently from `mapsf` with `base` plots or even with `igraph` plots.
+This package is mainly intended for the construction of legends in the [`mapsf`](https://riatelab.github.io/mapsf/) package. 
+However, it can also be used independently of `mapsf` with `base` plots or even with [`igraph` plots](https://gist.github.com/rCarto/da5a4b0cd982a8c85cb847506fd2f415).
 
 
 ## Community Guidelines
