@@ -35,7 +35,7 @@ leg_draw <- function(x,
                      adj = c(0, 0),
                      mar = par("mar")) {
   dimleg <- list()
-  insetf <- strwidth("MM", units = "user", cex = 1) / 4
+  insetf <- xinch(par("csi")) / 4
 
 
   if (any(is.na(pos))) {

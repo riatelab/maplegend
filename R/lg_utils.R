@@ -132,14 +132,8 @@ get_xy_rect_l <- function(xy_title, xy_box,
                           inset, w) {
   xy_leg <- list(
     xleft = xy_title$x,
-    ybottom =
-      xy_title$y - inset / 2 -
-        xy_box$h,
-    xright = xy_title$x +
-      max(
-        xy_title$w,
-        w + inset / 4 + xy_box_lab$w
-      ),
+    ybottom = xy_title$y - inset / 2 - xy_box$h,
+    xright = xy_title$x + max(xy_title$w, w + inset / 4 + xy_box_lab$w),
     ytop = xy_title$y + xy_title$h
   )
   xy_leg
@@ -184,7 +178,7 @@ get_size <- function(var, inches, val_max, symbol) {
 # get the position of the legeng
 get_pos_leg <- function(pos, xy_rect, adj, xy_title, frame = FALSE) {
   pu <- par("usr")
-  inset2 <- strwidth("M", units = "user", cex = 1) / 2
+  inset2 <- xinch(par("csi")) / 4
   if (frame) {
     pu <- pu + c(inset2, -inset2, inset2, -inset2)
   }

@@ -51,8 +51,8 @@ leg_typo <- function(pos = "topright",
                      return_bbox = FALSE,
                      mar = par("mar"),
                      adj = c(0, 0)) {
-  insetf <- strwidth("MM", units = "user", cex = 1)
-  inset <- insetf * size
+  insetf <- xinch(par("csi"))
+  inset <- strwidth("MM", units = "user", cex = 1)  * size
 
   # box size mgmt
   # box width

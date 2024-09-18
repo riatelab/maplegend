@@ -3,7 +3,6 @@ plot.window(xlim = c(0, 1),
             ylim = c(0, 1),
             asp = 1)
 box()
-
 vbox <- vector("list", 10)
 vbox[[1]] <-
   leg(
@@ -77,69 +76,31 @@ vbox[[10]] <-
     horiz = TRUE,
     return_bbox = TRUE
   )
-# print(dput(vbox))
+# dput(vbox)
 
-vbox_ref <- list(
-  list(
-    xleft = -0.102790697674419,
-    ybottom = 0.83543023255814,
-    xright = 0.114848837209302,
-    ytop = 1.04
-  ),
-  list(
-    xleft = -0.102790697674419,
-    ybottom = -0.04,
-    xright = 0.0862383720930233,
-    ytop = 0.201270348837209
-  ),
-  list(
-    xleft = 0.420014534883721,
-    ybottom = 0.786662790697675,
-    xright = 0.609043604651163,
-    ytop = 1.04
-  ),
-  list(
-    xleft = 0.923441860465116,
-    ybottom = 0.80603488372093,
-    xright = 1.10279069767442,
-    ytop = 1.04
-  ),
-  list(
-    xleft = 0.420014534883721,
-    ybottom = -0.04,
-    xright = 0.609043604651163,
-    ytop = 0.213337209302326
-  ),
-  list(
-    xleft = 0.913761627906977,
-    ybottom = -0.04,
-    xright = 1.10279069767442,
-    ytop = 0.155220930232558
-  ),
-  list(
-    xleft = 0.913761627906977,
-    ybottom = 0.759985465116279,
-    xright = 1.10279069767442,
-    ytop = 1.04
-  ),
-  list(
-    xleft = -0.102790697674419,
-    ybottom = 0.823241279069768,
-    xright = 0.186347478759368,
-    ytop = 1.04
-  ),
-  list(
-    xleft = -0.102790697674419,
-    ybottom = 0.425353197674419,
-    xright = 0.413825581395349,
-    ytop = 0.545588662790698
-  ),
-  list(
-    xleft = -0.102790697674419,
-    ybottom = -0.04,
-    xright = 0.507430232558139,
-    ytop = 0.0802354651162791
-  )
-)
+vbox_ref <-
+  list(list(xleft = -0.102790697674419, ybottom = 0.843558139534884,
+            xright = 0.106720930232558, ytop = 1.04),
+       list(xleft = -0.102790697674419,
+            ybottom = -0.04, xright = 0.0781104651162791, ytop = 0.193142441860465),
+       list(xleft = 0.420014534883721, ybottom = 0.794790697674419,
+            xright = 0.600915697674419, ytop = 1.04),
+       list(xleft = 0.93156976744186,
+            ybottom = 0.814162790697674, xright = 1.10279069767442,
+            ytop = 1.04),
+       list(xleft = 0.420014534883721, ybottom = -0.04,
+            xright = 0.600915697674419, ytop = 0.205209302325581),
+       list(xleft = 0.921889534883721, ybottom = -0.04, xright = 1.10279069767442,
+            ytop = 0.161622093023256),
+       list(xleft = 0.921889534883721,
+            ybottom = 0.768113372093023, xright = 1.10279069767442,
+            ytop = 1.04),
+       list(xleft = -0.102790697674419, ybottom = 0.831369186046512,
+            xright = 0.178219571782624, ytop = 1.04),
+       list(xleft = -0.102790697674419,
+            ybottom = 0.434497093023256, xright = 0.405697674418605,
+            ytop = 0.544572674418605),
+       list(xleft = -0.102790697674419,
+            ybottom = -0.04, xright = 0.499302325581395, ytop = 0.0700755813953488))
 
 expect_equal(vbox, vbox_ref)
