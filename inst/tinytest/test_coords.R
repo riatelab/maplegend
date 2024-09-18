@@ -86,7 +86,7 @@ vbox_ref <-
        list(xleft = 0.420014534883721, ybottom = 0.794790697674419,
             xright = 0.600915697674419, ytop = 1.04),
        list(xleft = 0.93156976744186,
-            ybottom = 0.814162790697674, xright = 1.10279069767442,
+            ybottom = 0.877797674418605, xright = 1.10279069767442,
             ytop = 1.04),
        list(xleft = 0.420014534883721, ybottom = -0.04,
             xright = 0.600915697674419, ytop = 0.205209302325581),
@@ -102,5 +102,4 @@ vbox_ref <-
             ytop = 0.544572674418605),
        list(xleft = -0.102790697674419,
             ybottom = -0.04, xright = 0.499302325581395, ytop = 0.0700755813953488))
-
 expect_equal(vbox, vbox_ref)

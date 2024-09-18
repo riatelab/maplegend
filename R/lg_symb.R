@@ -72,28 +72,26 @@ leg_symb <- function(pos = "left",
   w <- inset
   # box height
   h <- inset / 1.5
-  if (length(box_cex) == 2) {
-    w <- w * box_cex[1]
-    h <- h * box_cex[2]
-  }
-
-
   n <- length(val)
-
   s_cex <- cex
   for (i in seq_along(cex)) {
     s_cex[i] <- strheight("M", units = "user", cex = s_cex[i]) * .7
   }
   w_cex <- s_cex
   h_cex <- s_cex
-  w_cex[w_cex < w] <- w
-  h_cex[h_cex < h] <- h
+
+  if (length(box_cex) == 2) {
+    w_cex <- w_cex * box_cex[1]
+    h_cex <- h_cex * box_cex[2]
+  }
+  hh <- strheight(val, units = "user", cex = val_cex)
+  h_cex[h_cex < hh] <- hh[h_cex < hh]
 
   s_cex_na <- strheight("M", units = "user", cex = cex_na) * .7
   w_cex_na <- s_cex_na
   h_cex_na <- s_cex_na
-  w_cex_na[w_cex_na < w] <- w
-  h_cex_na[h_cex_na < h] <- h
+  # w_cex_na[w_cex_na < w] <- w
+  # h_cex_na[h_cex_na < h] <- h
 
   xy_leg <- NULL
 
@@ -214,19 +212,24 @@ leg_symb <- function(pos = "left",
 
   pal <- get_pal(pal, n)
   mycolspt <- pal
-  mycolspt[pch %in% 21:25] <- border
+
+  if (any(pch %in% 21:25)) {
+    mycolspt[pch %in% 21:25] <- border
+  }
   mycolsptbg <- pal
 
 
-  points(
-    xy_box[[1]] + (lv - xy_box[[1]]) / 2,
-    xy_box[[2]] + (xy_box[[4]] - xy_box[[2]]) / 2,
-    col = mycolspt,
-    pch = pch,
-    cex = cex,
-    bg = mycolsptbg,
-    lwd = lwd
-  )
+  for (i in 1:length(xy_box[[1]])){
+    points(
+      xy_box[[1]][i] + (lv - xy_box[[1]][i]) / 2,
+      xy_box[[2]][i] + (xy_box[[4]][i] - xy_box[[2]][i]) / 2,
+      col = mycolspt[i],
+      pch = pch[[i]],
+      cex = cex[i],
+      bg = mycolsptbg[i],
+      lwd = lwd[i]
+    )
+  }
   text(
     xy_box[[1]] + lt + inset / 4,
     y = xy_box[[2]] + (xy_box[[4]] - xy_box[[2]]) / 2,
@@ -253,7 +256,7 @@ leg_symb <- function(pos = "left",
     )
     text(
       xy_nabox[[1]] + lt + inset / 4,
-      y = xy_nabox_lab$y,
+      y = xy_nabox[[2]] + (xy_nabox[[4]] - xy_nabox[[2]]) / 2,
       labels = no_data_txt,
       cex = val_cex,
       adj = c(0, 0.5),
