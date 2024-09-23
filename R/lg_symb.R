@@ -65,13 +65,9 @@ leg_symb <- function(pos = "left",
                      mar = par("mar"),
                      adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1)  * size
+  inset <- strwidth("MM", units = "user", cex = 1) * size
 
   # box size mgmt
-  # box width
-  w <- inset
-  # box height
-  h <- inset / 1.5
   n <- length(val)
   s_cex <- cex
   for (i in seq_along(cex)) {
@@ -90,8 +86,6 @@ leg_symb <- function(pos = "left",
   s_cex_na <- strheight("M", units = "user", cex = cex_na) * .7
   w_cex_na <- s_cex_na
   h_cex_na <- s_cex_na
-  # w_cex_na[w_cex_na < w] <- w
-  # h_cex_na[h_cex_na < h] <- h
 
   xy_leg <- NULL
 
@@ -136,7 +130,7 @@ leg_symb <- function(pos = "left",
     xy_nabox_lab <- get_xy_nabox_lab(
       x = xy_title$x + max(c(w_cex, w_cex_na)) + inset / 4,
       y = xy_nabox$ytop,
-      h = h,
+      h = h_cex_na,
       no_data_txt = no_data_txt,
       val_cex = val_cex
     )
@@ -218,8 +212,7 @@ leg_symb <- function(pos = "left",
   }
   mycolsptbg <- pal
 
-
-  for (i in 1:length(xy_box[[1]])){
+  for (i in seq_along(xy_box[[1]])) {
     points(
       xy_box[[1]][i] + (lv - xy_box[[1]][i]) / 2,
       xy_box[[2]][i] + (xy_box[[4]][i] - xy_box[[2]][i]) / 2,
@@ -239,9 +232,6 @@ leg_symb <- function(pos = "left",
     col = fg
   )
   if (no_data) {
-    # rect(xy_nabox[[1]], xy_nabox[[2]], xy_nabox[[3]], xy_nabox[[4]],
-    #      col = col_na, border = fg, lwd = .7
-    # )
     col_nafg <- col_na
     col_nafg[pch_na %in% 21:25] <- border
     col_nabg <- col_na

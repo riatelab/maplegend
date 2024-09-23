@@ -55,7 +55,7 @@ leg_choro_h <- function(pos = "left",
                         mar = par("mar"),
                         adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1)  * size
+  inset <- strwidth("MM", units = "user", cex = 1) * size
 
   # box size mgmt
   # box width
@@ -93,10 +93,7 @@ leg_choro_h <- function(pos = "left",
 
 
     xy_box <- get_xy_box(
-      x = xy_title$x + (strwidth(val[1],
-        units = "user",
-        cex = val_cex, font = 1
-      ) / 2),
+      x = xy_title$x + strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2,
       y = xy_title$y - inset / 3,
       n = n,
       w = w,

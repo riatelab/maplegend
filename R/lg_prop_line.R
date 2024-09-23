@@ -49,7 +49,7 @@ leg_prop_line <- function(pos = "left",
                           mar = par("mar"),
                           adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1)  * size
+  inset <- strwidth("MM", units = "user", cex = 1) * size
 
   # box size mgmt
   # box width

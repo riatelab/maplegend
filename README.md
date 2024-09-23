@@ -40,7 +40,7 @@ type.
 
 ``` r
 library(maplegend)
-opar <- par(mar = c(1,1,1,1), mfrow = c(1,2))
+opar <- par(mar = c(1, 1, 1, 1), mfrow = c(1, 2))
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft")
@@ -51,7 +51,7 @@ leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
 leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1, 5, 10))
 box()
 plot.new()
-plot.window(xlim = c(0, 100), ylim = c(-50,50), asp = 1)
+plot.window(xlim = c(0, 100), ylim = c(-50, 50), asp = 1)
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
 leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
@@ -65,7 +65,7 @@ It is possible to create composed legends with `leg_comp()` and
 `leg_draw()`.
 
 ``` r
-opar <- par(mar = c(1,1,1,1))
+opar <- par(mar = c(1, 1, 1, 1))
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg_comp(type = "prop", val = c(10, 50, 100)) |>

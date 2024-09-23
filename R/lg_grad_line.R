@@ -49,7 +49,7 @@ leg_grad_line <- function(pos = "topleft",
                           mar = par("mar"),
                           adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1)  * size
+  inset <- strwidth("MM", units = "user", cex = 1) * size
 
   # box size mgmt
   # box width
@@ -97,7 +97,6 @@ leg_grad_line <- function(pos = "topleft",
       type = "c"
     )
 
-    # xy_box_bis <- xy_box
     xy_box$h <- xy_box$h + inset / 4
     xy_rect <- get_xy_rect_l(
       xy_title = xy_title,

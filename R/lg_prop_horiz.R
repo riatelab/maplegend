@@ -59,7 +59,7 @@ leg_prop_h <- function(pos = "left",
                        mar = par("mar"),
                        adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1)  * size
+  inset <- strwidth("MM", units = "user", cex = 1) * size
 
   val <- unique(val)
   if (length(val) == 1) {
