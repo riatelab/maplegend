@@ -55,7 +55,10 @@ plot.window(xlim = c(0, 100), ylim = c(-50, 50), asp = 1)
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
 leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
-leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = c(75, 25), horiz = FALSE)
+leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = c(75, 0), horiz = FALSE)
+leg(type = "symb", val = c("Points", "Lines", "Polygons"), pos = "topright", 
+    pch = list(21, "৲", 22), cex = c(2,2,2), border = c("black", "black"), 
+    pal = c("red", "blue", "grey90"))
 box()
 ```
 
