@@ -7,13 +7,19 @@
   "codeRepository": "https://github.com/riatelab/maplegend/",
   "issueTracker": "https://github.com/riatelab/maplegend/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.3.1 (2023-06-16)",
+  "runtimePlatform": "R version 4.4.1 (2024-06-14)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Comprehensive R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
   "author": [
     {
       "@type": "Person",
@@ -77,5 +83,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "128.733KB"
+  "fileSize": "140.949KB"
 }
