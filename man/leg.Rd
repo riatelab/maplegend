@@ -298,28 +298,28 @@ leg(
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(
-  type = "prop", val = c(10, 50, 100), pos = "bottomleft", adj = c(0, 1),
-  title = "bottomleft1"
+  type = "prop", val = c(10,60, 100), pos = "bottomleft", adj = c(0, 2),
+  title = "adj = c(0, 2)", frame = TRUE
 )
 leg(
   type = "choro", val = c(10, 50, 100), pos = "bottomright",
-  adj = c(0, 2), title = "bottomright2", frame = TRUE
+  adj = c(0, 4), title = "adj = c(0, 4)", frame = TRUE
 )
 leg(
   type = "prop", val = c(10, 50, 100), pos = "topleft",
-  adj = c(0, -2), title = "topleft2"
+  adj = c(0, -4), title = "adj = c(0, -4)"
 )
 box()
 mtext(
-  text = "A small text on 1 line", side = 1, adj = .01,
-  line = -1, cex = .8
+  text = "A text on 1 line", side = 1, adj = .01,
+  line = -1, cex = 1
 )
 mtext(
-  text = "A small text\non 2 lines", side = 1, adj = .99,
-  line = -1, cex = .8
+  text = "A text\non 2 lines", side = 1, adj = .99,
+  line = -1, cex = 1
 )
 mtext(
   text = "A large text on 1 line", side = 3, adj = .01,
-  line = -1.5, cex = 1.2
+  line = -2, cex = 2
 )
 }
