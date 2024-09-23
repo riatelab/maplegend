@@ -89,12 +89,12 @@ leg_typo <- function(pos = "topright",
       n = n,
       w = w,
       h = h,
-      inset = inset / 2,
+      inset = inset / 4,
       type = "t"
     )
     xy_nabox <- get_xy_nabox(
       x = xy_title$x,
-      y = xy_box$ybottom[n] - inset / 2,
+      y = xy_box$ybottom[n] - inset / 4,
       w = w,
       h = h
     )
@@ -104,7 +104,7 @@ leg_typo <- function(pos = "topright",
       h = h,
       val = val,
       val_cex = val_cex,
-      inset = inset / 2,
+      inset = inset / 4,
       type = "t"
     )
     xy_nabox_lab <- get_xy_nabox_lab(
