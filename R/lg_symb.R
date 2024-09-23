@@ -2,6 +2,8 @@
 #' @description This function can plot a legend for a symbols maps.
 #'
 #' @param pal a set of colors
+#' @param alpha if \code{pal} is a \link{hcl.colors} palette name, the
+#' alpha-transparency level in the range \[0,1\]
 #' @param col_na color for missing values
 #' @param pos position of the legend, one of "topleft", "top",
 #' "topright", "right", "bottomright", "bottom", "bottomleft",
@@ -43,6 +45,7 @@
 leg_symb <- function(pos = "left",
                      val,
                      pal = "Inferno",
+                     alpha = 1,
                      pch = seq_along(val),
                      cex = rep(1, length(val)),
                      border = "#333333",
@@ -204,7 +207,7 @@ leg_symb <- function(pos = "left",
     lt <- max(c(w_cex))
   }
 
-  pal <- get_pal(pal, n)
+  pal <- get_pal(pal, n, alpha = alpha)
   mycolspt <- pal
 
   if (any(pch %in% 21:25)) {

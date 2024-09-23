@@ -23,6 +23,8 @@
 #' 'left', 'interactive' or a vector of two coordinates
 #' in map units (c(x, y)).
 #' @param pal a color palette name or a vector of colors
+#' @param alpha if \code{pal} is a \link{hcl.colors} palette name, the
+#' alpha-transparency level in the range \[0,1\]
 #' @param inches size of the largest symbol (radius for circles, half width
 #' for squares) in inches
 #' @param border symbol border color(s)
@@ -69,10 +71,10 @@
 #'
 #' Relevant arguments for each specific legend types:
 #' * `leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust, horiz)`
-#' * `leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
-#' * `leg(type = "cont", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
-#' * `leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border)`
-#' * `leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)`
+#' * `leg(type = "choro", val, pal, alpha, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
+#' * `leg(type = "cont", val, pal, alpha, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
+#' * `leg(type = "typo", val, pal, alpha, col_na, no_data, no_data_txt, box_border)`
+#' * `leg(type = "symb", val, pal, alpha, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)`
 #' * `leg(type = "prop_line", val, col, lwd, val_rnd)`
 #' * `leg(type = "grad_line", val, col, lwd, val_rnd)`
 #'
@@ -133,6 +135,7 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg(
 #'   type = "choro",
+#'   alpha = 1,
 #'   val = c(10, 20, 30, 40, 50),
 #'   pos = "top",
 #'   pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
@@ -185,6 +188,7 @@
 #'   val = c(1, 2, 3, 4, 5),
 #'   pos = "top",
 #'   pal = "Inferno",
+#'   alpha = .7,
 #'   val_rnd = 2,
 #'   horiz = TRUE,
 #'   box_cex = c(2, 1),
@@ -252,6 +256,7 @@ leg <- function(type,
                 val,
                 pos = "left",
                 pal = "Inferno",
+                alpha = 1,
                 col = "tomato4",
                 inches = .3,
                 symbol = "circle",

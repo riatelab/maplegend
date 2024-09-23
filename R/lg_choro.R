@@ -1,7 +1,9 @@
 #' @title Plot a legend for a choropleth map
 #' @description This function plots a legend for a choropleth map.
 #'
-#' @param pal a set of colors.
+#' @param pal a set of colors
+#' @param alpha if \code{pal} is a \link{hcl.colors} palette name, the
+#' alpha-transparency level in the range \[0,1\]
 #' @param col_na color for missing values
 #' @param pos position of the legend, one of "topleft", "top",
 #' "topright", "right", "bottomright", "bottom", "bottomleft",
@@ -37,6 +39,7 @@
 leg_choro <- function(pos = "left",
                       val,
                       pal = "Inferno",
+                      alpha = 1,
                       title = "Legend Title",
                       title_cex = .8 * size,
                       val_cex = .6 * size,
@@ -74,7 +77,7 @@ leg_choro <- function(pos = "left",
   n <- length(val) - 1
 
   # box colors
-  pal <- rev(get_pal(pal, n))
+  pal <- rev(get_pal(pal, n, alpha = alpha))
 
   # initiate xy leg position
   xy_leg <- NULL

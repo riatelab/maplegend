@@ -1,6 +1,7 @@
 leg_cont <- function(pos = "left",
                      val,
                      pal = "Inferno",
+                     alpha = 1,
                      title = "Legend Title",
                      title_cex = .8 * size,
                      val_cex = .6 * size,
@@ -24,7 +25,7 @@ leg_cont <- function(pos = "left",
   if (length(pal) != 1) {
     pal <- grDevices::colorRampPalette(colors = c(pal))(100)
   } else {
-    pal <- hcl.colors(n = 100, palette = pal, rev = TRUE)
+    pal <- hcl.colors(n = 100, palette = pal, rev = TRUE, alpha = alpha)
   }
   val <- val_cont(val, val_rnd)
   box_cex[1] <- box_cex[1] * .4
@@ -33,7 +34,7 @@ leg_cont <- function(pos = "left",
 
   leg(
     type = "choro", val = val, pos = pos, pal = pal, title = title,
-    title_cex = title_cex,
+    title_cex = title_cex, alpha = alpha,
     val_cex = val_cex, val_rnd = val_rnd, col_na = col_na, no_data = no_data,
     no_data_txt = no_data_txt, frame = frame, box_border = NA, bg = bg,
     fg = fg, frame_border = frame_border,
