@@ -210,6 +210,10 @@ leg_symb <- function(pos = "left",
   pal <- get_pal(pal, n, alpha = alpha)
   mycolspt <- pal
 
+  if (length(pch) == 1) {
+    pch <- rep(pch, n)
+  }
+
   if (any(pch %in% 21:25)) {
     mycolspt[pch %in% 21:25] <- border
   }
