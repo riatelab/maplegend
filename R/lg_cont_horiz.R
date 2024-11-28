@@ -1,7 +1,7 @@
 leg_cont_h <- function(pos = "left",
                        val,
                        pal = "Inferno",
-                       alpha = 1,
+                       alpha = NULL,
                        title = "Legend Title",
                        title_cex = .8 * size,
                        val_cex = .6 * size,
@@ -23,7 +23,7 @@ leg_cont_h <- function(pos = "left",
   box_cex <- eval(box_cex)
   pal <- eval(pal)
   if (length(pal) != 1) {
-    pal <- grDevices::colorRampPalette(colors = c(pal))(100)
+    pal <- grDevices::colorRampPalette(colors = pal, alpha = TRUE)(100)
   } else {
     pal <- hcl.colors(n = 100, palette = pal, rev = TRUE, alpha = alpha)
   }

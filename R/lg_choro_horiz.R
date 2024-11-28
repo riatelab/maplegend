@@ -39,7 +39,7 @@
 leg_choro_h <- function(pos = "left",
                         val,
                         pal = "Inferno",
-                        alpha = 1,
+                        alpha = NULL,
                         title = "Legend Title",
                         title_cex = .8 * size,
                         val_cex = .6 * size,

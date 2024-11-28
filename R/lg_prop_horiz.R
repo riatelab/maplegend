@@ -19,6 +19,7 @@
 #' @param lwd width of the symbols borders
 #' @param col color of the symbols (for "prop") or color of the lines (for
 #' "prop_line" and "grad_line")
+#' @param alpha opacity, in the range [0,1]
 #' @param bg background of the legend
 #' @param fg foreground of the legend
 #' @param mar plot margins
@@ -40,6 +41,7 @@
 leg_prop_h <- function(pos = "left",
                        val,
                        col = "tomato4",
+                       alpha = NULL,
                        inches = .3,
                        symbol = "circle",
                        border = "#333333",
@@ -60,6 +62,10 @@ leg_prop_h <- function(pos = "left",
                        adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
   inset <- strwidth("MM", units = "user", cex = 1) * size
+
+  if (!is.null(alpha)) {
+    col <- get_hex_pal(col, alpha)
+  }
 
   val <- unique(val)
   if (length(val) == 1) {

@@ -45,7 +45,7 @@
 leg_symb <- function(pos = "left",
                      val,
                      pal = "Inferno",
-                     alpha = 1,
+                     alpha = NULL,
                      pch = seq_along(val),
                      cex = rep(1, length(val)),
                      border = "#333333",
@@ -72,6 +72,13 @@ leg_symb <- function(pos = "left",
 
   # box size mgmt
   n <- length(val)
+  if (length(cex) != n) {
+    cex <- rep(cex[1], n)
+  }
+  if (length(lwd) != n) {
+    lwd <- rep(lwd[1], n)
+  }
+
   s_cex <- cex
   for (i in seq_along(cex)) {
     s_cex[i] <- strheight("M", units = "user", cex = s_cex[i]) * .7

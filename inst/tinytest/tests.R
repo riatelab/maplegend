@@ -76,3 +76,89 @@ expect_silent(leg(type = "choro", pos = c(.5, .5),
                   frame = TRUE, no_data = TRUE,
                   val = c(10, 20, 30, 40, 50),
                   pal = hcl.colors(4, "Reds 2")))
+
+
+
+
+plot.new()
+plot.window(xlim = c(0, 1),
+            ylim = c(0, 1),
+            asp = 1)
+expect_silent(leg(
+  type = "prop",
+  val = c(10, 50, 100),
+  pos = "topleft",
+  alpha = .5
+))
+expect_silent(leg(
+  type = "prop",
+  val = c(10, 50, 100),
+  pos = "topright",
+  alpha = .5,
+  horiz = TRUE
+))
+expect_silent(leg(
+  type = "choro",
+  val = c(10, 20, 30, 40, 50),
+  pos = "bottomleft",
+  alpha = .5
+))
+expect_silent(leg(
+  type = "choro",
+  val = c(10, 20, 30, 40, 50),
+  pos = "left",
+  horiz = TRUE,
+  alpha = .5
+))
+
+expect_silent(leg(
+  type = "typo",
+  val = c("A", "B", "C"),
+  pos = "top",
+  alpha = .5
+))
+expect_silent(leg(
+  type = "symb",
+  val = c("A", "B", "C"),
+  pos = "right",
+  alpha = .5
+))
+expect_silent(leg(
+  type = "prop_line",
+  val = c(5, 50, 100),
+  pos = "bottom",
+  lwd = 20,
+  alpha = .5
+))
+expect_silent(leg(
+  type = "grad_line",
+  val = c(1, 4, 10, 15),
+  pos = "bottomright",
+  lwd = c(1, 5, 10)
+  ,
+  alpha = .5
+))
+
+
+plot.new()
+plot.window(xlim = c(0, 1),
+            ylim = c(0, 1),
+            asp = 1)
+
+expect_silent(leg(
+  type = "cont",
+  val = c(10, 20, 30, 40, 50),
+  pos = "bottomleft",
+  horiz = TRUE
+  ,
+  alpha = .5
+))
+expect_silent(leg(
+  type = "cont",
+  val = c(10, 20, 30, 40, 50),
+  pos = "topright",
+  horiz = FALSE
+  ,
+  alpha = .5
+))
+

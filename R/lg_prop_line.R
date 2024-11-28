@@ -15,6 +15,7 @@
 #' @param frame whether to add a frame to the legend (TRUE) or not (FALSE)
 #' @param size size of the legend; 2 means two times bigger
 #' @param col color of the lines
+#' @param alpha opacity, in the range [0,1]
 #' @param bg background of the legend
 #' @param fg foreground of the legend
 #' @param box_cex width and height cex of boxes
@@ -35,6 +36,7 @@ leg_prop_line <- function(pos = "left",
                           val,
                           lwd = .7,
                           col = "tomato4",
+                          alpha = NULL,
                           title = "Legend Title",
                           title_cex = .8 * size,
                           val_cex = .6 * size,
@@ -50,6 +52,10 @@ leg_prop_line <- function(pos = "left",
                           adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
   inset <- strwidth("MM", units = "user", cex = 1) * size
+
+  if (!is.null(alpha)) {
+    col <- get_hex_pal(col, alpha)
+  }
 
   # box size mgmt
   # box width

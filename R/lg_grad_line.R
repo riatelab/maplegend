@@ -8,6 +8,7 @@
 #' @param lwd lines widths
 #' @param val break labels
 #' @param col lines color
+#' @param alpha opacity, in the range \[0,1\]
 #' @param title title of the legend
 #' @param title_cex size of the legend title
 #' @param val_cex size of the values in the legend
@@ -34,6 +35,7 @@
 leg_grad_line <- function(pos = "topleft",
                           val,
                           col = "tomato4",
+                          alpha = NULL,
                           lwd = .7,
                           title = "Legend Title",
                           title_cex = .8 * size,
@@ -50,6 +52,10 @@ leg_grad_line <- function(pos = "topleft",
                           adj = c(0, 0)) {
   insetf <- xinch(par("csi"))
   inset <- strwidth("MM", units = "user", cex = 1) * size
+
+  if (!is.null(alpha)) {
+    col <- get_hex_pal(col, alpha)
+  }
 
   # box size mgmt
   # box width

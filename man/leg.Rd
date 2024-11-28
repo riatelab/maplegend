@@ -9,7 +9,7 @@ leg(
   val,
   pos = "left",
   pal = "Inferno",
-  alpha = 1,
+  alpha = NULL,
   col = "tomato4",
   inches = 0.3,
   symbol = "circle",
@@ -64,8 +64,7 @@ in map units (c(x, y)).}
 
 \item{pal}{a color palette name or a vector of colors}
 
-\item{alpha}{if \code{pal} is a \link{hcl.colors} palette name, the
-alpha-transparency level in the range [0,1]}
+\item{alpha}{opacity, in the range [0,1]}
 
 \item{col}{color of the symbols (for "prop") or color of the lines (for
 "prop_line" and "grad_line")}
@@ -142,16 +141,16 @@ some others are only relevant for specific legend types (see Details).
 }
 \details{
 Some arguments are available for all types of legend: \code{val}, \code{pos}, \code{title},
-\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size}, \code{adj},
+\code{title_cex}, \code{val_cex}, \code{frame}, \code{bg}, \code{fg}, \code{size}, \code{adj}, \code{alpha},
 \code{return_bbox} and \code{mar}).
 
 Relevant arguments for each specific legend types:
 \itemize{
 \item \code{leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust, horiz)}
-\item \code{leg(type = "choro", val, pal, alpha, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)}
-\item \code{leg(type = "cont", val, pal, alpha, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)}
-\item \code{leg(type = "typo", val, pal, alpha, col_na, no_data, no_data_txt, box_border)}
-\item \code{leg(type = "symb", val, pal, alpha, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)}
+\item \code{leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)}
+\item \code{leg(type = "cont", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)}
+\item \code{leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border)}
+\item \code{leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)}
 \item \code{leg(type = "prop_line", val, col, lwd, val_rnd)}
 \item \code{leg(type = "grad_line", val, col, lwd, val_rnd)}
 }
