@@ -1,6 +1,6 @@
 Package: maplegend
 Title: Legends for Maps
-Version: 0.2.0
+Version: 0.3.0
 Authors@R: c(person("Timothée", "Giraud", email = "timothee.giraud@cnrs.fr",
     role = c("cre","aut"), comment = c(ORCID = "0000-0002-1932-3323")))
 Description: Create legends for maps and other graphics. Thematic maps need to

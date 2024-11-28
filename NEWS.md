@@ -1,3 +1,10 @@
+# maplegend 0.3.0
+
+## feat
+* add alpha transparency for all legends
+
+
+
 # maplegend 0.2.0
 
 ## fix 
