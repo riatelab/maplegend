@@ -34,10 +34,6 @@ leg_draw <- function(x,
                      val_cex = 0.6 * size,
                      adj = c(0, 0),
                      mar = par("mar")) {
-  dimleg <- list()
-  insetf <- xinch(par("csi")) / 4
-
-
   if (any(is.na(pos))) {
     return(invisible(NULL))
   }
@@ -46,50 +42,61 @@ leg_draw <- function(x,
     pos <- interleg()
   }
 
-  for (i in seq_along(x$layers)) {
-    x$layers[[i]]$pos <- pos
-    x$layers[[i]]$return_bbox <- TRUE
-    x$layers[[i]]$mar <- mar
-    x$layers[[i]]$size <- size
-    x$layers[[i]]$frame <- frame
-    x$layers[[i]]$adj <- adj
-    x$layers[[i]]$title_cex <- title_cex
-    x$layers[[i]]$val_cex <- val_cex
 
-    dimleg[[i]] <- do.call(leg, x$layers[[i]])
-  }
+  pf <- parent.frame()
 
-  res <- get_pos_and_frame(pos = pos, dimleg = dimleg, adj = adj)
-  xleg <- res$xleg
-  yleg <- res$yleg
+  grDevices::recordGraphics(
+    expr = {
+      dimleg <- list()
+      insetf <- xinch(par("csi")) / 4
+      for (i in seq_along(x$layers)) {
+        x$layers[[i]]$pos <- pos
+        x$layers[[i]]$return_bbox <- TRUE
+        x$layers[[i]]$mar <- mar
+        x$layers[[i]]$size <- size
+        x$layers[[i]]$frame <- frame
+        x$layers[[i]]$adj <- adj
+        x$layers[[i]]$title_cex <- title_cex
+        x$layers[[i]]$val_cex <- val_cex
 
-  if (frame) {
-    frame_c <- res$frame_c
-    rect(
-      xleft = frame_c[1],
-      ybottom = frame_c[3],
-      xright = frame_c[2],
-      ytop = frame_c[4],
-      col = bg,
-      border = frame_border,
-      xpd = TRUE
-    )
-  }
+        dimleg[[i]] <- do.call(leg, x$layers[[i]])
+      }
+
+      res <- get_pos_and_frame(pos = pos, dimleg = dimleg, adj = adj)
+      xleg <- res$xleg
+      yleg <- res$yleg
+
+      if (frame) {
+        frame_c <- res$frame_c
+        rect(
+          xleft = frame_c[1],
+          ybottom = frame_c[3],
+          xright = frame_c[2],
+          ytop = frame_c[4],
+          col = bg,
+          border = frame_border,
+          xpd = TRUE
+        )
+      }
 
 
-  for (i in seq_along(x$layers)) {
-    x$layers[[i]]$mar <- mar
-    x$layers[[i]]$pos <-
-      c(xleg[i], yleg[i]) + c(-(size - 1) * insetf, (size - 1) * insetf)
-    x$layers[[i]]$return_bbox <- FALSE
-    x$layers[[i]]$frame <- FALSE
-    x$layers[[i]]$bg <- bg
-    x$layers[[i]]$fg <- fg
-    x$layers[[i]]$adj <- c(0, 0)
+      for (i in seq_along(x$layers)) {
+        x$layers[[i]]$mar <- mar
+        x$layers[[i]]$pos <-
+          c(xleg[i], yleg[i]) + c(-(size - 1) * insetf, (size - 1) * insetf)
+        x$layers[[i]]$return_bbox <- FALSE
+        x$layers[[i]]$frame <- FALSE
+        x$layers[[i]]$bg <- bg
+        x$layers[[i]]$fg <- fg
+        x$layers[[i]]$adj <- c(0, 0)
 
-    do.call(leg, x$layers[[i]])
-  }
-
+        do.call(leg, x$layers[[i]])
+      }
+    },
+    list = list(x = x, pos = pos, adj = adj, frame = frame, mar = mar, bg = bg,
+                fg = fg, size = size, title_cex = title_cex, val_cex = val_cex,
+                frame_border = frame_border),
+    env = getNamespace("maplegend"))
   return(invisible(NULL))
 }
 
