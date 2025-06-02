@@ -9,7 +9,7 @@ Description: Create legends for maps and other graphics. Thematic maps need to
     also be useful for other types of graphics. 
 License: GPL-3
 Depends: 
-    R (>= 3.6.0)
+    R (>= 4.1.0)
 Imports: 
     graphics,
     grDevices

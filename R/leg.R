@@ -307,10 +307,22 @@ leg <- function(type,
   if (horiz) {
     h <- "_h"
   }
-  x <- do.call(
-    what = get(paste0("leg_", type, h)),
-    args = args,
-    envir = parent.frame()
-  )
+
+
+  ffun <- get(paste0("leg_", type, h))
+  pf <- parent.frame()
+
+
+  if(length(pos) == 1 && pos == "interactive"){
+    args$return_bbox <- TRUE
+    x <- do.call(what = ffun, args = args, envir = pf)
+    args$return_bbox <- return_bbox
+    args$pos <- c(x[[1]], x[[4]])
+  }
+
+  x <- grDevices::recordGraphics(
+    expr = do.call(what = ffun, args = args, envir = pf),
+    list = list(args = args, ffun = ffun, pf = pf),
+    env = getNamespace("maplegend"))
   return(invisible(x))
 }
