@@ -247,7 +247,7 @@ leg_symb <- function(pos = "left",
   )
   if (no_data) {
     col_nafg <- col_na
-    col_nafg[pch_na %in% 21:25] <- border
+    col_nafg[pch_na %in% 21:25] <- border[1]
     col_nabg <- col_na
     points(
       xy_nabox[[1]] + (lv - xy_nabox[[1]]) / 2,
