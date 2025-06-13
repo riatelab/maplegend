@@ -2,7 +2,7 @@
 
 ## feat
 * add alpha transparency for all legends
-
+* redraw legends when resizing the plot device
 
 
 # maplegend 0.2.0
