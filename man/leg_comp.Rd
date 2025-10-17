@@ -20,6 +20,8 @@ leg_comp(
   cex = rep(1, length(val)),
   title = "Legend Title",
   val_rnd = 0,
+  val_dec = ".",
+  val_big = "",
   col_na = "white",
   cex_na = 1,
   pch_na = 4,
@@ -37,17 +39,19 @@ leg_comp(
 \itemize{
 \item \strong{prop} for proportional symbols,
 \item \strong{choro} for choropleth maps,
-\item \strong{cont} for continuous maps,
+\item \strong{cont} for continuous maps (e.g. raster),
 \item \strong{typo} for typology maps,
 \item \strong{symb} for symbols maps,
 \item \strong{prop_line} for proportional lines maps,
-\item \strong{grad_line} for graduated lines maps.
+\item \strong{grad_line} for graduated lines maps,
+\item \strong{histo} for histograms.
 }}
 
 \item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 for "cont"),
 vector of categories (for "symb" and "typo"),
-break labels (for "choro" and "grad_line").}
+break labels (for "choro" and "grad_line"), histogram parameters
+(for "histo").}
 
 \item{pal}{a color palette name or a vector of colors}
 
@@ -79,6 +83,10 @@ width of the largest line (for "prop_line"), vector of line width
 \item{val_rnd}{number of decimal places of the values in
 the legend}
 
+\item{val_dec}{decimal separator}
+
+\item{val_big}{thousands separator}
+
 \item{col_na}{color for missing values}
 
 \item{cex_na}{size of the symbols for missing values}
@@ -91,8 +99,7 @@ the legend}
 
 \item{box_border}{border color of legend boxes}
 
-\item{box_cex}{width and height size expansion of boxes,
-(or offset between circles for "prop" legends with horiz = TRUE)}
+\item{box_cex}{width and height size expansion for boxes, histogram or lines}
 
 \item{horiz}{if TRUE plot an horizontal legend}
 }

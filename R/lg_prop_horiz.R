@@ -13,6 +13,8 @@
 #' @param val_cex size of the values in the legend
 #' @param val_rnd number of decimal places of the values in
 #' the legend.
+#' @param val_dec decimal separator
+#' @param val_big thousands separator
 #' @param frame whether to add a frame to the legend (TRUE) or not (FALSE)
 #' @param border color of the symbols borders
 #' @param size size of the legend; 2 means two times bigger
@@ -22,7 +24,6 @@
 #' @param alpha opacity, in the range [0,1]
 #' @param bg background of the legend
 #' @param fg foreground of the legend
-#' @param mar plot margins
 #' @param box_cex offset between circles
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
@@ -50,6 +51,8 @@ leg_prop_h <- function(pos = "left",
                        title_cex = .8 * size,
                        val_cex = .6 * size,
                        val_rnd = 0,
+                       val_dec = ".",
+                       val_big = "",
                        frame = FALSE,
                        frame_border = fg,
                        bg = "#f7f7f7",
@@ -58,143 +61,136 @@ leg_prop_h <- function(pos = "left",
                        box_cex = 1,
                        self_adjust = FALSE,
                        return_bbox = FALSE,
-                       mar = par("mar"),
                        adj = c(0, 0)) {
-  insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1) * size
+  # spacings
+  x_spacing <- xinch(par("csi")) / 4
+  y_spacing <- yinch(par("csi")) / 4
 
-  if (!is.null(alpha)) {
-    col <- get_hex_pal(col, alpha)
-  }
+  # color mgmt
+  col <- ifelse(!is.null(alpha), get_hex_pal(col, alpha), col)
 
+  # values & values labels
   val <- unique(val)
-  if (length(val) == 1) {
-    self_adjust <- FALSE
-  }
-
   if (self_adjust == TRUE) {
-    val <- self_adjust_v(val, inches, val_cex, mar = mar)
+    val <- self_adjust_v(val, inches, val_cex)
   }
   val <- sort(val, decreasing = TRUE)
+  n_val <- length(val)
+  valleg <- get_val_rnd(val = val, val_rnd = val_rnd, val_dec = val_dec, val_big = val_big)
 
-  valleg <- get_val_rnd(val = val, val_rnd = val_rnd)
-  xy_leg <- NULL
+  # title dimensions
+  title_dim <- get_title_dim(title, title_cex)
 
-  while (TRUE) {
-    if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset, -inset)) / 4
-    }
-    xy_title <- get_xy_title(
-      x = xy_leg[1],
-      y = xy_leg[2],
-      title = title,
-      title_cex = title_cex
-    )
-    xy_symbols <- get_xy_s(
-      x = xy_title$x,
-      y = xy_title$y - inset / 3,
-      val = val,
-      inches = inches,
-      symbol = symbol,
-      mar = mar
-    )
+  # largest symbol size
+  symb_sizes <- list(inches = sqrt(val * inches * inches / max(val)))
+  symb_sizes$x <- xinch(symb_sizes$inches)
+  symb_sizes$y <- yinch(symb_sizes$inches)
+  symb_dim <- list(
+    w = sum(symb_sizes$x) + (n_val - 1) * x_spacing,
+    h = yinch(inches * 2)
+  )
+  # label dimension
+  labels_dim <- list(
+    h = strheight(valleg[1], units = "user", cex = val_cex, font = 1)
+  )
 
-    n <- length(val)
-    xx <- xy_symbols$x
-    ss <- xy_symbols$s
-    ss <- pmax(ss, strwidth(val, units = "user", cex = val_cex, font = 1) / 2)
-    if (n > 1) {
-      for (i in 2:n) {
-        xx[i] <- xx[i - 1] + sum(ss[(i - 1):i]) + inset / 8 * box_cex[1]
-      }
-    }
-    xy_symbols$x <- xx
+  # label (+) symb dim
+  max_sizes <- pmax(
+    strwidth(valleg, units = "user", cex = val_cex, font = 1),
+    symb_sizes$x * 2
+  )
 
+  # legend dimension
+  legend_dim <- list(
+    w = x_spacing +
+      max(
+        title_dim$w,
+        sum(max_sizes) + x_spacing * (n_val - 1)
+      ) +
+      x_spacing,
+    h = y_spacing +
+      ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0) +
+      symb_dim$h + y_spacing + labels_dim$h +
+      y_spacing
+  )
 
-    xy_lab <- list(
-      x = xy_symbols$x,
-      y = xy_symbols$y -
-        xy_symbols$s -
-        strheight(val[1], units = "user", cex = val_cex, font = 1) - inset / 8,
-      w = strwidth(val, units = "user", cex = val_cex, font = 1)
-    )
-
-    xy_rect <- list(
-      xleft = xy_title$x,
-      ybottom = xy_lab$y[1],
-      xright =
-        max(
-          xy_title$x + xy_title$w,
-          xy_symbols$x[n],
-          xy_lab$x[n] + xy_lab$w[n] / 2
-        ),
-      ytop = xy_title$y + xy_title$h
-    )
-
-    if (!is.null(xy_leg)) {
-      break
-    }
-    xy_leg <- get_pos_leg(
-      pos = pos,
-      xy_rect = unlist(xy_rect),
-      adj = adj,
-      xy_title = xy_title,
-      frame = frame
-    )
-  }
+  # get legend coordinates
+  legend_coords <- get_legend_coords(
+    pos = pos, legend_dim = legend_dim,
+    adj = adj, frame = frame,
+    x_spacing = x_spacing,
+    y_spacing = y_spacing
+  )
 
 
+  # return legend coordinates only
   if (return_bbox) {
-    return(invisible(
-      list(
-        xleft = xy_rect[[1]] - insetf / 4,
-        ybottom = xy_rect[[2]] - insetf / 4,
-        xright = xy_rect[[3]] + insetf / 4,
-        ytop = xy_rect[[4]] + insetf / 4
-      )
-    ))
+    return(invisible(legend_coords))
   }
 
-  # Display
-  if (frame) {
-    rect(
-      xleft = xy_rect[[1]] - insetf / 4,
-      ybottom = xy_rect[[2]] - insetf / 4,
-      xright = xy_rect[[3]] + insetf / 4,
-      ytop = xy_rect[[4]] + insetf / 4,
-      col = bg,
-      border = frame_border,
-      lwd = .7
+  # display frame
+  plot_frame(
+    frame = frame, legend_coords = legend_coords,
+    bg = bg, frame_border = frame_border,
+    x_spacing = x_spacing, y_spacing = y_spacing
+  )
+
+  # display title
+  plot_title(
+    title = title, title_cex = title_cex, title_dim = title_dim,
+    fg = fg, legend_coords = legend_coords,
+    x_spacing = x_spacing, y_spacing = y_spacing
+  )
+
+  # display symbols & lines
+  pal <- rep(col, n_val)
+
+  x <- rep(NA, n_val)
+  x[1] <- legend_coords$left + x_spacing + max_sizes[1] / 2
+  if (n_val > 1) {
+    for (i in 2:n_val) {
+      x[i] <- x[i - 1] + max_sizes[i - 1] / 2 + x_spacing + max_sizes[i] / 2
+    }
+  }
+  y <- legend_coords$top - y_spacing -
+    ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0) -
+    symb_sizes$y[1] * 2 + symb_sizes$y
+  if (symbol == "circle") {
+    symbols(
+      x = x,
+      y = y,
+      circles = symb_sizes$inches,
+      bg = pal,
+      fg = border,
+      lwd = lwd,
+      add = TRUE,
+      inches = inches,
+    )
+    # display labels
+    text(
+      x = x,
+      y = legend_coords$bottom + y_spacing,
+      labels = valleg, cex = val_cex, adj = c(0.5, 0), col = fg
     )
   }
-  text(
-    xy_title$x,
-    y = xy_title$y,
-    labels = title,
-    cex = title_cex,
-    adj = c(0, 0),
-    col = fg
-  )
-  dots <- data.frame(xy_symbols$x, xy_symbols$y)
-
-  plot_symbols(
-    symbol = symbol,
-    dots = dots,
-    sizes = xy_symbols$s,
-    mycols = col,
-    border = border,
-    lwd = lwd,
-    inches = inches
-  )
-
-  text(
-    xy_lab$x,
-    y = xy_lab$y,
-    labels = valleg,
-    cex = val_cex,
-    adj = c(0.5, 0),
-    col = fg
-  )
+  if (symbol == "square") {
+    symbols(
+      x = x,
+      y = y,
+      squares = symb_sizes$inches,
+      bg = pal,
+      fg = border,
+      lwd = lwd,
+      add = TRUE,
+      inches = inches * 2,
+    )
+    # display labels
+    text(
+      x = x,
+      y = legend_coords$bottom + y_spacing,
+      labels = valleg, cex = val_cex, adj = c(0.5, 0), col = fg
+    )
+  }
 
   return(invisible(NULL))
 }

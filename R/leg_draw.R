@@ -42,13 +42,9 @@ leg_draw <- function(x,
     pos <- interleg()
   }
 
-
-  pf <- parent.frame()
-
   grDevices::recordGraphics(
     expr = {
       dimleg <- list()
-      insetf <- xinch(par("csi")) / 4
       for (i in seq_along(x$layers)) {
         x$layers[[i]]$pos <- pos
         x$layers[[i]]$return_bbox <- TRUE
@@ -82,64 +78,62 @@ leg_draw <- function(x,
 
       for (i in seq_along(x$layers)) {
         x$layers[[i]]$mar <- mar
-        x$layers[[i]]$pos <-
-          c(xleg[i], yleg[i]) + c(-(size - 1) * insetf, (size - 1) * insetf)
+        x$layers[[i]]$pos <- c(xleg[i], yleg[i])
         x$layers[[i]]$return_bbox <- FALSE
         x$layers[[i]]$frame <- FALSE
         x$layers[[i]]$bg <- bg
         x$layers[[i]]$fg <- fg
         x$layers[[i]]$adj <- c(0, 0)
-
         do.call(leg, x$layers[[i]])
       }
     },
-    list = list(x = x, pos = pos, adj = adj, frame = frame, mar = mar, bg = bg,
-                fg = fg, size = size, title_cex = title_cex, val_cex = val_cex,
-                frame_border = frame_border),
-    env = getNamespace("maplegend"))
+    list = list(
+      x = x, pos = pos, adj = adj, frame = frame, mar = mar, bg = bg,
+      fg = fg, size = size, title_cex = title_cex, val_cex = val_cex,
+      frame_border = frame_border
+    ),
+    env = getNamespace("maplegend")
+  )
   return(invisible(NULL))
 }
 
 
-
-
-
 get_pos_and_frame <- function(pos, dimleg, adj) {
   xleft <- min(unlist(lapply(dimleg, function(x) {
-    x$xleft
+    x$left
   })))
   xright <- max(unlist(lapply(dimleg, function(x) {
-    x$xright
+    x$right
   })))
   heights <- unlist(lapply(dimleg, function(x) {
-    x$ytop - x$ybottom
+    x$top - x$bottom
   }))
   height <- sum(heights)
   xleg <- rep(xleft, length(dimleg))
 
   if (is.numeric(pos)) {
     ytop <- max(unlist(lapply(dimleg, function(x) {
-      x$ytop
+      x$top
     })))
     ybottom <- ytop - height
     yleg <- ybottom + rev(cumsum(rev(heights)))
   } else {
     if (startsWith(pos, "top")) {
       ytop <- max(unlist(lapply(dimleg, function(x) {
-        x$ytop
+        x$top
       })))
       ybottom <- ytop - height
       yleg <- ybottom + rev(cumsum(rev(heights)))
     }
     if (startsWith(pos, "bottom")) {
       ybottom <- min(unlist(lapply(dimleg, function(x) {
-        x$ybottom
+        x$bottom
       })))
       ytop <- ybottom + height
       yleg <- ybottom + rev(cumsum(rev(heights)))
     }
     if (pos %in% c("left", "right")) {
-      ymid <- dimleg[[1]][[2]] + (dimleg[[1]][[4]] - dimleg[[1]][[2]]) / 2
+      ymid <- dimleg[[1]][[3]] - (dimleg[[1]][[3]] - dimleg[[1]][[4]]) / 2
       ytop <- ymid + height / 2
       ybottom <- ytop - height
       yleg <- ybottom + rev(cumsum(rev(heights)))

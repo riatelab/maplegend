@@ -6,6 +6,8 @@ leg_cont <- function(pos = "left",
                      title_cex = .8 * size,
                      val_cex = .6 * size,
                      val_rnd = 0,
+                     val_dec = ".",
+                     val_big = "",
                      col_na = "white",
                      no_data = FALSE,
                      no_data_txt = "No Data",
@@ -18,26 +20,26 @@ leg_cont <- function(pos = "left",
                      box_cex = c(1, 1),
                      horiz = FALSE,
                      return_bbox = FALSE,
-                     mar = par("mar"),
                      adj = c(0, 0)) {
   box_cex <- eval(box_cex)
   pal <- eval(pal)
   if (length(pal) != 1) {
     pal <- grDevices::colorRampPalette(colors = pal, alpha = TRUE)(100)
   } else {
-    pal <- hcl.colors(n = 100, palette = pal, rev = TRUE, alpha = alpha)
+    pal <- grDevices::hcl.colors(n = 100, palette = pal, rev = TRUE, alpha = alpha)
   }
   val <- val_cont(val, val_rnd)
   box_cex[1] <- box_cex[1] * .4
   box_cex[2] <- box_cex[2] * .05
 
-  leg(
-    type = "choro", val = val, pos = pos, pal = pal, title = title,
+  leg_choro(
+    val = val, pos = pos, pal = pal, title = title,
     title_cex = title_cex, alpha = alpha,
     val_cex = val_cex, val_rnd = val_rnd, col_na = col_na, no_data = no_data,
+    val_dec = val_dec, val_big = val_big,
     no_data_txt = no_data_txt, frame = frame, box_border = NA, bg = bg,
     fg = fg, frame_border = frame_border,
-    size = size, box_cex = box_cex, horiz = horiz,
-    return_bbox = return_bbox, mar = mar, adj = adj
+    size = size, box_cex = box_cex,
+    return_bbox = return_bbox, adj = adj
   )
 }

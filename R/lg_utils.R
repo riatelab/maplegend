@@ -1,27 +1,22 @@
-## Return well formated rounded numeric values.
-get_val_rnd <- function(val, val_rnd) {
+get_val_rnd <- function(val, val_rnd, val_dec = getOption("OutDec"), val_big = "") {
   if (is.numeric(val)) {
     val <- round(val, val_rnd)
     if (val_rnd <= 0) {
       val_rnd <- 0
     }
-    val <- format(x = val, scientific = FALSE, nsmall = val_rnd)
-    val <- trimws(val)
+    val <- format(
+      x = val, scientific = FALSE, nsmall = val_rnd,
+      decimal.mark = val_dec, big.mark = val_big,
+      trim = TRUE
+    )
   }
-  val
+  return(val)
 }
 
-#' Title
-#'
-#' @param pal pal
-#' @param nbreaks nbreaks
-#' @param alpha alpha
-#' @noRd
-#' @importFrom grDevices hcl.pals hcl.colors
 get_pal <- function(pal, nbreaks, alpha = 1) {
   if (length(pal) == 1) {
-    if (pal %in% hcl.pals()) {
-      cols <- hcl.colors(n = nbreaks, palette = pal, rev = TRUE)
+    if (pal %in% grDevices::hcl.pals()) {
+      cols <- grDevices::hcl.colors(n = nbreaks, palette = pal, rev = TRUE)
     } else {
       cols <- rep(pal, nbreaks)
     }
@@ -39,9 +34,9 @@ get_hex_pal <- function(pal, alpha) {
   pal <- grDevices::col2rgb(pal, alpha = FALSE)
   ffun <- function(x) {
     grDevices::rgb(pal[1, x],
-                   pal[2, x],
-                   pal[3, x],
-                   maxColorValue = 255
+      pal[2, x],
+      pal[3, x],
+      maxColorValue = 255
     )
   }
   paste0(sapply(1:ncol(pal), ffun), get_alpha(alpha))
@@ -57,34 +52,111 @@ get_alpha <- function(alpha) {
   sprintf("%02X", as.integer(255.999 * alpha))
 }
 
-
-
-
-
-
-
-
-
-# get position and size of the title
-get_xy_title <- function(x = NULL, y, title, title_cex) {
-  h <- strheight(title, units = "user", cex = title_cex, font = 1)
-  w <- strwidth(title, units = "user", cex = title_cex, font = 1)
-  if (is.null(x)) {
-    x <- 0
-    y <- 0 - h
-  } else {
-    y <- y - h
+get_title_dim <- function(title, title_cex) {
+  h <- strheight(s = title, units = "user", cex = title_cex, font = 1)
+  w <- strwidth(s = title, units = "user", cex = title_cex, font = 1)
+  if (title == "" || is.na(title)) {
+    w <- h <- 0
   }
-  return(list(x = x, y = y, h = h, w = w))
+  return(list(w = w, h = h))
+}
+
+# get the position of the legend
+get_legend_coords <- function(pos, legend_dim, adj, frame, x_spacing, y_spacing) {
+  if (is.numeric(pos) && length(pos) == 2) {
+    xy <- pos
+  } else {
+    pu <- par("usr")
+    if (isTRUE(frame)) {
+      adj <- adj + switch(pos,
+        bottomleft = c(1, 1),
+        topleft = c(1, -1),
+        left = c(1, 0),
+        top = c(0, -1),
+        bottom = c(0, 1),
+        bottomright = c(-1, 1),
+        right = c(-1, 0),
+        topright = c(-1, -1),
+        interactive = c(0, 0)
+      )
+    }
+    extra <- adj * c(x_spacing, y_spacing)
+    xy <- switch(pos,
+      bottomleft = c(
+        pu[1],
+        pu[3] + legend_dim$h
+      ),
+      topleft = c(
+        pu[1],
+        pu[4]
+      ),
+      left = c(
+        pu[1],
+        pu[3] + (pu[4] - pu[3]) / 2 + legend_dim$h / 2
+      ),
+      top = c(
+        pu[1] + (pu[2] - pu[1]) / 2 - legend_dim$w / 2,
+        pu[4]
+      ),
+      bottom = c(
+        pu[1] + (pu[2] - pu[1]) / 2 - legend_dim$w / 2,
+        pu[3] + legend_dim$h
+      ),
+      bottomright = c(
+        pu[2] - legend_dim$w,
+        pu[3] + legend_dim$h
+      ),
+      right = c(
+        pu[2] - legend_dim$w,
+        pu[3] + (pu[4] - pu[3]) / 2 + legend_dim$h / 2
+      ),
+      topright = c(
+        pu[2] - legend_dim$w,
+        pu[4]
+      )
+    )
+    xy <- xy + extra
+  }
+  return(list(
+    right = xy[1] + legend_dim$w,
+    left = xy[1],
+    top = xy[2],
+    bottom = xy[2] - legend_dim$h
+  ))
 }
 
 
+plot_title <- function(title, title_cex, title_dim, fg, legend_coords,
+                       x_spacing, y_spacing) {
+  if (title_dim$h != 0) {
+    x <- legend_coords$left + x_spacing
+    y <- legend_coords$top - y_spacing - title_dim$h
+    text(x = x, y = y, labels = title, cex = title_cex, adj = c(0, 0), col = fg)
+  }
+  return(invisible(NULL))
+}
 
-interleg <- function(txt = c("legend", "Legend")) {
+
+plot_frame <- function(frame, legend_coords, bg, frame_border,
+                       x_spacing, y_spacing) {
+  if (isTRUE(frame)) {
+    rect(
+      xleft = legend_coords$left,
+      xright = legend_coords$right,
+      ytop = legend_coords$top,
+      ybottom = legend_coords$bottom,
+      col = bg,
+      border = frame_border,
+      lwd = .7
+    )
+  }
+}
+
+interleg <- function() {
   if (interactive()) {
-    message(paste0("Click on the map to choose the ", txt[1], " position."))
+    message(paste0("Click on the map to choose the legend position."))
     x <- unlist(locator(1))
-    message(paste0(txt[2], " coordinates:\nc(", x[[1]], ", ", x[[2]], ")"))
+    message(paste0("Legend coordinates:\nc(", x[[1]], ", ", x[[2]], ")"))
     return(x)
   } else {
     stop('You cannot use "interactive" in a non-interactive R session.',
@@ -92,168 +164,6 @@ interleg <- function(txt = c("legend", "Legend")) {
     )
   }
 }
-
-
-
-
-
-
-
-# get position of the NA box
-get_xy_nabox <- function(x, y, w, h) {
-  xleft <- x
-  xright <- x + w
-  ytop <- y
-  ybottom <- y - h
-  return(list(
-    xleft = unname(xleft),
-    ybottom = unname(ybottom),
-    xright = unname(xright),
-    ytop = unname(ytop),
-    h = h,
-    w = w
-  ))
-}
-
-
-
-# get na box label pos
-get_xy_nabox_lab <- function(x, y, h, no_data_txt, val_cex) {
-  y <- y - h / 2
-  w <- max(strwidth(no_data_txt, units = "user", cex = val_cex, font = 1))
-  return(list(x = x, y = y, w = w))
-}
-
-
-
-# get frame coordinates
-get_xy_rect <- function(xy_title, xy_box, xy_nabox,
-                        xy_box_lab, xy_nabox_lab, no_data,
-                        inset, w, cho = FALSE) {
-  if (cho && !no_data) {
-    xy_box$h <- xy_box$h + (xy_box_lab$h / 2)
-  }
-  xy_leg <- list(
-    xleft = xy_title$x,
-    ybottom =
-      xy_title$y - inset / 2 -
-        xy_box$h -
-        (xy_nabox$h + inset / 2) * no_data,
-    xright = xy_title$x +
-      max(
-        xy_title$w,
-        w + inset / 4 + xy_box_lab$w,
-        (w + inset / 4 + xy_nabox_lab$w) * no_data
-      ),
-    ytop = xy_title$y + xy_title$h
-  )
-  xy_leg
-}
-
-# get frame coordinates when using lines
-get_xy_rect_l <- function(xy_title, xy_box,
-                          xy_box_lab,
-                          inset, w) {
-  xy_leg <- list(
-    xleft = xy_title$x,
-    ybottom = xy_title$y - inset / 2 - xy_box$h,
-    xright = xy_title$x + max(xy_title$w, w + inset / 4 + xy_box_lab$w),
-    ytop = xy_title$y + xy_title$h
-  )
-  xy_leg
-}
-
-
-
-#' @name get_size
-#' @title get_size
-#' @description get a vector of radii
-#' @param inches inches
-#' @param var var
-#' @param fixmax fixmax
-#' @param symbol symbols
-#' @return a vector of radii
-#' @noRd
-get_size <- function(var, inches, val_max, symbol) {
-  switch(symbol,
-    circle = {
-      smax <- inches * inches * pi
-      size <- sqrt((var * smax / val_max) / pi)
-    },
-    square = {
-      smax <- inches * inches
-      size <- sqrt(var * smax / val_max)
-    }
-  )
-  return(size)
-}
-
-
-
-
-
-
-
-
-
-
-
-
-# get the position of the legeng
-get_pos_leg <- function(pos, xy_rect, adj, xy_title, frame = FALSE) {
-  pu <- par("usr")
-  inset2 <- xinch(par("csi")) / 4
-  if (frame) {
-    pu <- pu + c(inset2, -inset2, inset2, -inset2)
-  }
-
-  extra <- inset2 * 2 * adj
-
-  xy <- switch(pos,
-    bottomleft = c(
-      pu[1] + inset2,
-      pu[3] + xy_rect[4] - xy_rect[2] + inset2
-    ),
-    topleft = c(
-      pu[1] + inset2,
-      pu[4] - inset2
-    ),
-    left = c(
-      pu[1] + inset2,
-      pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
-    ),
-    top = c(
-      pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
-      pu[4] - inset2
-    ),
-    bottom = c(
-      pu[1] + (pu[2] - pu[1]) / 2 - (xy_rect[3] - xy_rect[1]) / 2 + inset2,
-      pu[3] + xy_rect[4] - xy_rect[2] + inset2
-    ),
-    bottomright = c(
-      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-      pu[3] + xy_rect[4] - xy_rect[2] + inset2
-    ),
-    right = c(
-      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-      pu[3] + (pu[4] - pu[3]) / 2 + (xy_rect[4] - xy_rect[2]) / 2 - inset2
-    ),
-    topright = c(
-      pu[2] - xy_rect[3] - xy_rect[1] - inset2,
-      pu[4] - inset2
-    ),
-    interactive = interleg()
-  )
-
-  xy <- xy + extra
-
-  return(unname(xy))
-}
-
-
-
-
-
 
 leg_test_pos <- function(pos) {
   authorized_pos <-
@@ -289,104 +199,6 @@ leg_test_input <- function(pos) {
   leg_test_cur_plot()
 }
 
-
-
-get_xy_box <- function(x, y, n, w, h, inset, type = c("c", "c_h", "t", "s")) {
-  if (type %in% c("c", "t")) {
-    xleft <- rep(x, n)
-    xright <- rep(x + w, n)
-    ytop <- rep(NA, n)
-    ybottom <- rep(NA, n)
-    for (i in 1:n) {
-      ytop[i] <- y - (i - 1) * h - (i - 1) * inset
-      ybottom[i] <- ytop[i] - h
-    }
-    h <- ytop[1] - ybottom[n]
-    w <- w
-  }
-  if (type == "s") {
-    xleft <- rep(x, n)
-    xright <- x + w
-    ytop <- rep(NA, n)
-    ybottom <- rep(NA, n)
-    ytop[1] <- y
-    ybottom[1] <- y - h[1]
-    if (n >= 2) {
-      for (i in 2:n) {
-        ytop[i] <- ybottom[i - 1] - inset
-        ybottom[i] <- ytop[i] - h[i]
-      }
-    }
-    h <- ytop[1] - ybottom[n]
-    w <- max(xright) - x
-  }
-
-  if (type == "c_h") {
-    ytop <- rep(y, n)
-    ybottom <- rep(y - h, n)
-    xright <- rep(NA, n)
-    xleft <- rep(NA, n)
-    for (i in 1:n) {
-      xleft[i] <- x + (i - 1) * w
-      xright[i] <- xleft[i] + w
-    }
-    h <- h
-    w <- xright[n] - xleft[1]
-  }
-
-
-  return(list(
-    xleft = unname(xleft),
-    ybottom = unname(ybottom),
-    xright = unname(xright),
-    ytop = unname(ytop),
-    h = h,
-    w = w
-  ))
-}
-
-
-
-
-get_xy_box_lab <- function(x, y, h, w, val, val_cex, inset,
-                           type = c("c", "c_h", "t", "s")) {
-  n <- length(val)
-
-  if (type %in% c("t", "s", "c")) {
-    xc <- rep(x, n)
-    yc <- rep(NA, n)
-
-    if (type == "t") {
-      for (i in 1:n) {
-        yc[i] <- y - (i - 1) * h - h / 2 - (i - 1) * inset
-      }
-    } else if (type == "s") {
-      for (i in 1:n) {
-        yc[i] <- y - (i - 1) * h[i] - h[i] / 2 - (i - 1) * inset
-      }
-    } else if (type == "c") {
-      for (i in 1:n) {
-        yc[i] <- y - (i - 1) * h
-      }
-    }
-    w <- max(strwidth(val, units = "user", cex = val_cex, font = 1))
-  }
-  if (type == "c_h") {
-    xc <- rep(NA, n)
-    yc <- rep(y, n)
-    for (i in 1:n) {
-      xc[i] <- x + (i - 1) * w
-    }
-    w <- xc[n] +
-      (strwidth(val[n], units = "user", cex = val_cex, font = 1) / 2) -
-      xc[1] -
-      (strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2)
-  }
-  h <- max(strheight(val, units = "user", cex = val_cex, font = 1))
-  return(list(x = xc, y = yc, w = w, h = h))
-}
-
-
 val_cont <- function(val, val_rnd) {
   if (length(val) == 2) {
     val_ref_s <- pretty(val, n = 5)
@@ -401,4 +213,87 @@ val_cont <- function(val, val_rnd) {
   vval <- rep("", 101)
   vval[indices] <- val_ref
   vval
+}
+
+
+self_adjust_v <- function(var, inches, val_cex) {
+  if (length(var) == 1) {
+    return(var)
+  }
+  # get min & max
+  val <- c(min(var), max(var))
+  # factors
+  b <- c(5, 2.5, 1)
+  # min val
+  min_s <- min(val)
+  # max val
+  max_s <- max(val)
+  # get candidat values for the legend
+  ndmax <- floor(log10(max_s))
+  if (min_s < 1) {
+    ndmin <- nchar(as.character(signif(min_s, digits = 0))) - 2
+  } else {
+    ndmin <- 1
+  }
+  i <- c(-ndmin:ndmax)
+  v <- vector("numeric", 0)
+  for (base in b) {
+    v <- c(v, base * 10^i)
+  }
+
+  v <- c(max_s, min_s, v)
+  v <- v[v >= min_s]
+  v <- v[v <= max_s]
+  v <- sort(unique(v))
+
+  # circle sizes in map units for candidate values
+  si <- yinch(sqrt(v * inches * inches / max(val)))
+
+  # texte size labels in map units
+  h <- max(strheight(val, units = "user", cex = val_cex, font = 1)) * 1.2
+
+  # number of candidate values
+  i <- length(si)
+
+  # vector of displayed values
+  a <- vector("logical", i)
+
+  # The last one (max) is always displayed
+  a[i] <- TRUE
+
+  # go to next one
+  i <- i - 1
+  while (TRUE) {
+    maxv <- si[length(si)] * 2
+    # test space between two circles
+    if (maxv - si[i] * 2 <= h) {
+      # the space is too small
+      a[i] <- FALSE
+      # go to next value
+      si <- si[-(length(si) - 1)]
+    } else {
+      # the space is not too small
+      si <- si[-length(si)]
+      # display ok
+      a[i] <- TRUE
+    }
+    # increment
+    i <- i - 1
+    # last value
+    if (i == 0) break
+  }
+
+  # If only one value is selected (max) select also the lower
+  if (sum(a) <= 1) {
+    a[1] <- TRUE
+  }
+
+  # if min value not selected, remove min selected value and replace
+  # with min value
+  if (a[1] == FALSE) {
+    a[which(a)[1]] <- FALSE
+    a[1] <- TRUE
+  }
+
+  return(v[a])
 }

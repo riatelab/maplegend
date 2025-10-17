@@ -8,7 +8,7 @@ message: 'To cite package "maplegend" in publications use:'
 type: software
 license: GPL-3.0-only
 title: 'maplegend: Legends for Maps'
-version: 0.3.0
+version: 0.4.0
 doi: 10.32614/CRAN.package.maplegend
 abstract: Create legends for maps and other graphics. Thematic maps need to be accompanied
   by legible legends to be fully comprehensible. This package offers a wide range

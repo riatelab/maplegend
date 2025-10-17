@@ -1,8 +1,20 @@
+expect_error(leg(
+  type = "grad_line",
+  val = c(1, 4, 10, 15),
+  pos = "bottomright",
+  lwd = c(1, 5, 10),
+  alpha = .5
+))
+
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 
 expect_silent(leg(type = "prop", pos = "topright",
                   val = c(1, 5, 10), inches = .3))
+expect_silent(leg(type = "prop", pos = "topright",
+                  val = c(1, 5, 10), inches = .3, symbol = 'square'))
+expect_silent(leg(type = "prop", pos = "topright", symbol = 'square',
+                  val = c(1, 5, 10), inches = .3, horiz = TRUE))
 expect_silent(leg(type = "choro", pos = "bottomright",
                   val = c(10, 20, 30, 40, 50),
                         pal = hcl.colors(4, "Reds 2")))
@@ -50,7 +62,10 @@ expect_silent(leg(type = "prop_line",
 expect_silent(leg(type = "cont", pos = "top", val = c(10, 100)))
 
 expect_silent(leg(type = "cont", pos = "top", val = c(10, 100), horiz = TRUE))
-
+expect_silent(leg(type = "cont", pos = "top", val = c(10, 100), horiz = TRUE,
+                  pal = c("red", "blue")))
+expect_silent(leg(type = "cont", pos = "top", val = c(10, 100), horiz = FALSE,
+                  pal = c("red", "blue")))
 expect_silent(leg(type = "choro", pos = c(.5, .5),
                   frame = TRUE, no_data = TRUE, val = c(10, 20, 30, 40, 50),
                   pal = hcl.colors(4, "Reds 2")))
@@ -60,6 +75,9 @@ expect_silent(leg(type = "typo", pos = c(.5, .5),
 expect_silent(leg(type = "symb", pos = c(.1, .8),
                   frame = TRUE, no_data = TRUE, val = c(10, 20, 30, 40, 50),
                   pal = "Viridis", pch = 21:26))
+expect_silent(leg(type = "symb", pos = c(.1, .8),
+                  frame = TRUE, no_data = TRUE, val = c(10, 20, 30, 40, 50),
+                  pal = "Viridis", pch = 21, cex = 1))
 expect_silent(leg(type = "choro", pos = c(.5, .5), horiz = TRUE,
                   frame = TRUE, no_data = TRUE, val = c(10, 20, 30, 40, 50),
                   pal = hcl.colors(4, "Reds 2")))
@@ -84,6 +102,11 @@ plot.new()
 plot.window(xlim = c(0, 1),
             ylim = c(0, 1),
             asp = 1)
+
+expect_silent(leg(type = "symb", pos = c(.1, .8),
+                  frame = TRUE, no_data = TRUE, val = c(10, 20, 30, 40, 50),
+                  pal = "purple", pch = 21:26))
+
 expect_silent(leg(
   type = "prop",
   val = c(10, 50, 100),
@@ -130,15 +153,21 @@ expect_silent(leg(
   lwd = 20,
   alpha = .5
 ))
+
 expect_silent(leg(
   type = "grad_line",
   val = c(1, 4, 10, 15),
-  pos = "bottomright",
-  lwd = c(1, 5, 10)
-  ,
-  alpha = .5
+  pos = "right",
+  lwd = c(1, 5, 10),
+  alpha = -1.5
 ))
-
+expect_silent(leg(
+  type = "grad_line",
+  val = c(1, 4, 10, 15),
+  pos = "right",
+  lwd = c(1, 5, 10),
+  alpha = 1.5
+))
 
 plot.new()
 plot.window(xlim = c(0, 1),
@@ -161,4 +190,35 @@ expect_silent(leg(
   ,
   alpha = .5
 ))
+
+expect_silent(leg(
+  type = "cont", title = "",
+  val = c(10, 20, 30, 40, 50),
+  pos = "topright",
+  horiz = FALSE
+  ,
+  alpha = .5
+))
+
+expect_error(leg(
+  type = "cont",
+  val = c(10),
+  pos = "topright",
+  horiz = FALSE
+  ,
+  alpha = .5
+))
+
+
+x <- round(rnorm(1000)*1000, 2)
+y <- round(rbeta(1000, .6, 7)*1000, 2)
+z <- round(rbeta(1000, 5, .6)*1000, 2)
+xh <- hist(x, breaks = quantile(x, 0:10 /10), plot = F)
+yh <- hist(y, breaks = quantile(y, 0:10 /10), plot = F)
+zh <- hist(z, breaks = quantile(z, 0:10 /10), plot = F)
+expect_silent({
+leg(type = "histo", val = xh, pos = "topleft", frame = T)
+leg(type = "histo", val = yh, pos = 'top'    , frame = T)
+leg(type = "histo", val = zh, pos = 'bottom' , frame = T)
+})
 

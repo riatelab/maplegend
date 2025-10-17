@@ -12,12 +12,14 @@
 #' * **typo** for typology maps,
 #' * **symb** for symbols maps,
 #' * **prop_line** for proportional lines maps,
-#' * **grad_line** for graduated lines maps.
+#' * **grad_line** for graduated lines maps,
+#' * **histo** for histograms.
 #' @param val
 #' vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 #' for "cont"),
 #' vector of categories (for "symb" and "typo"),
-#' break labels (for "choro" and "grad_line").
+#' break labels (for "choro" and "grad_line"), histogram parameters
+#' (for "histo").
 #' @param pos position of the legend. It can be one of 'topleft', 'top',
 #' 'topright', 'right', 'bottomright', 'bottom','bottomleft',
 #' 'left', 'interactive' or a vector of two coordinates
@@ -35,14 +37,15 @@
 #' @param val_cex size of the values in the legend
 #' @param val_rnd number of decimal places of the values in
 #' the legend
+#' @param val_dec decimal separator
+#' @param val_big thousands separator
 #' @param frame if TRUE the legend is plotted within a frame
 #' @param no_data if TRUE a "missing value" box is plotted
 #' @param no_data_txt label for missing values
 #' @param bg background color of the legend
 #' @param fg foreground color of the legend
 #' @param box_border border color of legend boxes
-#' @param box_cex width and height size expansion of boxes,
-#' (or offset between circles for "prop" legends with horiz = TRUE)
+#' @param box_cex width and height size expansion for boxes, histogram or lines
 #' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
@@ -69,15 +72,14 @@
 #'
 #'
 #' Relevant arguments for each specific legend types:
-#' * `leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, self_adjust, horiz)`
-#' * `leg(type = "choro", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
-#' * `leg(type = "cont", val, pal, val_rnd, col_na, no_data, no_data_txt, box_border, horiz)`
-#' * `leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border)`
+#' * `leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, val_big, val_dec, self_adjust, horiz)`
+#' * `leg(type = "choro", val, pal, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, box_border, box_cex, horiz)`
+#' * `leg(type = "cont", val, pal, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, box_border, box_cex, horiz)`
+#' * `leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border, box_cex)`
 #' * `leg(type = "symb", val, pal, pch, cex, lwd, pch_na, cex_na, col_na, no_data, no_data_txt)`
-#' * `leg(type = "prop_line", val, col, lwd, val_rnd)`
-#' * `leg(type = "grad_line", val, col, lwd, val_rnd)`
-#'
-#'
+#' * `leg(type = "prop_line", val, col, lwd, val_rnd, val_big, val_dec)`
+#' * `leg(type = "grad_line", val, col, lwd, val_rnd, val_big, val_dec)`
+#' * `leg(type = "histo", val, pal, box_border, val_rnd, val_big, val_dec)`
 #'
 #' @examples
 #' # minimal example
@@ -105,6 +107,11 @@
 #' leg(
 #'   type = "cont", val = c(10, 20, 30, 40, 50), pos = "topright",
 #'   horiz = FALSE
+#' )
+#' set.seed(46)
+#' leg(
+#'   type = "histo", val = hist(rnorm(1000), breaks = 5, plot = FALSE),
+#'   pos = "bottomright"
 #' )
 #' box()
 #'
@@ -223,20 +230,38 @@
 #'   title = "Graduated Lines"
 #' )
 #'
+#' plot.new()
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' set.seed(46)
+#' x <- rnorm(10000) * 1000
+#' val <- hist(x, breaks = quantile(x, 0:10/10), plot = FALSE)
+#' leg(
+#'   type = "histo",
+#'   alpha = 1,
+#'   val = val,
+#'   pos = "top",
+#'   pal = "Teal",
+#'   val_rnd = 0,
+#'   val_big = " ",
+#'   box_border = "cornsilk",
+#'   box_cex = c(1, 2),
+#'   title = "Histogram"
+#' )
+#'
 #' # Positions
 #' plot.new()
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg(
-#'   type = "prop", val = c(10,60, 100), pos = "bottomleft", adj = c(0, 2),
-#'   title = "adj = c(0, 2)", frame = TRUE
+#'   type = "prop", val = c(10, 60, 100), pos = "bottomleft", adj = c(0, 4),
+#'   title = "adj = c(0, 4)", frame = TRUE
 #' )
 #' leg(
 #'   type = "choro", val = c(10, 50, 100), pos = "bottomright",
-#'   adj = c(0, 4), title = "adj = c(0, 4)", frame = TRUE
+#'   adj = c(0, 8), title = "adj = c(0, 8)", frame = TRUE
 #' )
 #' leg(
 #'   type = "prop", val = c(10, 50, 100), pos = "topleft",
-#'   adj = c(0, -4), title = "adj = c(0, -4)"
+#'   adj = c(0, -8), title = "adj = c(0, -8)"
 #' )
 #' box()
 #' mtext(
@@ -268,6 +293,8 @@ leg <- function(type,
                 title_cex = 0.8 * size,
                 val_cex = 0.6 * size,
                 val_rnd = 0,
+                val_dec = ".",
+                val_big = "",
                 col_na = "white",
                 cex_na = 1,
                 pch_na = 4,
@@ -291,38 +318,28 @@ leg <- function(type,
 
   leg_test_input(pos)
 
-
-  op <- par(
-    mar = mar,
-    xpd = TRUE,
-    no.readonly = TRUE
-  )
+  op <- par(mar = mar, xpd = TRUE, no.readonly = TRUE)
   on.exit(par(op), add = TRUE)
 
-
   args <- as.list(match.call())
-  args <- args[!names(args) %in% c("type", "horiz")]
+  args <- args[!names(args) %in% c("type", "horiz", "mar")]
   args <- args[-1]
   h <- ""
   if (horiz) {
     h <- "_h"
   }
 
-
   ffun <- get(paste0("leg_", type, h))
   pf <- parent.frame()
 
-
-  if(length(pos) == 1 && pos == "interactive"){
-    args$return_bbox <- TRUE
-    x <- do.call(what = ffun, args = args, envir = pf)
-    args$return_bbox <- return_bbox
-    args$pos <- c(x[[1]], x[[4]])
+  if (length(pos) == 1 && pos == "interactive") {
+    args$pos <- interleg()
   }
 
   x <- grDevices::recordGraphics(
     expr = do.call(what = ffun, args = args, envir = pf),
     list = list(args = args, ffun = ffun, pf = pf),
-    env = getNamespace("maplegend"))
+    env = getNamespace("maplegend")
+  )
   return(invisible(x))
 }

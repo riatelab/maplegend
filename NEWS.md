@@ -1,3 +1,14 @@
+# maplegend 0.4.0
+
+# fix
+Most of the functions of the package have been refactored in order to use a more 
+robust behaviour and to be suitable for plots with asp != 1.
+
+## feat
+* new map type "histo" to draw hitogram legends (#5)
+* new args val_big and val_dec have been added for types already using val_rnd
+to select decimal separator and big values separator (#6)
+
 # maplegend 0.3.0
 
 ## feat

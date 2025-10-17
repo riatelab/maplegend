@@ -21,7 +21,6 @@
 #' @param bg background of the legend
 #' @param fg foreground of the legend
 #' @param box_cex width and height cex of boxes
-#' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
 #' @param frame_border border color of the frame
@@ -52,162 +51,131 @@ leg_typo <- function(pos = "topright",
                      size = 1,
                      box_cex = c(1, 1),
                      return_bbox = FALSE,
-                     mar = par("mar"),
                      adj = c(0, 0)) {
-  insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1) * size
+  # spacings
+  x_spacing <- xinch(par("csi")) / 4
+  y_spacing <- yinch(par("csi")) / 4
 
-  # box size mgmt
-  # box width
-  w <- inset
-  # box height
-  h <- inset / 1.5
-  if (length(box_cex) == 2) {
-    w <- w * box_cex[1]
-    h <- h * box_cex[2]
-  }
+  # boxes sizes
+  w_box <- box_cex[1] * size * x_spacing * 5
+  h_box <- box_cex[2] * size * y_spacing * 5 * 2 / 3
 
-  # number of boxes
-  n <- length(val)
+  # Nb. boxes and values
+  n_val <- n_box <- length(val)
+
   # box colors
-  pal <- get_pal(pal, n, alpha = alpha)
+  pal <- get_pal(pal, n_box, alpha = alpha)
 
-  # initiate xy leg position
-  xy_leg <- NULL
+  # title dimensions
+  title_dim <- get_title_dim(title, title_cex)
 
-  while (TRUE) {
-    if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset, -inset)) / 4
-    }
+  # boxes dimensions
+  boxes_dim <- list(w = w_box, h = n_box * h_box + y_spacing * (n_box - 1))
 
-    xy_title <- get_xy_title(
-      x = xy_leg[1],
-      y = xy_leg[2],
-      title = title,
-      title_cex = title_cex
+  # label dimension
+  labels_dim <- list(
+    w = max(strwidth(val, units = "user", cex = val_cex, font = 1))
+  )
+
+  # label (+) box dim
+  max_sizes <- pmax(
+    strheight(val, units = "user", cex = val_cex, font = 1),
+    rep(h_box, n_box)
+  )
+
+  # NA box and label dimensions
+  if (isTRUE(no_data)) {
+    na_box_dim <- list(w = w_box, h = h_box)
+    na_label_dim <- list(
+      w = strwidth(no_data_txt, units = "user", cex = val_cex, font = 1),
+      h = max(strheight(no_data_txt, units = "user", cex = val_cex, font = 1), h_box)
     )
-    xy_box <- get_xy_box(
-      x = xy_title$x,
-      y = xy_title$y - inset / 3,
-      n = n,
-      w = w,
-      h = h,
-      inset = inset / 4,
-      type = "t"
-    )
-    xy_nabox <- get_xy_nabox(
-      x = xy_title$x,
-      y = xy_box$ybottom[n] - inset / 4,
-      w = w,
-      h = h
-    )
-    xy_box_lab <- get_xy_box_lab(
-      x = xy_box$xright[n] + inset / 4,
-      y = xy_box$ytop[1],
-      h = h,
-      val = val,
-      val_cex = val_cex,
-      inset = inset / 4,
-      type = "t"
-    )
-    xy_nabox_lab <- get_xy_nabox_lab(
-      x = xy_nabox$xright + inset / 4,
-      y = xy_nabox$ytop,
-      h = h,
-      no_data_txt = no_data_txt,
-      val_cex = val_cex
-    )
-    xy_rect <- get_xy_rect(
-      xy_title = xy_title,
-      xy_box = xy_box,
-      xy_nabox = xy_nabox,
-      xy_box_lab = xy_box_lab,
-      xy_nabox_lab = xy_nabox_lab,
-      no_data = no_data,
-      inset = inset,
-      w = w,
-      cho = FALSE
-    )
-    if (!is.null(xy_leg)) {
-      break
-    }
-    xy_leg <- get_pos_leg(
-      pos = pos,
-      xy_rect = unlist(xy_rect),
-      adj = adj,
-      xy_title = xy_title,
-      frame = frame
-    )
+  } else {
+    na_box_dim <- list(w = 0, h = 0)
+    na_label_dim <- list(w = 0, h = 0)
+    no_data_txt <- ""
   }
 
+  # legend dimension
+  legend_dim <- list(
+    w = x_spacing +
+      max(
+        title_dim$w,
+        boxes_dim$w + labels_dim$w + x_spacing,
+        na_box_dim$w + na_label_dim$w + x_spacing
+      ) +
+      x_spacing,
+    h = y_spacing +
+      ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0) +
+      sum(max_sizes) + (n_box - 1) * y_spacing +
+      ifelse(na_label_dim$h != 0, na_label_dim$h + y_spacing * size, 0) +
+      y_spacing
+  )
+
+  # get legend coordinates
+  legend_coords <- get_legend_coords(
+    pos = pos, legend_dim = legend_dim,
+    adj = adj, frame = frame,
+    x_spacing = x_spacing,
+    y_spacing = y_spacing
+  )
+
+  # return legend coordinates only
   if (return_bbox) {
-    return(invisible(
-      list(
-        xleft = xy_rect[[1]] - insetf / 4,
-        ybottom = xy_rect[[2]] - insetf / 4,
-        xright = xy_rect[[3]] + insetf / 4,
-        ytop = xy_rect[[4]] + insetf / 4
-      )
-    ))
+    return(invisible(legend_coords))
   }
 
-
-  if (frame) {
-    rect(
-      xleft = xy_rect[[1]] - insetf / 4,
-      ybottom = xy_rect[[2]] - insetf / 4,
-      xright = xy_rect[[3]] + insetf / 4,
-      ytop = xy_rect[[4]] + insetf / 4,
-      col = bg,
-      border = frame_border,
-      lwd = .7
-    )
-  }
-  text(
-    xy_title$x,
-    y = xy_title$y,
-    labels = title,
-    cex = title_cex,
-    adj = c(0, 0),
-    col = fg
+  # display frame
+  plot_frame(
+    frame = frame, legend_coords = legend_coords,
+    bg = bg, frame_border = frame_border,
+    x_spacing = x_spacing, y_spacing = y_spacing
   )
+
+  # display title
+  plot_title(
+    title = title, title_cex = title_cex, title_dim = title_dim,
+    fg = fg, legend_coords = legend_coords,
+    x_spacing = x_spacing, y_spacing = y_spacing
+  )
+
+  # display boxes
+  center <- rep(NA, n_val)
+  center[1] <- legend_coords$top - y_spacing -
+    ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0) -
+    max_sizes[1] / 2
+  for (i in 2:n_val) {
+    center[i] <- center[i - 1] - max_sizes[i - 1] / 2 - y_spacing - max_sizes[i] / 2
+  }
+  left <- rep(legend_coords$left + x_spacing, n_box)
+  right <- left + w_box
+  top <- center + h_box / 2
+  bottom <- top - h_box
   rect(
-    xy_box[[1]],
-    xy_box[[2]],
-    xy_box[[3]],
-    xy_box[[4]],
-    col = pal,
-    border = box_border,
-    lwd = .7
+    xleft = left, ybottom = bottom, xright = right, ytop = top,
+    col = pal, border = box_border, lwd = .7
   )
-  text(
-    xy_box_lab$x,
-    y = xy_box_lab$y,
-    labels = val,
-    cex = val_cex,
-    adj = c(0, 0.5),
-    col = fg
-  )
-  if (no_data) {
+
+  # display labels
+  x <- rep(legend_coords$left + x_spacing + w_box + x_spacing, n_val)
+  y <- center
+  text(x = x, y = y, labels = val, cex = val_cex, adj = c(0, 0.5), col = fg)
+
+  if (isTRUE(no_data)) {
+    # display na box
+    left <- legend_coords$left + x_spacing
+    right <- left + w_box
+    bottom <- legend_coords$bottom + y_spacing + (na_label_dim$h - na_box_dim$h) / 2
+    top <- bottom + h_box
     rect(
-      xy_nabox[[1]],
-      xy_nabox[[2]],
-      xy_nabox[[3]],
-      xy_nabox[[4]],
-      col = col_na,
-      border = box_border,
-      lwd = .7
+      xleft = left, ybottom = bottom, xright = right, ytop = top,
+      col = col_na, border = box_border, lwd = .7
     )
-    text(
-      xy_nabox_lab$x,
-      y = xy_nabox_lab$y,
-      labels = no_data_txt,
-      cex = val_cex,
-      adj = c(0, 0.5),
-      col = fg
-    )
+
+    # display na label
+    x <- legend_coords$left + x_spacing + w_box + x_spacing
+    y <- bottom + (top - bottom) / 2
+    text(x = x, y = y, labels = no_data_txt, cex = val_cex, adj = c(0, 0.5), col = fg)
   }
-
-
   return(invisible(NULL))
 }

@@ -44,28 +44,34 @@ remotes::install_github("riatelab/maplegend", ref = "dev")
 ## Example
 
 The main function is `leg()`. Its `type` argument defines the legend type. 
+
 ```{r example, fig.width=9, fig.height=4.5, fig.show="hold"}
 library(maplegend)
 opar <- par(mar = c(1, 1, 1, 1), mfrow = c(1, 2))
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft")
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "bottomleft")
 leg(type = "typo", val = c("A", "B", "C"), pos = "top")
 leg(type = "symb", val = c("A", "B", "C"), pos = "topright")
+set.seed(46)
+leg(type = "histo", val = hist(rnorm(1000), breaks = 5, plot = FALSE))
 leg(type = "prop_line", val = c(5, 50, 100), pos = "bottom", lwd = 20)
 leg(type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright", lwd = c(1, 5, 10))
 box()
 plot.new()
-plot.window(xlim = c(0, 100), ylim = c(-50, 50), asp = 1)
+plot.window(xlim = c(0, 100), ylim = c(-50, 50))
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
-leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
 leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft", horiz = TRUE)
-leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = c(75, 0), horiz = FALSE)
-leg(type = "symb", val = c("Points", "Lines", "Polygons"), pos = "topright", 
-    pch = list(21, "৲", 22), cex = c(2,2,2), border = c("black", "black"), 
-    pal = c("red", "blue", "grey90"))
+leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = c(40, 10), horiz = TRUE)
+leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "left")
+leg(
+  type = "symb", val = c("Points", "Lines", "Polygons"), pos = "topright",
+  pch = list(21, "৲", 22), cex = c(2, 2, 2), border = c("black", "black"),
+  pal = c("red", "blue", "grey90")
+)
 box()
+par(opar)
 ```
 
 
@@ -75,7 +81,7 @@ It is possible to create composed legends with `leg_comp()` and `leg_draw()`.
 ```{r example2, fig.width=4.5, fig.height=4.5, fig.show="hold"}
 opar <- par(mar = c(1, 1, 1, 1))
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg_comp(type = "prop", val = c(10, 50, 100)) |>
   leg_comp(type = "typo", val = c("A", "B", "C")) |>
   leg_draw(pos = "top", bg = "lightblue", fg = "darkblue", frame_border = NA)

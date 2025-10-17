@@ -10,16 +10,18 @@
 #' @param type type of legend:
 #' * **prop** for proportional symbols,
 #' * **choro** for choropleth maps,
-#' * **cont** for continuous maps,
+#' * **cont** for continuous maps (e.g. raster),
 #' * **typo** for typology maps,
 #' * **symb** for symbols maps,
 #' * **prop_line** for proportional lines maps,
-#' * **grad_line** for graduated lines maps.
+#' * **grad_line** for graduated lines maps,
+#' * **histo** for histograms.
 #' @param val
 #' vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 #' for "cont"),
 #' vector of categories (for "symb" and "typo"),
-#' break labels (for "choro" and "grad_line").
+#' break labels (for "choro" and "grad_line"), histogram parameters
+#' (for "histo").
 #' @param pal a color palette name or a vector of colors
 #' @param alpha opacity, in the range \[0,1\]
 #' @param inches size of the largest symbol (radius for circles, half width
@@ -31,11 +33,12 @@
 #' @param title title of the legend
 #' @param val_rnd number of decimal places of the values in
 #' the legend
+#' @param val_dec decimal separator
+#' @param val_big thousands separator
 #' @param no_data if TRUE a "missing value" box is plotted
 #' @param no_data_txt label for missing values
 #' @param box_border border color of legend boxes
-#' @param box_cex width and height size expansion of boxes,
-#' (or offset between circles for "prop" legends with horiz = TRUE)
+#' @param box_cex width and height size expansion for boxes, histogram or lines
 #' @param col color of the symbols (for "prop") or color of the lines (for
 #' "prop_line" and "grad_line")
 #' @param lwd width(s) of the symbols borders (for "prop" and "symb"),
@@ -72,6 +75,8 @@ leg_comp <- function(leg,
                      cex = rep(1, length(val)),
                      title = "Legend Title",
                      val_rnd = 0,
+                     val_dec = ".",
+                     val_big = "",
                      col_na = "white",
                      cex_na = 1,
                      pch_na = 4,
@@ -90,7 +95,6 @@ leg_comp <- function(leg,
   leg$layers[[length(leg$layers) + 1]] <- res
   return(leg)
 }
-
 
 
 clean_input <- function(res, type) {

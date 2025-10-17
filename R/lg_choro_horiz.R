@@ -15,6 +15,8 @@
 #' @param val_cex size of the values in the legend
 #' @param val_rnd number of decimal places of the values in
 #' the legend.
+#' @param val_dec decimal separator
+#' @param val_big thousands separator
 #' @param no_data if TRUE a "missing value" box is plotted
 #' @param no_data_txt label for missing values
 #' @param frame whether to add a frame to the legend (TRUE) or not (FALSE)
@@ -23,7 +25,6 @@
 #' @param bg background of the legend
 #' @param fg foreground of the legend
 #' @param box_cex width and height cex of boxes
-#' @param mar plot margins
 #' @param return_bbox return only bounding box of the legend.
 #' No legend is plotted.
 #' @param adj adj
@@ -44,6 +45,8 @@ leg_choro_h <- function(pos = "left",
                         title_cex = .8 * size,
                         val_cex = .6 * size,
                         val_rnd = 0,
+                        val_dec = ".",
+                        val_big = "",
                         col_na = "white",
                         no_data = FALSE,
                         no_data_txt = "No Data",
@@ -55,199 +58,136 @@ leg_choro_h <- function(pos = "left",
                         size = 1,
                         box_cex = c(1, 1),
                         return_bbox = FALSE,
-                        mar = par("mar"),
                         adj = c(0, 0)) {
-  insetf <- xinch(par("csi"))
-  inset <- strwidth("MM", units = "user", cex = 1) * size
+  # spacings
+  x_spacing <- xinch(par("csi")) / 4
+  y_spacing <- yinch(par("csi")) / 4
 
-  # box size mgmt
-  # box width
-  w <- inset * 2
-  # box height
-  h <- inset / 3
-  if (length(box_cex) == 2) {
-    w <- w * box_cex[1]
-    h <- h * box_cex[2]
-  }
+  # boxes sizes
+  w_box <- box_cex[1] * size * x_spacing * 10
+  h_box <- box_cex[2] * size * y_spacing * 10 * 1 / 6
 
-  # get well rounded and ordered values for the legend
-  val <- get_val_rnd(val = val, val_rnd = val_rnd)
+  # Nb. boxes and values
+  n_val <- length(val)
+  n_box <- n_val - 1
 
-  # number of boxes
-  n <- length(val) - 1
+  # rounded and ordered values for the legend
+  val <- get_val_rnd(val = val, val_rnd = val_rnd, val_dec = val_dec, val_big = val_big)
 
   # box colors
-  pal <- get_pal(pal, n, alpha = alpha)
+  pal <- get_pal(pal, n_box, alpha = alpha)
 
-  # initiate xy leg position
-  xy_leg <- NULL
-  while (TRUE) {
-    if (length(pos) == 2 && is.numeric(pos)) {
-      xy_leg <- pos + (c(inset, -inset)) / 4
-    }
+  # title dimensions
+  title_dim <- get_title_dim(title, title_cex)
 
-    xy_title <- get_xy_title(
-      x = xy_leg[1],
-      y = xy_leg[2],
-      title = title,
-      title_cex = title_cex
+  # label dimension
+  labels_dim <- list(
+    w = strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2 +
+      strwidth(val[n_val], units = "user", cex = val_cex, font = 1) / 2 +
+      n_box * w_box,
+    h = max(strheight(val, units = "user", cex = val_cex, font = 1))
+  )
+
+  # NA box and label dimensions
+  if (isTRUE(no_data)) {
+    na_label_dim <- list(
+      w = max(strwidth(no_data_txt, units = "user", cex = val_cex, font = 1), w_box),
+      h = strheight(no_data_txt, units = "user", cex = val_cex, font = 1)
     )
-
-
-
-    xy_box <- get_xy_box(
-      x = xy_title$x + strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2,
-      y = xy_title$y - inset / 3,
-      n = n,
-      w = w,
-      h = h,
-      inset = 0,
-      type = "c_h"
-    )
-
-    xy_nabox <- get_xy_nabox(
-      x = xy_box$xright[n] + inset / 2,
-      y = xy_box$ytop[1],
-      w = w,
-      h = h
-    )
-
-
-    xy_box_lab <- get_xy_box_lab(
-      x = xy_box$xleft[1],
-      y = xy_box$ybottom[1] -
-        strheight(val[1], units = "user", cex = val_cex, font = 1) -
-        inset / 6,
-      w = w,
-      val = val,
-      val_cex = val_cex,
-      type = "c_h"
-    )
-
-
-
-
-    # get na box label pos
-    xy_nabox_lab <- list(
-      x = xy_nabox$xleft + (xy_nabox$xright - xy_nabox$xleft) / 2,
-      y = xy_nabox$ybottom -
-        strheight(val[1], units = "user", cex = val_cex, font = 1) -
-        inset / 6,
-      h = strheight(no_data_txt, units = "user", cex = val_cex, font = 1),
-      w = max(c(
-        xy_nabox$xleft - xy_nabox$xright,
-        strwidth(no_data_txt, units = "user", cex = val_cex, font = 1) * no_data
-      ))
-    )
-
-    if (no_data) {
-      xrightx <- max(
-        c(
-          xy_nabox$xright,
-          xy_nabox_lab$x +
-            strwidth(no_data_txt, units = "user", cex = val_cex, font = 1) / 2
-        )
-      )
-    } else {
-      xrightx <- xy_box$xright[n] +
-        strwidth(val[n + 1], units = "user", cex = val_cex, font = 1) / 2
-    }
-
-    xy_rect <- list(
-      xleft = xy_title$x,
-      ybottom = xy_box_lab$y[1] - insetf / 8,
-      xright = xrightx,
-      ytop = xy_title$y + xy_title$h
-    )
-
-
-
-    if (!is.null(xy_leg)) {
-      break
-    }
-
-    xy_leg <- get_pos_leg(
-      pos = pos,
-      xy_rect = unlist(xy_rect),
-      adj = adj,
-      xy_title = xy_title,
-      frame = frame
-    )
+  } else {
+    na_label_dim <- list(w = 0, h = 0)
+    no_data_txt <- ""
   }
 
+  # legend dimension
+  legend_dim <- list(
+    w = x_spacing +
+      max(
+        title_dim$w,
+        labels_dim$w + ifelse(na_label_dim$w != 0, na_label_dim$w + x_spacing * size, 0)
+      ) +
+      x_spacing,
+    h = y_spacing +
+      ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0) +
+      h_box +
+      y_spacing +
+      max(labels_dim$h, na_label_dim$h) +
+      y_spacing
+  )
+
+  # get legend coordinates
+  legend_coords <- get_legend_coords(
+    pos = pos, legend_dim = legend_dim,
+    adj = adj, frame = frame,
+    x_spacing = x_spacing,
+    y_spacing = y_spacing
+  )
+
+  # return legend coordinates only
   if (return_bbox) {
-    return(invisible(
-      list(
-        xleft = xy_rect[[1]] - insetf / 4,
-        ybottom = xy_rect[[2]] - insetf / 4,
-        xright = xy_rect[[3]] + insetf / 4,
-        ytop = xy_rect[[4]] + insetf / 4
-      )
-    ))
+    return(invisible(legend_coords))
   }
 
-  # Display
-  if (frame) {
-    rect(
-      xleft = xy_rect[[1]] - insetf / 4,
-      ybottom = xy_rect[[2]] - insetf / 4,
-      xright = xy_rect[[3]] + insetf / 4,
-      ytop = xy_rect[[4]] + insetf / 4,
-      col = bg,
-      border = frame_border,
-      lwd = .7
-    )
-  }
-  # title
-  text(
-    xy_title$x,
-    y = xy_title$y,
-    labels = title,
-    cex = title_cex,
-    adj = c(0, 0),
-    col = fg
+  # display frame
+  plot_frame(
+    frame = frame, legend_coords = legend_coords,
+    bg = bg, frame_border = frame_border,
+    x_spacing = x_spacing, y_spacing = y_spacing
   )
-  # boxes
+
+  # display title
+  plot_title(
+    title = title, title_cex = title_cex, title_dim = title_dim,
+    fg = fg, legend_coords = legend_coords,
+    x_spacing = x_spacing, y_spacing = y_spacing
+  )
+
+  # display boxes
+  top <- rep(
+    legend_coords$top - x_spacing -
+      ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0),
+    n_box
+  )
+  bottom <- top - h_box
+  left <- rep(NA, n_box)
+  x <- legend_coords$left + x_spacing + strwidth(val[1], units = "user", cex = val_cex, font = 1) / 2
+  for (i in 1:n_box) {
+    left[i] <- x + (i - 1) * w_box
+  }
+  right <- left + w_box
   rect(
-    xy_box[[1]],
-    xy_box[[2]],
-    xy_box[[3]],
-    xy_box[[4]],
-    col = pal,
-    border = box_border,
-    lwd = .7
+    xleft = left, ybottom = bottom, xright = right, ytop = top,
+    col = pal, border = box_border, lwd = .7
   )
-  # labels
-  text(
-    xy_box_lab$x,
-    y = xy_box_lab$y,
-    labels = val,
-    cex = val_cex,
-    adj = c(0.5, 0),
-    col = fg
-  )
-  # no data
-  if (no_data) {
-    # NA box
+
+
+  # display labels
+  y <- rep(bottom[1] - y_spacing, n_val)
+  x <- rep(x, n_val)
+  for (i in 1:n_val) {
+    x[i] <- x[1] + (i - 1) * w_box
+  }
+  text(x = x, y = y, labels = val, cex = val_cex, adj = c(0.5, 1), col = fg)
+
+
+  if (isTRUE(no_data)) {
+    # display na box
+    bottom <- bottom[1]
+    top <- top[1]
+    center <- legend_coords$right - y_spacing - na_label_dim$w / 2
     rect(
-      xy_nabox[[1]],
-      xy_nabox[[2]],
-      xy_nabox[[3]],
-      xy_nabox[[4]],
-      col = col_na,
-      border = box_border,
-      lwd = .7
+      xleft = center - w_box / 2, ybottom = bottom,
+      xright = center + w_box / 2, ytop = top,
+      col = col_na, border = box_border, lwd = .7
     )
-    # NA text
+
+    # display na label
     text(
-      x = xy_nabox_lab$x,
-      y = xy_nabox_lab$y,
-      labels = no_data_txt,
-      cex = val_cex,
-      adj = c(0.5, 0),
-      col = fg
+      x = center, y = y[1], labels = no_data_txt, cex = val_cex,
+      adj = c(0.5, 1), col = fg
     )
   }
+
 
   return(invisible(NULL))
 }
