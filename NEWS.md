@@ -1,6 +1,6 @@
 # maplegend 0.4.0
 
-# fix
+## fix
 Most of the functions of the package have been refactored in order to use a more 
 robust behaviour and to be suitable for plots with asp != 1.
 
