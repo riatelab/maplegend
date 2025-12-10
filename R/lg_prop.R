@@ -186,8 +186,8 @@ leg_prop <- function(pos = "left",
     )
     # display lines
     segments(
-      x0 = x,
-      x1 = x + x_spacing + symb_sizes$x,
+      x0 = x[1] + symb_sizes$x[1],
+      x1 = x[1] + symb_sizes$x[1] + x_spacing,
       y0 = y + symb_sizes$y,
       y1 = y + symb_sizes$y,
       col = border
