@@ -178,16 +178,14 @@ expect_silent(leg(
   type = "cont",
   val = c(10, 20, 30, 40, 50),
   pos = "bottomleft",
-  horiz = TRUE
-  ,
+  horiz = TRUE,
   alpha = .5
 ))
 expect_silent(leg(
   type = "cont",
   val = c(10, 20, 30, 40, 50),
   pos = "topright",
-  horiz = FALSE
-  ,
+  horiz = FALSE,
   alpha = .5
 ))
 
@@ -195,8 +193,7 @@ expect_silent(leg(
   type = "cont", title = "",
   val = c(10, 20, 30, 40, 50),
   pos = "topright",
-  horiz = FALSE
-  ,
+  horiz = FALSE,
   alpha = .5
 ))
 
@@ -204,8 +201,31 @@ expect_error(leg(
   type = "cont",
   val = c(10),
   pos = "topright",
-  horiz = FALSE
-  ,
+  horiz = FALSE,
+  alpha = .5
+))
+
+
+expect_error(leg(
+  type = "choro",
+  val = c(10),
+  pos = "topright",
+  horiz = FALSE,
+  alpha = .5
+))
+
+expect_error(leg(
+  type = "choro",
+  val = c(10),
+  pos = "topright",
+  horiz = TRUE,
+  alpha = .5
+))
+
+expect_error(leg(
+  type = "grad_line",
+  val = c(10),
+  pos = "topright",
   alpha = .5
 ))
 

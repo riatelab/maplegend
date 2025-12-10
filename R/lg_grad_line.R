@@ -63,6 +63,9 @@ leg_grad_line <- function(pos = "topleft",
   # Nb. boxes and values
   n_val <- length(val)
   n_box <- n_val - 1
+  if (n_val < 2) {
+    stop("You need to provide at least two values for 'val'", call. = FALSE)
+  }
 
   # rounded and ordered values for the legend
   val <- get_val_rnd(val = val, val_rnd = val_rnd, val_dec = val_dec, val_big = val_big)
