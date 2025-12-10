@@ -178,8 +178,10 @@ leg_symb <- function(pos = "left",
   center_h[1] <- legend_coords$top - y_spacing -
     ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0) -
     max_sizes[1] / 2
-  for (i in 2:n_val) {
-    center_h[i] <- center_h[i - 1] - max_sizes[i - 1] / 2 - y_spacing - max_sizes[i] / 2
+  if (n_val > 1) {
+    for (i in 2:n_val) {
+      center_h[i] <- center_h[i - 1] - max_sizes[i - 1] / 2 - y_spacing - max_sizes[i] / 2
+    }
   }
   center_w <- rep(legend_coords$left + x_spacing + max(symb_sizes$w, na_box_dim$w) / 2, n_val)
   for (i in seq_len(n_val)) {

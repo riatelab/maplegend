@@ -222,3 +222,37 @@ leg(type = "histo", val = yh, pos = 'top'    , frame = T)
 leg(type = "histo", val = zh, pos = 'bottom' , frame = T)
 })
 
+# test 1 modality leg
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
+expect_silent({
+  leg(type = "prop", val = c(100), pos = "topleft")
+  leg(
+    type = "prop", val = c(1), symbol = "square", self_adjust = TRUE,
+    pos = "topleft"
+  )
+  leg(type = "choro", val = c(10, 50), pos = "bottomleft")
+  leg(type = "typo", val = c("A"), pos = "top")
+  leg(type = "symb", val = c("A"), pos = "topright")
+  leg(type = "prop_line", val = c(100), pos = "bottom", lwd = 20)
+  leg(type = "grad_line", val = c(1, 5), pos = "bottomright", lwd = 10)
+  leg(type = "prop", val = c(100), pos = "topleft", horiz = TRUE)
+  leg(
+    type = "prop", val = c(100), pos = "topleft", symbol = "square",
+    horiz = TRUE
+  )
+  leg(type = "choro", val = c(10, 50), pos = "left", horiz = TRUE)
+  leg(
+    type = "cont", val = c(10, 20), pos = "bottomleft", horiz = TRUE
+  )
+  leg(
+    type = "cont", val = c(10, 20), pos = "topright",
+    horiz = FALSE
+  )
+  set.seed(46)
+  leg(
+    type = "histo", val = hist(rnorm(1000), breaks = 5, plot = FALSE),
+    pos = "bottomright"
+  )
+})
+
