@@ -1,3 +1,9 @@
+# maplegend 0.5.0
+
+## fix
+* allow one modality legends for types "typo", "symb" and "prop_line" (#7)
+
+
 # maplegend 0.4.0
 
 ## fix
