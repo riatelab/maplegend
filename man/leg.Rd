@@ -12,6 +12,7 @@ leg(
   alpha = NULL,
   col = "tomato4",
   inches = 0.3,
+  val_max = NULL,
   symbol = "circle",
   self_adjust = FALSE,
   lwd = 0.7,
@@ -75,6 +76,8 @@ in map units (c(x, y)).}
 
 \item{inches}{size of the largest symbol (radius for circles, half width
 for squares) in inches}
+
+\item{val_max}{maximum value corresponding to the largest symbol}
 
 \item{symbol}{type of symbols, 'circle' or 'square'}
 
@@ -153,7 +156,7 @@ Some arguments are available for all types of legend: \code{val}, \code{pos}, \c
 
 Relevant arguments for each specific legend types:
 \itemize{
-\item \code{leg(type = "prop", val, inches, symbol, col, lwd, border, val_rnd, val_big, val_dec, self_adjust, horiz)}
+\item \code{leg(type = "prop", val, inches, val_max, symbol, col, lwd, border, val_rnd, val_big, val_dec, self_adjust, horiz)}
 \item \code{leg(type = "choro", val, pal, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, box_border, box_cex, horiz)}
 \item \code{leg(type = "cont", val, pal, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, box_border, box_cex, horiz)}
 \item \code{leg(type = "typo", val, pal, col_na, no_data, no_data_txt, box_border, box_cex)}

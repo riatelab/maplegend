@@ -12,6 +12,7 @@ leg_comp(
   alpha = NULL,
   col = "tomato4",
   inches = 0.3,
+  val_max = NULL,
   symbol = "circle",
   self_adjust = FALSE,
   lwd = 0.7,
@@ -62,6 +63,8 @@ break labels (for "choro" and "grad_line"), histogram parameters
 
 \item{inches}{size of the largest symbol (radius for circles, half width
 for squares) in inches}
+
+\item{val_max}{maximum value corresponding to the largest symbol or line}
 
 \item{symbol}{type of symbols, 'circle' or 'square'}
 

@@ -44,6 +44,7 @@ leg_prop_h <- function(pos = "left",
                        col = "tomato4",
                        alpha = NULL,
                        inches = .3,
+                       val_max = NULL,
                        symbol = "circle",
                        border = "#333333",
                        lwd = .7,
@@ -81,14 +82,21 @@ leg_prop_h <- function(pos = "left",
   # title dimensions
   title_dim <- get_title_dim(title, title_cex)
 
+  # adjust max_val
+  if(is.null(val_max)){
+    val_max <- max(val)
+  }
+
   # largest symbol size
-  symb_sizes <- list(inches = sqrt(val * inches * inches / max(val)))
+  symb_sizes <- list(inches = sqrt(val * inches * inches / val_max))
   symb_sizes$x <- xinch(symb_sizes$inches)
   symb_sizes$y <- yinch(symb_sizes$inches)
+  inches <- max(symb_sizes$inches)
   symb_dim <- list(
     w = sum(symb_sizes$x) + (n_val - 1) * x_spacing,
     h = yinch(inches * 2)
   )
+
   # label dimension
   labels_dim <- list(
     h = strheight(valleg[1], units = "user", cex = val_cex, font = 1)

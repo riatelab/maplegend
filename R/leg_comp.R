@@ -26,6 +26,7 @@
 #' @param alpha opacity, in the range \[0,1\]
 #' @param inches size of the largest symbol (radius for circles, half width
 #' for squares) in inches
+#' @param val_max maximum value corresponding to the largest symbol or line
 #' @param border symbol border color(s)
 #' @param symbol type of symbols, 'circle' or 'square'
 #' @param self_adjust if TRUE values are self-adjusted to keep min, max and
@@ -67,6 +68,7 @@ leg_comp <- function(leg,
                      alpha = NULL,
                      col = "tomato4",
                      inches = .3,
+                     val_max = NULL,
                      symbol = "circle",
                      self_adjust = FALSE,
                      lwd = 0.7,

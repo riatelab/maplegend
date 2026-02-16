@@ -44,6 +44,7 @@ leg_prop <- function(pos = "left",
                      col = "tomato4",
                      alpha = NULL,
                      inches = .3,
+                     val_max = NULL,
                      symbol = "circle",
                      border = "#333333",
                      lwd = .7,
@@ -81,10 +82,16 @@ leg_prop <- function(pos = "left",
   # title dimensions
   title_dim <- get_title_dim(title, title_cex)
 
+  # adjust max_val
+  if(is.null(val_max)){
+    val_max <- max(val)
+  }
+
   # largest symbol size
-  symb_sizes <- list(inches = sqrt(val * inches * inches / max(val)))
+  symb_sizes <- list(inches = sqrt(val * inches * inches / val_max))
   symb_sizes$x <- xinch(symb_sizes$inches)
   symb_sizes$y <- yinch(symb_sizes$inches)
+  inches <- max(symb_sizes$inches)
   symb_dim <- list(w = xinch(inches * 2), h = yinch(inches * 2))
 
   # label dimension
@@ -151,7 +158,7 @@ leg_prop <- function(pos = "left",
       fg = border,
       lwd = lwd,
       add = TRUE,
-      inches = inches,
+      inches = inches
     )
     # display lines
     segments(
@@ -159,7 +166,8 @@ leg_prop <- function(pos = "left",
       x1 = x + x_spacing + symb_sizes$x[1],
       y0 = y + symb_sizes$y,
       y1 = y + symb_sizes$y,
-      col = border
+      col = border,
+      lwd = lwd
     )
     # display labels
     text(
@@ -190,7 +198,8 @@ leg_prop <- function(pos = "left",
       x1 = x[1] + symb_sizes$x[1] + x_spacing,
       y0 = y + symb_sizes$y,
       y1 = y + symb_sizes$y,
-      col = border
+      col = border,
+      lwd = lwd
     )
     # display labels
     text(
