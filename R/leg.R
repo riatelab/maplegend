@@ -235,7 +235,7 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' set.seed(46)
 #' x <- rnorm(10000) * 1000
-#' val <- hist(x, breaks = quantile(x, 0:10/10), plot = FALSE)
+#' val <- hist(x, breaks = quantile(x, 0:10 / 10), plot = FALSE)
 #' leg(
 #'   type = "histo",
 #'   alpha = 1,

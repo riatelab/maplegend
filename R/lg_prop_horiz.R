@@ -83,7 +83,7 @@ leg_prop_h <- function(pos = "left",
   title_dim <- get_title_dim(title, title_cex)
 
   # adjust max_val
-  if(is.null(val_max)){
+  if (is.null(val_max)) {
     val_max <- max(val)
   }
 
