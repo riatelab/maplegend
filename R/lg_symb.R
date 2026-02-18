@@ -96,8 +96,8 @@ leg_symb <- function(pos = "left",
   # symbol sizes
   symb_sizes <- list(w = rep(NA, n_val), h = rep(NA, n_val))
   for (i in seq_len(n_val)) {
-    symb_sizes$w[i] <- strwidth("M", units = "user", cex = cex[i]) * .75
-    symb_sizes$h[i] <- strheight("M", units = "user", cex = cex[i]) * .75
+    symb_sizes$w[i] <- strwidth("M", units = "user", cex = cex[i]) * .75 * box_cex[1]
+    symb_sizes$h[i] <- strheight("M", units = "user", cex = cex[i]) * .75 * box_cex[2]
   }
 
   # title dimensions
