@@ -69,6 +69,8 @@ leg_prop <- function(pos = "left",
 
   # color mgmt
   col <- ifelse(!is.null(alpha), get_hex_pal(col, alpha), col)
+  border <- border[[1]]
+  lwd <- lwd[[1]]
 
   # values & values labels
   val <- unique(val)
