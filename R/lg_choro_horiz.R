@@ -107,7 +107,7 @@ leg_choro_h <- function(pos = "left",
     w = x_spacing +
       max(
         title_dim$w,
-        labels_dim$w + ifelse(na_label_dim$w != 0, na_label_dim$w + x_spacing * size, 0)
+        labels_dim$w + ifelse(na_label_dim$w != 0, na_label_dim$w + 2 * x_spacing * size, 0)
       ) +
       x_spacing,
     h = y_spacing +
