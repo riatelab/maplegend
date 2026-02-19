@@ -1,9 +1,8 @@
 plot.new()
 plot.window(xlim = c(0, 1),
-            ylim = c(0, 1),
-            asp = 1)
+            ylim = c(0, 1))
 box()
-vbox <- vector("list", 10)
+vbox <- vector("list", 13)
 vbox[[1]] <-
   leg(
     type = "prop",
@@ -76,21 +75,35 @@ vbox[[10]] <-
     horiz = TRUE,
     return_bbox = TRUE
   )
-# dput(vbox)
 
-vbox_ref <-list(list(right = 0.0985930232558139, left = -0.102790697674419,
-                     top = 1.04, bottom = 0.844380813953488), list(right = 0.0781104651162791,
-                                                                   left = -0.102790697674419, top = 0.176877906976744, bottom = -0.04),
-                list(right = 0.590450581395349, left = 0.409549418604651,
-                     top = 1.04, bottom = 0.851686046511628), list(right = 1.10279069767442,
-                                                                   left = 0.93156976744186, top = 1.04, bottom = 0.899982558139535),
-                list(right = 0.590450581395349, left = 0.409549418604651,
-                     top = 0.12368023255814, bottom = -0.04), list(right = 1.10279069767442,
-                                                                   left = 0.921889534883721, top = 0.141994186046512, bottom = -0.04),
-                list(right = 1.10279069767442, left = 0.921889534883721,
-                     top = 1.04, bottom = 0.788238372093023), list(right = 0.193162943137169,
-                                                                   left = -0.102790697674419, top = 1.04, bottom = 0.826610465116279),
-                list(right = 0.359372093023256, left = -0.102790697674419,
-                     top = 0.552625, bottom = 0.447375), list(right = 0.441395348837209,
-                                                              left = -0.102790697674419, top = 0.06525, bottom = -0.04))
+set.seed(46)
+x <- round(rnorm(1000)*1000, 2)
+xh <- hist(x, breaks = quantile(x, 0:10 /10), plot = F)
+vbox[[11]] <-
+  leg(
+    type = "histo",
+    val = xh,
+    pos = "top",
+    return_bbox = TRUE
+  )
+
+vbox[[12]] <-
+  leg(
+    type = "choro_point",
+    val = 15:20,
+    pos = "top",
+    return_bbox = TRUE
+  )
+vbox[[13]] <-
+  leg(
+    type = "choro_point",
+    val = 15:20,
+    pos = "top", horiz = TRUE,
+    return_bbox = TRUE
+  )
+
+# saveRDS(vbox,
+#         file = '/home/tim/Documents/pkg/maplegend/inst/tinytest/coords.rds')
+
+vbox_ref <- readRDS('coords.rds')
 expect_equal(vbox, vbox_ref)

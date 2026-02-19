@@ -1,3 +1,4 @@
+dev.off()
 expect_error(leg(
   type = "grad_line",
   val = c(1, 4, 10, 15),
@@ -17,16 +18,16 @@ expect_silent(leg(type = "prop", pos = "topright", symbol = 'square',
                   val = c(1, 5, 10), inches = .3, horiz = TRUE))
 expect_silent(leg(type = "choro", pos = "bottomright",
                   val = c(10, 20, 30, 40, 50),
-                        pal = hcl.colors(4, "Reds 2")))
+                  pal = hcl.colors(4, "Reds 2")))
 expect_silent(leg(type = "typo", pos = "topleft", val = c("A", "B", "C", "D"),
-                        pal = hcl.colors(4, "Dynamic")))
+                  pal = hcl.colors(4, "Dynamic")))
 expect_silent(leg(type = "symb", pos = "bottomleft",
                   val = c("A", "B", "C"),
-                        pch = 21:23, cex = c(1, 2, 2),
+                  pch = 21:23, cex = c(1, 2, 2),
                   pal = hcl.colors(3, "Dynamic")))
 expect_silent(leg(type = "grad_line", pos = "top",
                   val = c(1, 2, 3, 4, 10, 15),
-                        lwd = c(0.2, 2, 4, 5, 10)))
+                  lwd = c(0.2, 2, 4, 5, 10)))
 expect_silent(leg(type = "prop_line", pos = "bottom",
                   lwd = 20, val = c(5, 50, 100)))
 
@@ -40,24 +41,24 @@ expect_error(leg(type = "prop_line", pos = "interactive",
 
 expect_error(leg(type = "grad_line", pos = "NA",
                  val = c(1, 2, 3, 4, 10, 15),
-                        lwd = c(0.2, 2, 4, 5, 10)))
+                 lwd = c(0.2, 2, 4, 5, 10)))
 
 expect_silent(leg(type = "grad_line",
                   pos = c(737788.682080213, 1628182.17278935),
-                        val = c(1, 2, 3, 4, 10, 15),
-                        lwd = c(0.2, 2, 4, 5, 10), frame = TRUE))
+                  val = c(1, 2, 3, 4, 10, 15),
+                  lwd = c(0.2, 2, 4, 5, 10), frame = TRUE))
 expect_silent(leg(type = "grad_line", pos = NA,
-                        val = c(1, 2, 3, 4, 10, 15),
-                        lwd = c(0.2, 2, 4, 5, 10)))
+                  val = c(1, 2, 3, 4, 10, 15),
+                  lwd = c(0.2, 2, 4, 5, 10)))
 
 expect_silent(leg(type = "prop_line", pos = NA,
-                        lwd = 20,
-                        val = c(5, 50, 100)))
+                  lwd = 20,
+                  val = c(5, 50, 100)))
 expect_silent(leg(type = "prop_line",
                   pos = c(737788.682080213, 1628182.17278935),
-                        lwd = 20,
-                        val = c(5, 50, 100),
-                        frame = TRUE))
+                  lwd = 20,
+                  val = c(5, 50, 100),
+                  frame = TRUE))
 
 expect_silent(leg(type = "cont", pos = "top", val = c(10, 100)))
 
@@ -229,6 +230,20 @@ expect_error(leg(
   alpha = .5
 ))
 
+expect_error(leg(
+  type = "choro_point",
+  val = c(10),
+  pos = "topright",
+  alpha = .5
+))
+
+expect_error(leg(
+  type = "choro_point",
+  val = c(10),
+  pos = "topright",
+  alpha = .5, horiz = TRUE
+))
+
 
 x <- round(rnorm(1000)*1000, 2)
 y <- round(rbeta(1000, .6, 7)*1000, 2)
@@ -237,9 +252,9 @@ xh <- hist(x, breaks = quantile(x, 0:10 /10), plot = F)
 yh <- hist(y, breaks = quantile(y, 0:10 /10), plot = F)
 zh <- hist(z, breaks = quantile(z, 0:10 /10), plot = F)
 expect_silent({
-leg(type = "histo", val = xh, pos = "topleft", frame = T)
-leg(type = "histo", val = yh, pos = 'top'    , frame = T)
-leg(type = "histo", val = zh, pos = 'bottom' , frame = T)
+  leg(type = "histo", val = xh, pos = "topleft", frame = T)
+  leg(type = "histo", val = yh, pos = 'top'    , frame = T)
+  leg(type = "histo", val = zh, pos = 'bottom' , frame = T)
 })
 
 # test 1 modality leg
@@ -273,6 +288,61 @@ expect_silent({
   leg(
     type = "histo", val = hist(rnorm(1000), breaks = 5, plot = FALSE),
     pos = "bottomright"
+  )
+  leg(
+    type = "choro_point", val = 20:19, pal = "Viridis", pos = "top"
+  )
+})
+
+dev.off()
+expect_error(leg(
+  type = "choro_point",
+  val = c(10, 23),
+  pos = "topright",
+  alpha = .5
+))
+expect_error(leg(
+  type = "choro_point",
+  val = c(10, 23),
+  pos = "topright",
+  alpha = .5, horiz = TRUE
+))
+plot(1:10)
+expect_silent({
+  leg(
+    type = "choro_point", val = 5:10, pal = "Viridis",
+    pos = "top",
+    no_data = TRUE, symbol = "square"
+  )
+  leg(
+    type = "choro_point", val = 5:10, pal = "Viridis",
+    pos = "left",
+    no_data = TRUE, symbol = "circle"
+  )
+  leg(
+    type = "choro_point", val = c("10", "1s\n1s", "13"), pal = "Viridis",
+    pos = "right", frame = TRUE,
+    no_data = FALSE
+  )
+})
+
+
+plot(1:10)
+expect_silent({
+  leg(
+    type = "choro_point", val = 5:10, pal = "Viridis",
+    pos = "top",
+    no_data = TRUE,  horiz = TRUE
+  )
+  leg(
+    type = "choro_point", val = 5:10, pal = "Viridis",
+    pos = "left",
+    no_data = TRUE, symbol = "circle", horiz = TRUE, no_data_txt = "lmkhmjmjmjmj"
+  )
+  leg(
+    type = "choro_point", val = c("10", "1s\n1s", "13"), pal = "Viridis",
+    pos = "right", frame = TRUE, symbol = "square",
+    no_data = FALSE, horiz = TRUE
   )
 })
 

@@ -54,12 +54,13 @@ leg(
 \item \strong{prop_line} for proportional lines maps,
 \item \strong{grad_line} for graduated lines maps,
 \item \strong{histo} for histograms.
+\item \strong{choro_point} for choropleth points maps
 }}
 
 \item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 for "cont"),
 vector of categories (for "symb" and "typo"),
-break labels (for "choro" and "grad_line"), histogram parameters
+break labels (for "choro", "choro_point" and "grad_line"), histogram parameters
 (for "histo").}
 
 \item{pos}{position of the legend. It can be one of 'topleft', 'top',
@@ -119,7 +120,8 @@ the legend}
 
 \item{box_border}{border color of legend boxes}
 
-\item{box_cex}{width and height size expansion for boxes, histogram or lines}
+\item{box_cex}{width and height size expansion for boxes, histogram
+circles, squares or lines}
 
 \item{horiz}{if TRUE plot an horizontal legend}
 
@@ -164,6 +166,7 @@ Relevant arguments for each specific legend types:
 \item \code{leg(type = "prop_line", val, col, lwd, val_rnd, val_big, val_dec)}
 \item \code{leg(type = "grad_line", val, col, lwd, val_rnd, val_big, val_dec)}
 \item \code{leg(type = "histo", val, pal, box_border, val_rnd, val_big, val_dec)}
+\item \code{leg(type = "choro_point", val, pal, symbol, border, cex, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, horiz)}
 }
 }
 \examples{
@@ -180,13 +183,17 @@ leg(
   type = "grad_line", val = c(1, 4, 10, 15), pos = "bottomright",
   lwd = c(1, 5, 10)
 )
-
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 leg(type = "prop", val = c(10, 50, 100), pos = "topleft", horiz = TRUE)
 leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = "left", horiz = TRUE)
 leg(
   type = "cont", val = c(10, 20, 30, 40, 50), pos = "bottomleft",
+  horiz = TRUE
+)
+leg(type = "choro_point", val = c(10, 20, 30, 40, 50), pos = "top")
+leg(
+  type = "choro_point", val = c(10, 20, 30, 40, 50), pos = "right",
   horiz = TRUE
 )
 leg(
@@ -331,6 +338,23 @@ leg(
   box_border = "cornsilk",
   box_cex = c(1, 2),
   title = "Histogram"
+)
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(
+  type = "choro_point",
+  alpha = 1,
+  val = c(10, 20, 30, 40, 50),
+  pos = "top",
+  pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
+  val_rnd = 2,
+  col_na = "grey",
+  no_data = TRUE,
+  no_data_txt = "No data",
+  border = "tomato4",
+  cex = 1.5,
+  title = "Choropleth (sequential)"
 )
 
 # Positions
