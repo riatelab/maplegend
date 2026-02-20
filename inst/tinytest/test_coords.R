@@ -2,7 +2,7 @@ plot.new()
 plot.window(xlim = c(0, 1),
             ylim = c(0, 1))
 box()
-vbox <- vector("list", 13)
+vbox <- vector("list", 14)
 vbox[[1]] <-
   leg(
     type = "prop",
@@ -102,6 +102,13 @@ vbox[[13]] <-
     return_bbox = TRUE
   )
 
+vbox[[14]] <-
+  leg(
+    type = "choro_line",
+    val = 15:20,
+    pos = "top",
+    return_bbox = TRUE
+  )
 # saveRDS(vbox,
 #         file = '/home/tim/Documents/pkg/maplegend/inst/tinytest/coords.rds')
 
