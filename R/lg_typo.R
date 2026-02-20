@@ -1,38 +1,3 @@
-#' Plot a legend for a typology map
-#' @description This function plots a legend for a typology map.
-#'
-#' @param pal a set of colors
-#' @param alpha if \code{pal} is a \link{hcl.colors} palette name, the
-#' alpha-transparency level in the range \[0,1\]
-#' @param col_na color for missing values
-#' @param pos position of the legend, one of "topleft", "top",
-#' "topright", "right", "bottomright", "bottom", "bottomleft",
-#' "left", "interactive" or a vector of two coordinates in map units
-#' (c(x, y)).
-#' @param val vector of categories.
-#' @param title title of the legend
-#' @param title_cex size of the legend title
-#' @param val_cex size of the values in the legend
-#' @param no_data if TRUE a "missing value" box is plotted
-#' @param no_data_txt label for missing values.
-#' @param frame whether to add a frame to the legend (TRUE) or not (FALSE)
-#' @param box_border color of the boxes' borders
-#' @param size size of the legend; 2 means two times bigger
-#' @param bg background of the legend
-#' @param fg foreground of the legend
-#' @param box_cex width and height cex of boxes
-#' @param return_bbox return only bounding box of the legend.
-#' No legend is plotted.
-#' @param frame_border border color of the frame
-#' @param adj adj
-#' @keywords internal
-#' @noRd
-#' @import graphics
-#' @return No return value, a legend is displayed.
-#' @examples
-#' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-#' leg_typo(val = c("type A", "type B"), pal = c("navy", "tomato"))
 leg_typo <- function(pos = "topright",
                      val,
                      pal = "Inferno",

@@ -68,6 +68,7 @@
 #' @param horiz if TRUE plot an horizontal legend
 #' @param adj adjust the postion of the legend in x and y directions.
 #' @param frame_border border color of the frame
+#' @import graphics
 #' @return No value is returned, a legend is displayed.
 #' @export
 #' @details
@@ -300,7 +301,7 @@
 #'   val = c("A", "B", "C"),
 #'   lwd = 3,
 #'   pos = "top",
-#'   pal = c('red', "yellow", "green"),
+#'   pal = c("red", "yellow", "green"),
 #'   col_na = "black",
 #'   no_data = TRUE,
 #'   no_data_txt = "No data",
@@ -308,7 +309,6 @@
 #'   frame = TRUE,
 #'   title = "Typology (categories)"
 #' )
-#'
 #'
 #'
 #' # Positions

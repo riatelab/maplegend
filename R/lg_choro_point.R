@@ -1,42 +1,3 @@
-#' @title Plot a legend for a choropleth map
-#' @description This function plots a legend for a choropleth map.
-#'
-#' @param pal a set of colors
-#' @param alpha if \code{pal} is a \link{hcl.colors} palette name, the
-#' alpha-transparency level in the range \[0,1\]
-#' @param col_na color for missing values
-#' @param pos position of the legend, one of "topleft", "top",
-#' "topright", "right", "bottomright", "bottom", "bottomleft",
-#' "left", "interactive" or a vector of two coordinates in map units
-#' (c(x, y))
-#' @param val break labels
-#' @param title title of the legend
-#' @param title_cex size of the legend title
-#' @param val_cex size of the values in the legend
-#' @param val_rnd number of decimal places of the values in
-#' the legend.
-#' @param val_dec decimal separator
-#' @param val_big thousands separator
-#' @param no_data if TRUE a "missing value" box is plotted
-#' @param no_data_txt label for missing values
-#' @param frame whether to add a frame to the legend (TRUE) or not (FALSE)
-#' @param border color of the boxes' borders
-#' @param size size of the legend; 2 means two times bigger
-#' @param bg background of the legend
-#' @param fg foreground of the legend
-#' @param cex width and height cex of boxes
-#' @param return_bbox return only bounding box of the legend.
-#' No legend is plotted.
-#' @param adj adj
-#' @param frame_border border color of the frame
-#' @keywords internal
-#' @noRd
-#' @import graphics
-#' @return No return value, a legend is displayed.
-#' @examples
-#' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-#' leg_choro(val = c(1, 2, 3, 4), pal = c("red1", "red3", "red4"))
 leg_choro_point <- function(pos = "left",
                             val,
                             pal = "Inferno",
@@ -181,7 +142,7 @@ leg_choro_point <- function(pos = "left",
   if (symbol == "circle") {
     symbols(
       x = left + (right - left) / 2, y = bottom + (top - bottom) / 2,
-      circles = (right - left) / 2, inches = F, add = T,
+      circles = (right - left) / 2, inches = FALSE, add = TRUE,
       bg = pal, fg = border, lwd = .7
     )
   }
@@ -211,7 +172,7 @@ leg_choro_point <- function(pos = "left",
     if (symbol == "circle") {
       symbols(
         x = left + (right - left) / 2, y = bottom + (top - bottom) / 2,
-        circles = (right - left) / 2, inches = F, add = T,
+        circles = (right - left) / 2, inches = FALSE, add = TRUE,
         bg = col_na, fg = border, lwd = .7
       )
     }

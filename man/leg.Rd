@@ -384,7 +384,7 @@ leg(
   val = c("A", "B", "C"),
   lwd = 3,
   pos = "top",
-  pal = c('red', "yellow", "green"),
+  pal = c("red", "yellow", "green"),
   col_na = "black",
   no_data = TRUE,
   no_data_txt = "No data",
@@ -392,7 +392,6 @@ leg(
   frame = TRUE,
   title = "Typology (categories)"
 )
-
 
 
 # Positions

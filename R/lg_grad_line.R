@@ -1,38 +1,3 @@
-#' @title Plot a legend for a graduated lines map
-#' @description This function plots a legend for graduated lines maps.
-#'
-#' @param pos position of the legend, one of "topleft", "top",
-#' "topright", "right", "bottomright", "bottom", "bottomleft",
-#' "left", "interactive" or a vector of two coordinates in map units
-#' (c(x, y))
-#' @param lwd lines widths
-#' @param val break labels
-#' @param col lines color
-#' @param alpha opacity, in the range \[0,1\]
-#' @param title title of the legend
-#' @param title_cex size of the legend title
-#' @param val_cex size of the values in the legend
-#' @param val_rnd number of decimal places of the values in
-#' the legend.
-#' @param val_dec decimal separator
-#' @param val_big thousands separator
-#' @param frame whether to add a frame to the legend (TRUE) or not (FALSE)
-#' @param size size of the legend; 2 means two times bigger
-#' @param bg background of the legend
-#' @param fg foreground of the legend
-#' @param box_cex width and height cex of boxes
-#' @param return_bbox return only bounding box of the legend.
-#' No legend is plotted.
-#' @param frame_border border color of the frame
-#' @param adj adj
-#' @keywords internal
-#' @noRd
-#' @import graphics
-#' @return No return value, a legend is displayed.
-#' @examples
-#' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
-#' leg_grad_line(lwd = c(0.2, 2, 4, 5, 10), val = c(1, 2, 3, 4, 10.2, 15.2))
 leg_grad_line <- function(pos = "topleft",
                           val,
                           col = "tomato4",
