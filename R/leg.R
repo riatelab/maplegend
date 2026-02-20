@@ -15,11 +15,12 @@
 #' * **grad_line** for graduated lines maps,
 #' * **histo** for histograms,
 #' * **choro_point** for choropleth points maps,
-#' * **choro_line** for choropleth lines maps.
+#' * **choro_line** for choropleth lines maps,
+#' * **typo_line** for typology lines maps.
 #' @param val
 #' vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 #' for "cont"),
-#' vector of categories (for "symb" and "typo"),
+#' vector of categories (for "symb", "typo", "typo_line"),
 #' break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
 #' histogram parameters (for "histo").
 #' @param pos position of the legend. It can be one of 'topleft', 'top',
@@ -56,8 +57,8 @@
 #' @param col color of the symbols (for "prop") or color of the lines (for
 #' "prop_line" and "grad_line")
 #' @param lwd width(s) of the symbols borders (for "prop" and "symb"),
-#' width of the largest line (for "prop_line"), line width (for "choro_line"),
-#' vector of line widths (for "grad_line")
+#' width of the largest line (for "prop_line"), line width (for "choro_line"
+#' and "typo_line"), vector of line widths (for "grad_line")
 #' @param size size of the legend; 2 means two times bigger
 #' @param cex size(s) of the symbols
 #' @param pch type(s) of the symbols (0:25)
@@ -86,7 +87,8 @@
 #' * `leg(type = "histo", val, pal, box_border, val_rnd, val_big, val_dec)`
 #' * `leg(type = "choro_point", val, pal, symbol, border, cex, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, horiz)`
 #' * `leg(type = "choro_line", val, pal, lwd, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt)`
-#'
+#' * `leg(type = "typo_line", val, pal, lwd, col_na, no_data, no_data_txt, box_cex)`
+
 #' @examples
 #' # minimal example
 #' plot.new()
@@ -127,7 +129,7 @@
 #'
 #' # full example
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "prop",
 #'   val = c(5, 100),
@@ -148,7 +150,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "choro",
 #'   alpha = 1,
@@ -165,7 +167,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "typo",
 #'   val = c("A", "B", "C"),
@@ -179,7 +181,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "symb",
 #'   val = c("A", "B", "C"),
@@ -198,7 +200,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "cont",
 #'   val = c(1, 2, 3, 4, 5),
@@ -212,7 +214,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "prop_line",
 #'   val = c(54, 505, 1025),
@@ -228,7 +230,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "grad_line",
 #'   val = c(1.25, 4.07, 10.001, 15.071),
@@ -241,7 +243,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' set.seed(46)
 #' x <- rnorm(10000) * 1000
 #' val <- hist(x, breaks = quantile(x, 0:10 / 10), plot = FALSE)
@@ -259,7 +261,7 @@
 #' )
 #'
 #' plot.new()
-#' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
 #' leg(
 #'   type = "choro_point",
 #'   alpha = 1,
@@ -290,6 +292,24 @@
 #'   no_data_txt = "No data",
 #'   title = "Choropleth (sequential)"
 #' )
+#'
+#' plot.new()
+#' plot.window(xlim = c(0, 1), ylim = c(0, 1))
+#' leg(
+#'   type = "typo_line",
+#'   val = c("A", "B", "C"),
+#'   lwd = 3,
+#'   pos = "top",
+#'   pal = c('red', "yellow", "green"),
+#'   col_na = "black",
+#'   no_data = TRUE,
+#'   no_data_txt = "No data",
+#'   box_cex = c(2, 1),
+#'   frame = TRUE,
+#'   title = "Typology (categories)"
+#' )
+#'
+#'
 #'
 #' # Positions
 #' plot.new()

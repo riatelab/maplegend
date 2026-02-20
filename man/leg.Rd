@@ -55,12 +55,13 @@ leg(
 \item \strong{grad_line} for graduated lines maps,
 \item \strong{histo} for histograms,
 \item \strong{choro_point} for choropleth points maps,
-\item \strong{choro_line} for choropleth lines maps.
+\item \strong{choro_line} for choropleth lines maps,
+\item \strong{typo_line} for typology lines maps.
 }}
 
 \item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 for "cont"),
-vector of categories (for "symb" and "typo"),
+vector of categories (for "symb", "typo", "typo_line"),
 break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
 histogram parameters (for "histo").}
 
@@ -87,8 +88,8 @@ for squares) in inches}
 intermediate rounded values}
 
 \item{lwd}{width(s) of the symbols borders (for "prop" and "symb"),
-width of the largest line (for "prop_line"), line width (for "choro_line"),
-vector of line widths (for "grad_line")}
+width of the largest line (for "prop_line"), line width (for "choro_line"
+and "typo_line"), vector of line widths (for "grad_line")}
 
 \item{border}{symbol border color(s)}
 
@@ -169,6 +170,7 @@ Relevant arguments for each specific legend types:
 \item \code{leg(type = "histo", val, pal, box_border, val_rnd, val_big, val_dec)}
 \item \code{leg(type = "choro_point", val, pal, symbol, border, cex, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, horiz)}
 \item \code{leg(type = "choro_line", val, pal, lwd, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt)}
+\item \code{leg(type = "typo_line", val, pal, lwd, col_na, no_data, no_data_txt, box_cex)}
 }
 }
 \examples{
@@ -211,7 +213,7 @@ box()
 
 # full example
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "prop",
   val = c(5, 100),
@@ -232,7 +234,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "choro",
   alpha = 1,
@@ -249,7 +251,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "typo",
   val = c("A", "B", "C"),
@@ -263,7 +265,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "symb",
   val = c("A", "B", "C"),
@@ -282,7 +284,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "cont",
   val = c(1, 2, 3, 4, 5),
@@ -296,7 +298,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "prop_line",
   val = c(54, 505, 1025),
@@ -312,7 +314,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "grad_line",
   val = c(1.25, 4.07, 10.001, 15.071),
@@ -325,7 +327,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 set.seed(46)
 x <- rnorm(10000) * 1000
 val <- hist(x, breaks = quantile(x, 0:10 / 10), plot = FALSE)
@@ -343,7 +345,7 @@ leg(
 )
 
 plot.new()
-plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
 leg(
   type = "choro_point",
   alpha = 1,
@@ -374,6 +376,24 @@ leg(
   no_data_txt = "No data",
   title = "Choropleth (sequential)"
 )
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
+leg(
+  type = "typo_line",
+  val = c("A", "B", "C"),
+  lwd = 3,
+  pos = "top",
+  pal = c('red', "yellow", "green"),
+  col_na = "black",
+  no_data = TRUE,
+  no_data_txt = "No data",
+  box_cex = c(2, 1),
+  frame = TRUE,
+  title = "Typology (categories)"
+)
+
+
 
 # Positions
 plot.new()

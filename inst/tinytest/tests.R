@@ -173,85 +173,14 @@ expect_silent(leg(type = "choro_line", val = c(10, 50), pos = c(.5,.5)))
 expect_error(leg(type = "choro_line", val = 10, pos = "topright"), class = "error")
 expect_error(leg(type = "choro_line", val = 10, pos = "topright", horiz = TRUE), class = "error")
 
-
-
-
-#
-# expect_error(leg(
-#   type = "choro_point",
-#   val = c(10),
-#   pos = "topright",
-#   alpha = .5
-# ))
-#
-# expect_error(leg(
-#   type = "choro_point",
-#   val = c(10),
-#   pos = "topright",
-#   alpha = .5, horiz = TRUE
-# ))
-#
-#
-#
-#
-# dev.off()
-# expect_error(leg(
-#   type = "choro_point",
-#   val = c(10, 23),
-#   pos = "topright",
-#   alpha = .5
-# ))
-# expect_error(leg(
-#   type = "choro_point",
-#   val = c(10, 23),
-#   pos = "topright",
-#   alpha = .5, horiz = TRUE
-# ))
-# plot(1:10)
-# expect_silent({
-#   leg(
-#     type = "choro_point", val = 5:10, pal = "Viridis",
-#     pos = "top",
-#     no_data = TRUE, symbol = "square"
-#   )
-#   leg(
-#     type = "choro_point", val = 5:10, pal = "Viridis",
-#     pos = "left",
-#     no_data = TRUE, symbol = "circle"
-#   )
-#   leg(
-#     type = "choro_point", val = c("10", "1s\n1s", "13"), pal = "Viridis",
-#     pos = "right", frame = TRUE,
-#     no_data = FALSE
-#   )
-# })
-#
-#
-# plot(1:10)
-# expect_silent({
-#   leg(
-#     type = "choro_point", val = 5:10, pal = "Viridis",
-#     pos = "top",
-#     no_data = TRUE,  horiz = TRUE
-#   )
-#   leg(
-#     type = "choro_point", val = 5:10, pal = "Viridis",
-#     pos = "left",
-#     no_data = TRUE, symbol = "circle", horiz = TRUE, no_data_txt = "lmkhmjmjmjmj"
-#   )
-#   leg(
-#     type = "choro_point", val = c("10", "1s\n1s", "13"), pal = "Viridis",
-#     pos = "right", frame = TRUE, symbol = "square",
-#     no_data = FALSE, horiz = TRUE
-#   )
-# })
-
-
-
-
-
-
-
-
-
-
+## typo_line
+dev.off()
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
+mod <- c("mod 1", "mod 2 ", "mod 3")
+expect_silent(leg(type = "typo_line", pos = "topleft", val = mod))
+expect_silent(leg(type = "typo_line", pos = "left", val = mod, frame = TRUE))
+expect_silent(leg(type = "typo_line", pos = "bottomleft", val = mod, no_data = TRUE))
+expect_silent(leg(type = "typo_line", pos = "top", val = mod, pal = hcl.colors(4, "Reds 2"), alpha = .5))
+expect_silent(leg(type = "typo_line", val = mod, pos = c(.5,.5)))
+expect_silent(leg(type = "typo_line", val = 10, pos = "topright"))

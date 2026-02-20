@@ -2,7 +2,7 @@ plot.new()
 plot.window(xlim = c(0, 1),
             ylim = c(0, 1))
 box()
-vbox <- vector("list", 14)
+vbox <- vector("list", 15)
 vbox[[1]] <-
   leg(
     type = "prop",
@@ -109,6 +109,15 @@ vbox[[14]] <-
     pos = "top",
     return_bbox = TRUE
   )
+
+vbox[[15]] <-
+  leg(
+    type = "typo_line",
+    val = 15:20,
+    pos = "top",
+    return_bbox = TRUE
+  )
+
 # saveRDS(vbox,
 #         file = '/home/tim/Documents/pkg/maplegend/inst/tinytest/coords.rds')
 
