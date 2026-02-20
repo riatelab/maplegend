@@ -53,15 +53,16 @@ leg(
 \item \strong{symb} for symbols maps,
 \item \strong{prop_line} for proportional lines maps,
 \item \strong{grad_line} for graduated lines maps,
-\item \strong{histo} for histograms.
-\item \strong{choro_point} for choropleth points maps
+\item \strong{histo} for histograms,
+\item \strong{choro_point} for choropleth points maps,
+\item \strong{choro_line} for choropleth lines maps.
 }}
 
 \item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 for "cont"),
 vector of categories (for "symb" and "typo"),
-break labels (for "choro", "choro_point" and "grad_line"), histogram parameters
-(for "histo").}
+break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
+histogram parameters (for "histo").}
 
 \item{pos}{position of the legend. It can be one of 'topleft', 'top',
 'topright', 'right', 'bottomright', 'bottom','bottomleft',
@@ -86,8 +87,8 @@ for squares) in inches}
 intermediate rounded values}
 
 \item{lwd}{width(s) of the symbols borders (for "prop" and "symb"),
-width of the largest line (for "prop_line"), vector of line width
-(for "grad_line")}
+width of the largest line (for "prop_line"), line width (for "choro_line"),
+vector of line widths (for "grad_line")}
 
 \item{border}{symbol border color(s)}
 
@@ -167,6 +168,7 @@ Relevant arguments for each specific legend types:
 \item \code{leg(type = "grad_line", val, col, lwd, val_rnd, val_big, val_dec)}
 \item \code{leg(type = "histo", val, pal, box_border, val_rnd, val_big, val_dec)}
 \item \code{leg(type = "choro_point", val, pal, symbol, border, cex, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, horiz)}
+\item \code{leg(type = "choro_line", val, pal, lwd, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt)}
 }
 }
 \examples{
@@ -354,6 +356,22 @@ leg(
   no_data_txt = "No data",
   border = "tomato4",
   cex = 1.5,
+  title = "Choropleth (sequential)"
+)
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
+leg(
+  type = "choro_line",
+  alpha = 1,
+  val = c(10, 20, 30, 40, 50),
+  pos = "top",
+  pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
+  val_rnd = 1,
+  lwd = 4,
+  col_na = "grey",
+  no_data = TRUE,
+  no_data_txt = "No data",
   title = "Choropleth (sequential)"
 )
 

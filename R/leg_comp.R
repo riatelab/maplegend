@@ -15,13 +15,15 @@
 #' * **symb** for symbols maps,
 #' * **prop_line** for proportional lines maps,
 #' * **grad_line** for graduated lines maps,
-#' * **histo** for histograms.
+#' * **histo** for histograms,
+#' * **choro_point** for choropleth points maps,
+#' * **choro_line** for choropleth lines maps.
 #' @param val
 #' vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 #' for "cont"),
 #' vector of categories (for "symb" and "typo"),
-#' break labels (for "choro" and "grad_line"), histogram parameters
-#' (for "histo").
+#' break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
+#' histogram parameters (for "histo").
 #' @param pal a color palette name or a vector of colors
 #' @param alpha opacity, in the range \[0,1\]
 #' @param inches size of the largest symbol (radius for circles, half width
@@ -43,8 +45,8 @@
 #' @param col color of the symbols (for "prop") or color of the lines (for
 #' "prop_line" and "grad_line")
 #' @param lwd width(s) of the symbols borders (for "prop" and "symb"),
-#' width of the largest line (for "prop_line"), vector of line width
-#' (for "grad_line")
+#' width of the largest line (for "prop_line"), line width (for "choro_line"),
+#' vector of line widths (for "grad_line")
 #' @param cex size(s) of the symbols
 #' @param pch type(s) of the symbols (0:25)
 #' @param col_na color for missing values

@@ -45,14 +45,16 @@ leg_comp(
 \item \strong{symb} for symbols maps,
 \item \strong{prop_line} for proportional lines maps,
 \item \strong{grad_line} for graduated lines maps,
-\item \strong{histo} for histograms.
+\item \strong{histo} for histograms,
+\item \strong{choro_point} for choropleth points maps,
+\item \strong{choro_line} for choropleth lines maps.
 }}
 
 \item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 for "cont"),
 vector of categories (for "symb" and "typo"),
-break labels (for "choro" and "grad_line"), histogram parameters
-(for "histo").}
+break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
+histogram parameters (for "histo").}
 
 \item{pal}{a color palette name or a vector of colors}
 
@@ -72,8 +74,8 @@ for squares) in inches}
 intermediate rounded values}
 
 \item{lwd}{width(s) of the symbols borders (for "prop" and "symb"),
-width of the largest line (for "prop_line"), vector of line width
-(for "grad_line")}
+width of the largest line (for "prop_line"), line width (for "choro_line"),
+vector of line widths (for "grad_line")}
 
 \item{border}{symbol border color(s)}
 
