@@ -74,8 +74,8 @@ leg_symb <- function(pos = "left",
   # NA box and label dimensions
   if (isTRUE(no_data)) {
     na_box_dim <- list(
-      w = strwidth("M", units = "user", cex = cex_na) * .75,
-      h = strheight("M", units = "user", cex = cex_na) * .75
+      w = strwidth("M", units = "user", cex = cex_na) * .75 * box_cex[1],
+      h = strheight("M", units = "user", cex = cex_na) * .75 * box_cex[2]
     )
     na_label_dim <- list(
       w = strwidth(no_data_txt, units = "user", cex = val_cex, font = 1),
