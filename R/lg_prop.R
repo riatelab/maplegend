@@ -110,7 +110,23 @@ leg_prop <- function(pos = "left",
   y <- legend_coords$top - y_spacing -
     ifelse(title_dim$h != 0, title_dim$h + 2 * y_spacing * size, 0) -
     labels_dim$h_top - symb_sizes$y[1] * 2 + symb_sizes$y
+
+  lwd_seg <- ifelse(lwd <= 1.5, lwd, 1.5)
+  lwd_seg <- ifelse(lwd_seg >= .5, lwd_seg, .7)
+  lwd <- ifelse(lwd >= .5, lwd, .7)
+
   if (symbol == "circle") {
+    # line width within the circle
+    x2 <- sqrt(symb_sizes$y[1]^2 -
+                 (symb_sizes$y[1] - (symb_sizes$y[1] * 2 - symb_sizes$y * 2))^2)
+    segments(
+      x0 = x[1] + x2[1],
+      x1 = x[1] + x_spacing + symb_sizes$x[1],
+      y0 = y[1] + symb_sizes$y[1],
+      y1 = y[1] + symb_sizes$y[1],
+      col = fg,
+      lwd = lwd_seg
+    )
     symbols(
       x = x,
       y = y,
@@ -121,16 +137,22 @@ leg_prop <- function(pos = "left",
       add = TRUE,
       inches = inches
     )
-    # display lines
+    segments(
+      x0 = x[-1] + x2[-1],
+      x1 = x[-1] + x_spacing + symb_sizes$x[1],
+      y0 = y[-1] + symb_sizes$y[-1],
+      y1 = y[-1] + symb_sizes$y[-1],
+      col = fg,
+      lwd = lwd_seg
+    )
     segments(
       x0 = x,
-      x1 = x + x_spacing + symb_sizes$x[1],
+      x1 = x + x2,
       y0 = y + symb_sizes$y,
       y1 = y + symb_sizes$y,
       col = border,
-      lwd = lwd
+      lwd = lwd_seg
     )
-    # display labels
     text(
       x = x + x_spacing + symb_sizes$x[1] + x_spacing,
       y = y + symb_sizes$y,
@@ -153,16 +175,14 @@ leg_prop <- function(pos = "left",
       add = TRUE,
       inches = inches * 2,
     )
-    # display lines
     segments(
       x0 = x[1] + symb_sizes$x[1],
       x1 = x[1] + symb_sizes$x[1] + x_spacing,
       y0 = y + symb_sizes$y,
       y1 = y + symb_sizes$y,
-      col = border,
-      lwd = lwd
+      col = fg,
+      lwd = lwd_seg
     )
-    # display labels
     text(
       x = x + x_spacing + symb_sizes$x + x_spacing,
       y = y + symb_sizes$y,
