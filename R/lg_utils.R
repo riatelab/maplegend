@@ -1,5 +1,16 @@
 get_val_rnd <- function(val, val_rnd, val_dec = getOption("OutDec"), val_big = "") {
   if (is.numeric(val)) {
+    if (nchar(val_dec) > 1){
+      warning(paste0("'val_dec' is more than one character wide; ",
+                     "only the first character is used."), call. = FALSE)
+      val_dec <- substr(val_dec, 1, 1)
+
+    }
+    if (nchar(val_dec) < 1){
+      warning(paste0("'val_dec' is less than one character wide; ",
+                     "getOption('OutDec') is used."), call. = FALSE)
+      val_dec <- getOption("OutDec")
+    }
     val <- round(val, val_rnd)
     if (val_rnd <= 0) {
       val_rnd <- 0
@@ -34,9 +45,9 @@ get_hex_pal <- function(pal, alpha) {
   pal <- grDevices::col2rgb(pal, alpha = FALSE)
   ffun <- function(x) {
     grDevices::rgb(pal[1, x],
-      pal[2, x],
-      pal[3, x],
-      maxColorValue = 255
+                   pal[2, x],
+                   pal[3, x],
+                   maxColorValue = 255
     )
   }
   paste0(sapply(1:ncol(pal), ffun), get_alpha(alpha))
@@ -69,51 +80,51 @@ get_legend_coords <- function(pos, legend_dim, adj, frame, x_spacing, y_spacing)
     pu <- par("usr")
     if (isTRUE(frame)) {
       adj <- adj + switch(pos,
-        bottomleft = c(1, 1),
-        topleft = c(1, -1),
-        left = c(1, 0),
-        top = c(0, -1),
-        bottom = c(0, 1),
-        bottomright = c(-1, 1),
-        right = c(-1, 0),
-        topright = c(-1, -1),
-        interactive = c(0, 0)
+                          bottomleft = c(1, 1),
+                          topleft = c(1, -1),
+                          left = c(1, 0),
+                          top = c(0, -1),
+                          bottom = c(0, 1),
+                          bottomright = c(-1, 1),
+                          right = c(-1, 0),
+                          topright = c(-1, -1),
+                          interactive = c(0, 0)
       )
     }
     extra <- adj * c(x_spacing, y_spacing)
     xy <- switch(pos,
-      bottomleft = c(
-        pu[1],
-        pu[3] + legend_dim$h
-      ),
-      topleft = c(
-        pu[1],
-        pu[4]
-      ),
-      left = c(
-        pu[1],
-        pu[3] + (pu[4] - pu[3]) / 2 + legend_dim$h / 2
-      ),
-      top = c(
-        pu[1] + (pu[2] - pu[1]) / 2 - legend_dim$w / 2,
-        pu[4]
-      ),
-      bottom = c(
-        pu[1] + (pu[2] - pu[1]) / 2 - legend_dim$w / 2,
-        pu[3] + legend_dim$h
-      ),
-      bottomright = c(
-        pu[2] - legend_dim$w,
-        pu[3] + legend_dim$h
-      ),
-      right = c(
-        pu[2] - legend_dim$w,
-        pu[3] + (pu[4] - pu[3]) / 2 + legend_dim$h / 2
-      ),
-      topright = c(
-        pu[2] - legend_dim$w,
-        pu[4]
-      )
+                 bottomleft = c(
+                   pu[1],
+                   pu[3] + legend_dim$h
+                 ),
+                 topleft = c(
+                   pu[1],
+                   pu[4]
+                 ),
+                 left = c(
+                   pu[1],
+                   pu[3] + (pu[4] - pu[3]) / 2 + legend_dim$h / 2
+                 ),
+                 top = c(
+                   pu[1] + (pu[2] - pu[1]) / 2 - legend_dim$w / 2,
+                   pu[4]
+                 ),
+                 bottom = c(
+                   pu[1] + (pu[2] - pu[1]) / 2 - legend_dim$w / 2,
+                   pu[3] + legend_dim$h
+                 ),
+                 bottomright = c(
+                   pu[2] - legend_dim$w,
+                   pu[3] + legend_dim$h
+                 ),
+                 right = c(
+                   pu[2] - legend_dim$w,
+                   pu[3] + (pu[4] - pu[3]) / 2 + legend_dim$h / 2
+                 ),
+                 topright = c(
+                   pu[2] - legend_dim$w,
+                   pu[4]
+                 )
     )
     xy <- xy + extra
   }
@@ -160,7 +171,7 @@ interleg <- function() {
     return(x)
   } else {
     stop('You cannot use "interactive" in a non-interactive R session.',
-      call. = FALSE
+         call. = FALSE
     )
   }
 }

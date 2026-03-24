@@ -10,6 +10,10 @@ expect_equal(maplegend:::get_alpha(10), "FF")
 expect_equal(maplegend:::get_title_dim("", title_cex = 2), list(w = 0, h = 0))
 dev.off()
 expect_error(maplegend:::leg_test_input("top"))
+expect_equal(maplegend:::get_val_rnd(val = c(5.61, 6.23, 1012.86), val_rnd = 1, val_dec = ",", val_big = " "), c("5,6", "6,2","1 012,9"))
+expect_warning(maplegend:::get_val_rnd(val = c(5.61, 6.23, 1012.86), val_rnd = 1, val_dec = ",,"))
+expect_warning(maplegend:::get_val_rnd(val = c(5.61, 6.23, 1012.86), val_rnd = 1, val_dec = ""))
+
 
 
 ## prop
