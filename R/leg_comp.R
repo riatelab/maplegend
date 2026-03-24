@@ -18,12 +18,14 @@
 #' * **histo** for histograms,
 #' * **choro_point** for choropleth points maps,
 #' * **choro_line** for choropleth lines maps,
+#' * **choro_symb** for choropleth on symbols maps
 #' * **typo_line** for typology lines maps.
 #' @param val
 #' vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 #' for "cont"),
 #' vector of categories (for "symb", "typo", "typo_line"),
-#' break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
+#' break labels (for "choro", "choro_point", "choro_line", "choro_symb",
+#' and "grad_line"),
 #' histogram parameters (for "histo").
 #' @param pal a color palette name or a vector of colors
 #' @param alpha opacity, in the range \[0,1\]
@@ -45,7 +47,8 @@
 #' @param box_cex width and height size expansion for boxes, histogram or lines
 #' @param col color of the symbols (for "prop") or color of the lines (for
 #' "prop_line" and "grad_line")
-#' @param lwd width(s) of the symbols borders (for "prop" and "symb"),
+#' @param lwd width(s) of the symbols borders (for "prop", "symb",
+#' "choro_point", "choro_symb"),
 #' width of the largest line (for "prop_line"), line width (for "choro_line"
 #' and "typo_line"), vector of line widths (for "grad_line")
 #' @param cex size(s) of the symbols

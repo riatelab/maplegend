@@ -177,6 +177,22 @@ expect_silent(leg(type = "choro_line", val = c(10, 50), pos = c(.5,.5)))
 expect_error(leg(type = "choro_line", val = 10, pos = "topright"), class = "error")
 expect_error(leg(type = "choro_line", val = 10, pos = "topright", horiz = TRUE), class = "error")
 
+
+## choro_symb
+dev.off()
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
+bks <- c(10, 20, 30, 40, 50)
+expect_silent(leg(type = "choro_symb", pos = "topleft", val = bks))
+expect_silent(leg(type = "choro_symb", pos = "left", val = bks, frame = TRUE))
+expect_silent(leg(type = "choro_symb", pos = "bottomleft", val = bks, no_data = TRUE))
+expect_silent(leg(type = "choro_symb", pos = "top", val = bks, pal = hcl.colors(4, "Reds 2"), alpha = .5))
+expect_silent(leg(type = "choro_symb", val = c(10, 50), pos = c(.5,.5)))
+expect_error(leg(type = "choro_symb", val = 10, pos = "topright"), class = "error")
+expect_error(leg(type = "choro_symb", val = 10, pos = "topright", horiz = TRUE), class = "error")
+
+
+
 ## typo_line
 dev.off()
 plot.new()
@@ -188,3 +204,6 @@ expect_silent(leg(type = "typo_line", pos = "bottomleft", val = mod, no_data = T
 expect_silent(leg(type = "typo_line", pos = "top", val = mod, pal = hcl.colors(4, "Reds 2"), alpha = .5))
 expect_silent(leg(type = "typo_line", val = mod, pos = c(.5,.5)))
 expect_silent(leg(type = "typo_line", val = 10, pos = "topright"))
+
+
+

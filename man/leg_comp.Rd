@@ -48,13 +48,15 @@ leg_comp(
 \item \strong{histo} for histograms,
 \item \strong{choro_point} for choropleth points maps,
 \item \strong{choro_line} for choropleth lines maps,
+\item \strong{choro_symb} for choropleth on symbols maps
 \item \strong{typo_line} for typology lines maps.
 }}
 
 \item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 for "cont"),
 vector of categories (for "symb", "typo", "typo_line"),
-break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
+break labels (for "choro", "choro_point", "choro_line", "choro_symb",
+and "grad_line"),
 histogram parameters (for "histo").}
 
 \item{pal}{a color palette name or a vector of colors}
@@ -74,7 +76,8 @@ for squares) in inches}
 \item{self_adjust}{if TRUE values are self-adjusted to keep min, max and
 intermediate rounded values}
 
-\item{lwd}{width(s) of the symbols borders (for "prop" and "symb"),
+\item{lwd}{width(s) of the symbols borders (for "prop", "symb",
+"choro_point", "choro_symb"),
 width of the largest line (for "prop_line"), line width (for "choro_line"
 and "typo_line"), vector of line widths (for "grad_line")}
 

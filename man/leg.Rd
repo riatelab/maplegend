@@ -56,13 +56,15 @@ leg(
 \item \strong{histo} for histograms,
 \item \strong{choro_point} for choropleth points maps,
 \item \strong{choro_line} for choropleth lines maps,
+\item \strong{choro_symb} for choropleth on symbols maps
 \item \strong{typo_line} for typology lines maps.
 }}
 
 \item{val}{vector of value(s) (for "prop" and "prop_line", at least c(min, max)
 for "cont"),
 vector of categories (for "symb", "typo", "typo_line"),
-break labels (for "choro", "choro_point", "choro_line" and "grad_line"),
+break labels (for "choro", "choro_point", "choro_line", "choro_symb",
+and "grad_line"),
 histogram parameters (for "histo").}
 
 \item{pos}{position of the legend. It can be one of 'topleft', 'top',
@@ -87,7 +89,8 @@ for squares) in inches}
 \item{self_adjust}{if TRUE values are self-adjusted to keep min, max and
 intermediate rounded values}
 
-\item{lwd}{width(s) of the symbols borders (for "prop" and "symb"),
+\item{lwd}{width(s) of the symbols borders (for "prop", "symb",
+"choro_point", "choro_symb"),
 width of the largest line (for "prop_line"), line width (for "choro_line"
 and "typo_line"), vector of line widths (for "grad_line")}
 
@@ -170,6 +173,7 @@ Relevant arguments for each specific legend types:
 \item \code{leg(type = "histo", val, pal, box_border, val_rnd, val_big, val_dec)}
 \item \code{leg(type = "choro_point", val, pal, symbol, border, cex, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt, horiz)}
 \item \code{leg(type = "choro_line", val, pal, lwd, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt)}
+\item \code{leg(type = "choro_symb", val, pal, pch, lwd, val_rnd, val_big, val_dec, col_na, no_data, no_data_txt)}
 \item \code{leg(type = "typo_line", val, pal, lwd, col_na, no_data, no_data_txt, box_cex)}
 }
 }
@@ -210,6 +214,14 @@ leg(
   pos = "bottomright"
 )
 box()
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
+leg(type = "choro_line", val = c(10, 20, 30, 40, 50), pos = "topleft")
+leg(type = "typo_line", val = c("A", "B", "C"), pal = "Set 2", pos = "top")
+leg(type = "choro_symb",  val = c(10, 20, 30, 40, 50), pos = "topright")
+
+
 
 # full example
 plot.new()
@@ -371,6 +383,23 @@ leg(
   pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
   val_rnd = 1,
   lwd = 4,
+  col_na = "grey",
+  no_data = TRUE,
+  no_data_txt = "No data",
+  title = "Choropleth (sequential)"
+)
+
+plot.new()
+plot.window(xlim = c(0, 1), ylim = c(0, 1))
+leg(
+  type = "choro_symb",
+  alpha = 1,
+  val = c(10, 20, 30, 40, 50),
+  pch = 23,
+  pos = "top",
+  pal = c("#7F000D", "#B56C6F", "#DBBABB", "#F1F1F1"),
+  val_rnd = 1,
+  lwd = 1,
   col_na = "grey",
   no_data = TRUE,
   no_data_txt = "No data",
