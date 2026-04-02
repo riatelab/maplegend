@@ -423,15 +423,15 @@ leg <- function(type,
   }
 
   ffun <- get(paste0("leg_", type, h))
-  pf <- parent.frame()
 
   if (length(pos) == 1 && pos == "interactive") {
     args$pos <- interleg()
   }
 
+  args <- lapply(args, eval, parent.frame(), parent.frame())
   x <- grDevices::recordGraphics(
-    expr = do.call(what = ffun, args = args, envir = pf),
-    list = list(args = args, ffun = ffun, pf = pf),
+    expr = do.call(what = ffun, args = args),
+    list = list(args = args, ffun = ffun),
     env = getNamespace("maplegend")
   )
   return(invisible(x))
