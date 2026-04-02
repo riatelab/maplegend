@@ -93,7 +93,7 @@ leg_symb <- function(pos = "left",
       max(
         title_dim$w,
         max(symb_sizes$w) + labels_dim$w + x_spacing,
-        max(symb_sizes$w) + na_label_dim$w + x_spacing
+        max(na_box_dim$w) + na_label_dim$w + x_spacing
       ) +
       x_spacing,
     h = y_spacing +
