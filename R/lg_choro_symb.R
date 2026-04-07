@@ -41,7 +41,7 @@ leg_choro_symb <- function(pos = "left",
   ))
 
   # symbols attributes
-  pch <- pch_na<- pch[[1]]
+  pch <- pch[[1]]
   cex <- cex[[1]]
   lwd <- lwd[[1]]
   border <- border[[1]]
@@ -194,13 +194,5 @@ leg_choro_symb <- function(pos = "left",
   }
 
 
-
-
   return(invisible(NULL))
-
-
 }
-
-
-
-

@@ -118,7 +118,7 @@ leg_prop <- function(pos = "left",
   if (symbol == "circle") {
     # line width within the circle
     x2 <- sqrt(symb_sizes$y[1]^2 -
-                 (symb_sizes$y[1] - (symb_sizes$y[1] * 2 - symb_sizes$y * 2))^2)
+      (symb_sizes$y[1] - (symb_sizes$y[1] * 2 - symb_sizes$y * 2))^2)
     segments(
       x0 = x[1] + x2[1],
       x1 = x[1] + x_spacing + symb_sizes$x[1],

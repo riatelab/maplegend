@@ -136,8 +136,7 @@
 #' plot.window(xlim = c(0, 1), ylim = c(0, 1), asp = 1)
 #' leg(type = "choro_line", val = c(10, 20, 30, 40, 50), pos = "topleft")
 #' leg(type = "typo_line", val = c("A", "B", "C"), pal = "Set 2", pos = "top")
-#' leg(type = "choro_symb",  val = c(10, 20, 30, 40, 50), pos = "topright")
-#'
+#' leg(type = "choro_symb", val = c(10, 20, 30, 40, 50), pos = "topright")
 #'
 #'
 #' # full example
