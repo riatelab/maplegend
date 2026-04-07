@@ -78,7 +78,7 @@ par(opar)
 It is possible to create composed legends with `leg_comp()` and `leg_draw()`.
 
 
-```{r example2, fig.width=4.5, fig.height=4.5, fig.show="hold"}
+```{r example2, fig.width=4.5, fig.height=3, fig.show="hold"}
 opar <- par(mar = c(1, 1, 1, 1))
 plot.new()
 plot.window(xlim = c(0, 1), ylim = c(0, 1))

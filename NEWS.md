@@ -1,3 +1,25 @@
+# maplegend 0.6.0
+
+## fix
+* use only one lwd and border value in "prop" type legends
+* use box_cex in "symb" legend to fine tune spacing between symbols
+* better spacing between boxes and NA box in "choro" horizontal legends
+* apply box_cex to na symbols for type = "symb"
+* better defaults for "symb"
+* better proportional symbols display
+* test for and allow one modality legends (#7)
+* correct a bug of text overflow with type = "symb" and no_data = TRUE (#8)
+* correct border color assignement for type "symb"
+
+## feat 
+* add a val_max arg to adjust the proportionnal symbols ma size to a specific 
+value when using type = "prop"
+* new legend type "choro_point" for choropleth legends on circles or squares
+* new legend type "choro_line" for choropleth legends on lines
+* new legend type "choro_symb" for choropleth legends on symbols
+* new legend type "typo_line" for typology legend on lines.
+
+
 # maplegend 0.5.0
 
 ## fix
@@ -11,7 +33,7 @@ Most of the functions of the package have been refactored in order to use a more
 robust behaviour and to be suitable for plots with asp != 1.
 
 ## feat
-* new map type "histo" to draw hitogram legends (#5)
+* new legend type "histo" to draw hitogram legends (#5)
 * new args val_big and val_dec have been added for types already using val_rnd
 to select decimal separator and big values separator (#6)
 
