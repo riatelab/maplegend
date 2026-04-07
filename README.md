@@ -60,7 +60,7 @@ leg(type = "choro", val = c(10, 20, 30, 40, 50), pos = c(40, 10), horiz = TRUE)
 leg(type = "cont", val = c(10, 20, 30, 40, 50), pos = "left")
 leg(
   type = "symb", val = c("Points", "Lines", "Polygons"), pos = "topright",
-  pch = list(21, "৲", 22), cex = c(2, 2, 2), border = c("black", "black"),
+  pch = list(21, "৲", 22), cex = c(2, 2, 2), border = c("black", NA, "black"),
   pal = c("red", "blue", "grey90")
 )
 box()

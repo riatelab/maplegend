@@ -32,7 +32,7 @@ leg_symb <- function(pos = "left",
   # symbol color
   col <- pbg <- get_pal(pal, n_val, alpha = alpha)
   if (any(pch %in% 21:25)) {
-    col[pch %in% 21:25] <- border
+    col[pch %in% 21:25] <- border[pch %in% 21:25]
   }
   if (no_data) {
     col_na_bg <- col_na
