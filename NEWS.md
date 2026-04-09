@@ -1,3 +1,10 @@
+# maplegend 0.6.1
+
+## fix
+* use correct segment size for prop legends when asp != 1 
+* use graphics.off() instead of dev.off() in tests to avoid test errors 
+
+
 # maplegend 0.6.0
 
 ## fix
