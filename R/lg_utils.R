@@ -225,7 +225,7 @@ leg_test_val_dec <- function(val_dec){
 }
 
 
-val_cont <- function(val, val_rnd) {
+val_cont <- function(val, val_rnd, val_dec, val_big) {
   if (length(val) == 2) {
     val_ref_s <- pretty(val, n = 5)
     val_ref <- c(val_ref_s[val_ref_s > min(val) & val_ref_s < max(val)])
@@ -233,12 +233,11 @@ val_cont <- function(val, val_rnd) {
     val_ref <- val
   }
   indices <- round((val_ref - min(val)) / (max(val) - min(val)) * 100, 0) + 1
-  val_ref <- get_val_rnd(val_ref, val_rnd)
+  val_ref <- get_val_rnd(as.numeric(val_ref), val_rnd, val_dec, val_big)
   vval <- rep("", 101)
   vval[indices] <- val_ref
   vval
 }
-
 
 self_adjust_v <- function(var, inches, val_cex) {
   if (length(var) == 1) {

@@ -29,7 +29,7 @@ leg_cont_h <- function(pos = "left",
   } else {
     pal <- grDevices::hcl.colors(n = 100, palette = pal, rev = TRUE, alpha = alpha)
   }
-  val <- val_cont(val, val_rnd)
+  val <- val_cont(val, val_rnd, val_dec, val_big)
 
   box_cex[1] <- box_cex[1] * .05
 
