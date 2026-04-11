@@ -30,9 +30,6 @@ leg_choro_symb <- function(pos = "left",
   # Nb. boxes and values
   n_val <- length(val)
   n_box <- n_val - 1
-  if (n_val < 2) {
-    stop("You need to provide at least two values for 'val'", call. = FALSE)
-  }
 
   # rounded and ordered values for the legend
   val <- rev(get_val_rnd(

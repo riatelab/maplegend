@@ -410,6 +410,11 @@ leg <- function(type,
 
   leg_test_input(pos)
 
+  # test at least 2 values
+  if (any(startsWith(x = type, c("choro", "grad","cont")))){
+    leg_test_nval(val)
+  }
+
   op <- par(mar = mar, xpd = TRUE, no.readonly = TRUE)
   on.exit(par(op), add = TRUE)
 
@@ -425,6 +430,10 @@ leg <- function(type,
 
   if (length(pos) == 1 && pos == "interactive") {
     args$pos <- interleg()
+  }
+
+  if (!missing(val_dec)){
+    args$val_dec <- leg_test_val_dec(val_dec)
   }
 
   args <- lapply(args, eval, parent.frame(), parent.frame())

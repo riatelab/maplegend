@@ -1,19 +1,5 @@
 get_val_rnd <- function(val, val_rnd, val_dec = getOption("OutDec"), val_big = "") {
   if (is.numeric(val)) {
-    if (nchar(val_dec) > 1) {
-      warning(paste0(
-        "'val_dec' is more than one character wide; ",
-        "only the first character is used."
-      ), call. = FALSE)
-      val_dec <- substr(val_dec, 1, 1)
-    }
-    if (nchar(val_dec) < 1) {
-      warning(paste0(
-        "'val_dec' is less than one character wide; ",
-        "getOption('OutDec') is used."
-      ), call. = FALSE)
-      val_dec <- getOption("OutDec")
-    }
     val <- round(val, val_rnd)
     if (val_rnd <= 0) {
       val_rnd <- 0
@@ -213,14 +199,38 @@ leg_test_input <- function(pos) {
   leg_test_cur_plot()
 }
 
+
+leg_test_nval <- function(val){
+  if (length(val) < 2) {
+    stop("You need to provide at least two values for 'val'.", call. = FALSE)
+  }
+}
+
+leg_test_val_dec <- function(val_dec){
+  if (nchar(val_dec) > 1) {
+    warning(paste0(
+      "'val_dec' is more than one character wide; ",
+      "only the first character is used."
+    ), call. = FALSE)
+    val_dec <- substr(val_dec, 1, 1)
+  }
+  if (nchar(val_dec) < 1) {
+    warning(paste0(
+      "'val_dec' is less than one character wide; ",
+      "getOption('OutDec') is used."
+    ), call. = FALSE)
+    val_dec <- getOption("OutDec")
+  }
+  return(val_dec)
+}
+
+
 val_cont <- function(val, val_rnd) {
   if (length(val) == 2) {
     val_ref_s <- pretty(val, n = 5)
     val_ref <- c(val_ref_s[val_ref_s > min(val) & val_ref_s < max(val)])
   } else if (length(val) > 2) {
     val_ref <- val
-  } else {
-    stop("You need to provide at least two values for 'val'", call. = FALSE)
   }
   indices <- round((val_ref - min(val)) / (max(val) - min(val)) * 100, 0) + 1
   val_ref <- get_val_rnd(val_ref, val_rnd)
