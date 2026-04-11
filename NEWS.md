@@ -1,3 +1,11 @@
+# maplegend 0.6.2
+
+## fix
+* use val_big & val_dec in "cont" legends
+* remove tests giving errors or warnings from functions called by 
+recordGraphics() 
+
+
 # maplegend 0.6.1
 
 ## fix

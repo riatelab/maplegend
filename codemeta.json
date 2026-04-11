@@ -7,7 +7,7 @@
   "codeRepository": "https://github.com/riatelab/maplegend/",
   "issueTracker": "https://github.com/riatelab/maplegend/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -83,5 +83,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "176.045KB"
+  "fileSize": "175.47KB"
 }
