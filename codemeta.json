@@ -7,13 +7,13 @@
   "codeRepository": "https://github.com/riatelab/maplegend/",
   "issueTracker": "https://github.com/riatelab/maplegend/issues/",
   "license": "https://spdx.org/licenses/GPL-3.0",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 4.5.3 (2026-03-11)",
+  "runtimePlatform": "R version 4.6.0 (2026-04-24)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
@@ -83,5 +83,5 @@
     },
     "SystemRequirements": null
   },
-  "fileSize": "175.47KB"
+  "fileSize": "175.924KB"
 }

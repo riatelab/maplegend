@@ -1,3 +1,9 @@
+# maplegend 0.6.3
+
+## fix
+* some tests are run only if interactive()==TRUE. 
+
+
 # maplegend 0.6.2
 
 ## fix

@@ -8,7 +8,7 @@ message: 'To cite package "maplegend" in publications use:'
 type: software
 license: GPL-3.0-only
 title: 'maplegend: Legends for Maps'
-version: 0.6.2
+version: 0.6.3
 doi: 10.32614/CRAN.package.maplegend
 abstract: Create legends for maps and other graphics. Thematic maps need to be accompanied
   by legible legends to be fully comprehensible. This package offers a wide range
@@ -35,9 +35,10 @@ references:
   authors:
   - name: R Core Team
   institution:
-    name: R Foundation for Statistical Computing
+    name: 'R Foundation for Statistical Computing (ROR: <https://ror.org/05qewa988>)'
     address: Vienna, Austria
   year: '2026'
+  doi: 10.32614/R.manuals
   version: '>= 4.1.0'
 - type: software
   title: graphics
@@ -46,9 +47,10 @@ references:
   authors:
   - name: R Core Team
   institution:
-    name: R Foundation for Statistical Computing
+    name: 'R Foundation for Statistical Computing (ROR: <https://ror.org/05qewa988>)'
     address: Vienna, Austria
   year: '2026'
+  doi: 10.32614/R.manuals
 - type: software
   title: grDevices
   abstract: 'R: A Language and Environment for Statistical Computing'
@@ -56,9 +58,10 @@ references:
   authors:
   - name: R Core Team
   institution:
-    name: R Foundation for Statistical Computing
+    name: 'R Foundation for Statistical Computing (ROR: <https://ror.org/05qewa988>)'
     address: Vienna, Austria
   year: '2026'
+  doi: 10.32614/R.manuals
 - type: software
   title: tinytest
   abstract: 'tinytest: Lightweight and Feature Complete Unit Testing Framework'
