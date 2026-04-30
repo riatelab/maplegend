@@ -200,13 +200,13 @@ leg_test_input <- function(pos) {
 }
 
 
-leg_test_nval <- function(val){
+leg_test_nval <- function(val) {
   if (length(val) < 2) {
     stop("You need to provide at least two values for 'val'.", call. = FALSE)
   }
 }
 
-leg_test_val_dec <- function(val_dec){
+leg_test_val_dec <- function(val_dec) {
   if (nchar(val_dec) > 1) {
     warning(paste0(
       "'val_dec' is more than one character wide; ",

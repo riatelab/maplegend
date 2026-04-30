@@ -411,7 +411,7 @@ leg <- function(type,
   leg_test_input(pos)
 
   # test at least 2 values
-  if (any(startsWith(x = type, c("choro", "grad","cont")))){
+  if (any(startsWith(x = type, c("choro", "grad", "cont")))) {
     leg_test_nval(val)
   }
 
@@ -432,7 +432,7 @@ leg <- function(type,
     args$pos <- interleg()
   }
 
-  if (!missing(val_dec)){
+  if (!missing(val_dec)) {
     args$val_dec <- leg_test_val_dec(val_dec)
   }
 
