@@ -38,7 +38,7 @@ leg_draw(
 
 \item{val_cex}{size of the values in the legend}
 
-\item{adj}{adjust the postion of the legend in x and y directions.}
+\item{adj}{adjust the position of the legend in x and y directions.}
 
 \item{mar}{plot margins}
 }
