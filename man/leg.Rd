@@ -145,7 +145,7 @@ No legend is plotted.}
 
 \item{mar}{plot margins}
 
-\item{adj}{adjust the postion of the legend in x and y directions.}
+\item{adj}{adjust the position of the legend in x and y directions.}
 }
 \value{
 No value is returned, a legend is displayed.

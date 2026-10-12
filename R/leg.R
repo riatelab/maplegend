@@ -69,7 +69,7 @@
 #' @param cex_na size of the symbols for missing values
 #' @param pch_na type of the symbols for missing values
 #' @param horiz if TRUE plot an horizontal legend
-#' @param adj adjust the postion of the legend in x and y directions.
+#' @param adj adjust the position of the legend in x and y directions.
 #' @param frame_border border color of the frame
 #' @import graphics
 #' @return No value is returned, a legend is displayed.

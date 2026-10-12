@@ -7,7 +7,7 @@
 #' @param bg background color of the legend
 #' @param fg foreground color of the legend
 #' @param frame if TRUE the legend is plotted within a frame
-#' @param adj adjust the postion of the legend in x and y directions.
+#' @param adj adjust the position of the legend in x and y directions.
 #' @param mar plot margins
 #' @param title_cex size of the legend title
 #' @param val_cex size of the values in the legend
